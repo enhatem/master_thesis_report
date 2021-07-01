@@ -21,6 +21,20 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Bouabdalla2007}
+S.~Bouabdallah, ``Design and control of quadrotors with application to
+  autonomous flying,'' Ph.D. dissertation, École Polytechnique Fédérale de
+  Lausanne, 2007.
+
+\bibitem{Parallel_Manipulators}
+J.~Gallardo-Alvarado, \emph{An Overview of Parallel Manipulators}.\hskip 1em
+  plus 0.5em minus 0.4em\relax Manhattan, NY: Springer, 2016.
+
+\bibitem{DAndrea2012}
+S.~Lupashin and R.~D’Andrea, \emph{Adaptive fast open-loop maneuvers for
+  quadrocopters}.\hskip 1em plus 0.5em minus 0.4em\relax Manhattan, NY:
+  Springer, 2012.
+
 \bibitem{pythm001}
 O.~S. Pythagoras, ``{Theorem},'' \emph{Some old journal}, vol.~1, no.~1, Feb.
   -580.
