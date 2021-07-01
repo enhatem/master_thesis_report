@@ -1,0 +1,140 @@
+\documentclass{thesisreport}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{optidef}
+\usepackage{mathtools}
+
+\setlength{\columnseprule}{1pt}
+\def\columnseprulecolor{\color{black}}
+\DeclareUnicodeCharacter{2212}{-}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+ \include{thesisfront}  
+ 
+  \section*{Abstract}
+   
+Within the rapidly growing aerial robotics market, one of the most substantial challenges in the quadrotor community is performing aggressive maneuvers, especially multi-flip maneuvers.  A proper physical definition of the issue is not addressed by the current approaches in the field and several key aspects of this maneuver are still overlooked.
+It can be shown, in particular, that making a flip with a quadrotor means crossing the parallel singularity of the dynamic model. The aim of the master thesis is to explore the possibility of defining aggressive trajectories for quadrotors on the basis of their dynamic model degeneracy analysis and to adapt various strategies to control the robot in a closed loop. In addition, the possibility of performing the aggressive maneuvers in constrained environments will also be investigated.
+Therefore, the analysis will be extended from the previous studies to create general feasible trajectories that will allow quadrotors to perform aggressive multi-flip maneuvers while passing through a constrained environment and while guaranteeing a satisfactory degree of robustness to the uncertainties of the dynamic model.\\
+
+\textbf{Keywords: quadrotors, parallel robots, aggressive maneuvers, multi-flips, constrained environmen. }
+ 
+ 
+ \newpage
+ 
+ \section*{Acknowledgements}
+ 
+ I would like to express my special thanks and gratitude to my supervisors Dr. Sébastien Briot and Dr. Isabelle Fantoni who gave me the  opportunity to work on this wonderful project which encapsulates control theory, dynamics and quadrotors, which are all subjects that are very interesting for me. 
+This project has allowed me to perform research on all of these topics and I am now more knowledgeable thanks to my supervisors. Moreover, I would like to thank them for believing in my capabilities and giving me the confidence and the support when I needed it. \\\\
+I would like to thank my patient and understanding girlfriend Glysa, who has been with me for more than 6 years. Thank you for all the love, support and comfort that you have given me in these stressful 2 years. \\\\
+I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle and his wife Fadi and Lara and my aunt Bernadette. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be here if it wasn't for them.
+ 
+ \newpage
+ 
+ 
+ \section*{Notations}
+  \begin{tabular}{cp{0.8\textwidth}}
+  $I_{xx}, I_{yy}, I_{zz}$ & Diagonal terms of the inertia matrix\\
+  $\omega_x, \omega_y, \omega_z$ & angular rates with respect to the x,y and z axes respectively \\ 
+  $\phi, \theta, \psi$ & roll, pitch and yaw angles respectively\\
+  $l$ & Arm length of a quadrotor \\
+  $T$ & Total thrust input of the quadrotor\\  
+  $\tau$ & Total torque of the quadrotor\\
+  
+
+\end{tabular}\\
+ \newpage
+ 
+  \section*{Abbreviations}
+ \begin{tabular}{cp{0.8\textwidth}}
+  \textbf{UAV} & unmanned aerial vehicle \\
+  \textbf{CoG} & center of gravity \\
+  \textbf{MPC} & model predictive control \\
+ \end{tabular}\\
+ \newpage
+ 
+ \listoffigures
+ 
+\listoftables
+ 
+ \tableofcontents
+ 
+ 
+ \chapter*{Introduction}
+ \addcontentsline{toc}{chapter}{Introduction}	 % non-numbered chapters do not appear in table of contents by default
+ 
+ 
+ \chapter{State of the art}
+ 
+ \section{First topic}
+ 
+ \section{Second topic}
+ 
+ \chapter{Actual work}
+  
+ 
+ When dealing with rectangled triangles (see Figure \ref{triangle}) I sometimes used this theorem from \cite{pythm001}:
+ \begin{equation}\label{theo}
+  a^2 + b^2 = c^2
+ \end{equation}The demonstration is in Appendix \ref{sec:prooftheorem}.
+ 
+ \begin{figure}[h]\centering
+  \includegraphics[width=.5\linewidth]{triangle1}
+  \caption{A triangle with letters} \label{triangle}
+ \end{figure}
+ 
+ 
+
+
+ 
+ 
+ \chapter{Experiments}
+ 
+ When trying to draw a rectangled triangle, my program comes up with Figure \ref{triangle2} that is neither rectangled nor a triangle.
+ 
+  \begin{figure}[h]\centering
+  \includegraphics[width=.5\linewidth]{triangle2}
+  \caption{Triangle drawn by my program. Note the 4th side.} \label{triangle2}
+ \end{figure}
+ 
+Unless there is a bug in my program, which is unlikely, this research indicates that the whole theory on triangles having 3 sides has been wrong for years, maybe decades.
+ 
+ \chapter*{Conclusion}
+ \addcontentsline{toc}{chapter}{Conclusion}
+ 
+ 
+ 
+ 
+ 
+ % switch to A-B-C chaptering
+ \appendix	
+ 
+ \chapter{Proof of theorem \ref{theo}}
+ \label{sec:prooftheorem}
+ 
+ 
+ \begin{proof}
+\eqref{theo} was already demonstrated in \cite{euclides300}.
+\end{proof}
+ 
+ \addcontentsline{toc}{chapter}{Bibliography}
+ 
+ \bibliography{../biblio}
+ 
+ 
+ 
+ 
+\end{document}
