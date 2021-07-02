@@ -63,6 +63,10 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{UAV} & unmanned aerial vehicle \\
   \textbf{CoG} & center of gravity \\
   \textbf{MPC} & model predictive control \\
+  \textbf{HLC} & high level commander \\
+  \textbf{SMC} & sliding mode control \\
+
+  
  \end{tabular}\\
  \newpage
  
@@ -221,7 +225,179 @@ The rest of the report is structured as follows:
  
  \chapter{State of the art}
  
- \section{First topic}
+ In the following sections of this chapter, differential flatness,  the general control architecture of a quadrotor, different potential control approaches (linear and nonlinear), and the main control method that will be used to control a quadrotor, namely Model Predictive Control (MPC) will be explained. 
+ \section{Differential Flatness}\label{Differential_flatness}  
+ 
+ In the quadrotor community, a well-established finding is that the dynamic model of a quadrotor is differentially flat. Moreover, the control design problem in nonlinear systems will be considerably simplified. Precisely, a system with state $\textbf{\textsc{x}} \in \mathbb{R}^n$ and input $\textbf{\textsc{u}} \in \mathbb{R}^m$ is considered to be \textit{differentially flat} if there exists a set of \textit{flat outputs} $\textbf{\textsc{y}} \in \mathbb{R}^m$ which have the following form:
+ 
+ \begin{equation}
+ \textbf{\textsc{y}} = \textbf{\textsc{y}}(\textbf{\textsc{x}}, \textbf{\textsc{u}}, \dot{\textbf{\textsc{u}}},...,\textbf{\textsc{u}}^{(p)})
+ \end{equation}
+
+ With, 
+ 
+ \begin{equation}
+ 	\begin{cases}
+ 		\textbf{\textsc{x}} = \textbf{\textsc{x}}(\textbf{\textsc{y}}, \dot{\textbf{\textsc{y}}},...,\textbf{\textsc{y}}^{(q)}) \\
+ 	\\
+ 		\textbf{\textsc{u}} = \textbf{\textsc{u}}(\textbf{\textsc{y}}, \dot{\textbf{\textsc{y}}},...,\textbf{\textsc{y}}^{(r)}) \\
+ 	\end{cases}
+ \end{equation}
+
+ As a result, the new set of variables is required to be a function of the state, the input and the derivatives of the input. Moreover, this set should also have the same dimensions as the control input. In this manner, it is possible to rewrite both the state and the input in function of the flat outputs and the derivatives of the flat outputs. This is a very useful property in underactuated systems where $m<n$, such as quadrotors, because, it will allow to generate trajectories in the lower dimensional space $m$, then this trajectory will be mapped into the full dimensional space $n$. An example of this is shown in figure \ref{fig:differential_flatness} below:
+ 
+ \begin{figure}
+ 	\centering
+ 	\includegraphics[width=0.7\textwidth]{Images/Control/differential_flatness.png}
+ 	\caption{Mapping between different dimensional spaces as a result of differential flatness. \cite{Fritzsche2019}}
+ 	\label{fig:differential_flatness}
+ \end{figure}
+ 
+ \newpage
+ 
+ Another well known example of systems is a car, in which the underactuation is the result of the nonholonomic constraints that are imposed by the wheels. So, for a car, a generated trajectory for $(x,y)$ position of the rear-wheels is enough to specify all the viable trajectories of the system. Formal proofs that the quadrotor system is differentially flat can be found in \cite{Mellinger2011}, and \cite{Faessler2018} for the full model with first-order aerodynamics. The standard choice of flat outputs for the quadrotor is the coodinates of the center of mass and the yaw angle:
+
+\begin{equation}\label{flat_outputs}
+\textbf{\textsc{y}} = \begin{bmatrix}
+x && y && z && \psi \\
+\end{bmatrix}^{\intercal}
+\end{equation}
+
+Consequently, the problem of generating a feasible trajectory for a quadrotor then tracking it can be dimensionally decreased from a 6-dimensional space to a 4-dimensional space. By reason of the tight coupling between the rotational and translational dynamics, then defining a trajectory in function of the flat outputs $\textbf{\textsc{y}}$ is sufficient to properly define the full dynamics $\textbf{\textsc{x}}$.
+
+
+\newpage
+
+\section{General Control Architecture}
+ Recently, many researchers have developed interest in the control of quadrotors. As a result, various control approaches have been proposed. The most known control architecture \cite{Faessler2018} consists of three nested control loops, as shown in figure \ref{fig:cascaded_pid_controller}, in order to generate the suitable motor commands to follow the desired signal. This controller is known as the cascaded controller. This strategy assumes that the attitude dynamics of a quadrotor are much faster than the translational dynamics. 
+\begin{comment} 
+Assuming that Euler angles are used to define the attitude and that a navigation module generates the desired trajectory $(\bm{r}_d(t),\psi_d(t))$ as shown in section \ref{Differential_flatness}, then:
+ 
+\begin{itemize}
+	\setlength{\itemindent}{-.5in}
+	\item [] \textbf{Position controller} has the objective of driving the errors occurring on the translational dynamics to zero.
+		And, the outputs of this outer loop are the thrust $f=u_1$, which is sent to the motor controller, and the desired attitude $(\theta_d(t),\phi_d(t))$, which corresponds to the reference signal of the attitude controller.
+	\item [] \textbf{Attitude controller} has the goal of driving the errors occurring on the rotational dynamics to zero. This controller generates the inputs 
+	$\bm{\tau}=\begin{bmatrix}
+	u_2 && u_3 && u_4 \\
+	\end{bmatrix}^{\intercal}
+	$
+	that are then sent to the motor controller.
+	\item [] \textbf{Motor controller} This controller receives the control inputs 	$\bm{u}=\begin{bmatrix}
+	f && \bm{\tau}
+	\end{bmatrix}^{\intercal}
+	$ and maps them into the desired spinning velocities $\Omega_i$ for each individual rotor. Moreover, low-level control laws are designed and realized in the firmware of the drone to make the convergence from the actual rotations to these desired values.
+\end{itemize}
+ 
+
+ 
+ \begin{figure}[h]
+ \centering
+ \includegraphics[width=0.8\textwidth]{Images/Control/General_control_architecture}
+ \caption{Cascaded controller architecture.}
+ \label{General_control_architecture}
+ \end{figure}
+ 
+There also exists different implementations of the cascaded controller that was shown in figure \ref{General_control_architecture}. An example of another architecture of a cascaded controller is shown below: 
+
+\end{comment}
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/Control/cascaded_pid_controller.png}
+	\caption{Cascaded PID controller that is present on the crazyflie 2.1 quadrotor \cite{bitcraze}.}
+	\label{fig:cascaded_pid_controller}
+\end{figure}
+
+In this case, the position and velocity controller, attitude controller and attitude rate controller are all PID controllers. And, it is evident that the attitude dynamics (who's attitude and attitude rate controllers operate at a frequency of 500Hz) are considered to be much faster than the translational dynamics (who's position and velocity controllers operate at a frequency of 100Hz). Moreover, 
+
+\begin{itemize}
+	\setlength{\itemindent}{-.5in}
+	\item [] \textbf{Attitude Rate PID controller} directly controls the attitude rate. It receives the gyroscope rates after they have been filtered and uses the error between the desired attitude rate and current attitude rate, and outputs the motor commands which are then directly sent to the power distribution.
+	
+	\item [] \textbf{Attitude PID controller} directly controls the attitude of the drone. It takes the estimated attitude from the state estimator and uses the error between the desired attitude and the current attitude to output the desired attitude rate.
+	
+	\item [] \textbf{Position and Velocity PID controller} is the most outerloop of the cascaded PID controller. It receives the position or the velocity input from the high level commander which are then handled to output the desired attitude.
+	 
+\end{itemize}
+
+ \newpage 
+\section{General Control Approaches}\label{control_approaches_for_multi_flip_maneuvers}
+
+\subsection{Method of Linearization}
+
+By using extreme assumptions, it is feasible to apply linear control techniques in order to control a quadrotor (\cite{Sabatino2015}, \cite{BouabdallahNothSiegwart2018}). Particularly, this can be made by doing a linearization of the full dynamic model around an equilibrium point $\overline{\textbf{\textsc{x}}}$ and by using the assumption that the vehicle is only capable of oscillating lightly around the hover point.
+It is very easy to observe that a feasible equilibrium is provided by a configuration where the center of mass is at a random position $\overline{\textbf{\textsc{r}}}$ and all the other elements of the state are set to zero. So, the nominal input $ \textbf{\textsc{u}} = \overline{\textbf{\textsc{u}}}$ to sustain such equilibrium can be assessed as the thrust that is required to compensate the gravity force:
+
+\begin{equation}
+\overline{\textbf{\textsc{u}}} = \begin{bmatrix}
+f \\ 
+\bm{\tau}\\
+\end{bmatrix}=
+\begin{bmatrix}
+mg \\
+\bm{0_{3 \times 1}} \\
+\end{bmatrix}
+\end{equation}
+
+At this stage, the complete non-linear dynamics that have the form :
+
+\begin{equation}
+\dot{\textbf{\textsc{x}}}=\overline{\textbf{\textsc{f}}}(\overline{\textbf{\textsc{x}}},\overline{\textbf{\textsc{u}}})
+\end{equation}
+
+can now be linearized around the hover point $(\overline{\textbf{\textsc{x}}},\overline{\textbf{\textsc{u}}})$ as shown below.
+
+\begin{equation}
+\dot{\textbf{\textsc{x}}} = \begin{bmatrix}
+\frac{\partial \textbf{\textsc{f}}(\textbf{\textsc{x}},\textbf{\textsc{u}})}{\partial \textbf{\textsc{x}}}
+\end{bmatrix}_{(\bar{\textbf{\textsc{x}}},\bar{\textbf{\textsc{u}}})} \textbf{\textsc{x}}+ 
+\begin{bmatrix}
+\frac{\partial \textbf{\textsc{f}}(\textbf{\textsc{x}},\textbf{\textsc{u}})}{\partial \textbf{\textsc{x}}}
+\end{bmatrix}_{(\bar{\textbf{\textsc{x}}},\bar{\textbf{\textsc{u}}})} \textbf{\textsc{u}} = \textbf{\textsc{A}}\textbf{\textsc{x}} + \textbf{\textsc{B}} \textbf{\textsc{u}}
+\end{equation}
+
+It can be demonstrated that both matrices $\textbf{\textsc{A}}$ and $\textbf{\textsc{B}}$ can be used to determine a linear system that is both controllable and observable \cite{Sabatino2015}. Thus, any control technique that is linear can now be used on the quadrotor in order to keep it around a desired equilibrium point, such as optimal LQR/LQG \cite{Cowling2007,Minh2010} control or simple PD or PID controller \cite{Han2012,Altug2007}.
+
+
+ \subsection{Nonlinear Control Methods}
+ 
+
+In order to perform more complex tasks and follow aggressive trajectories, nonlinear control methods are required.
+A comprehensive literature review on this topic is beyond the scope of this work and several works can be found, such as \cite{Zulu2016}, which provides a general overview on nonlinear control of quadrotors. However,
+some nonlinear control methods deserve to be mentioned due to their extensive use and applications:
+
+\begin{itemize}
+\setlength{\itemindent}{-.5in}
+
+	\item [] \textbf{Sliding Mode control} It is a control technique that is nonlinear presenting exceptional attributes of robustness,accuracy, easy tuning and execution. The aim of SMC systems is to drive the system states to a specific surface in the state space, called  \textit{"sliding surface"}. Upon reaching the sliding surface, sliding mode control allows the states to remain on the close neighborhood of the sliding surface. Therefore, the sliding mode control consists of a controller design with two parts. The first part contains the design of a sliding surface in order for the sliding motion to fulfill design requirements. The second deals with selecting a control law that makes the switching surface interesting with respect to the system state \cite{Utkin1997}.
+There exist two main benefits of sliding mode control. Firstly, the behavior of the dynamics of the system can be changed according to a specific selection of the sliding function. Secondly, the response of the closed loop system becomes completely insensitive to some special uncertainties. This principle goes beyond bounded model parameter uncertainties, interference and non-linearity. In a practical sense, SMC allows the control of nonlinear processes that are affected by external noise and heavy model uncertainties.
+The most important principles of SMC are shown in the following significant references \cite{Utkin1997,DeCarlo1998,Hung1993}. Researchers have also studied the problems appearing in the practical execution of this class of techniques. \cite{Young1999}
+Interested readers can refer to the book \cite{Bartolini2008} which presents a very modern overview of the most promising current line of theoretical and practical research in the domain.
+
+	\item [] \textbf{Backstepping control} The main idea is to divide the system into successive subsystems and to apply a recursive algorithm which will stabilize each subsystem after the other \cite{Madani2006}. However, this method is not robust, but it is computationally fast. In order to handle disturbances, Fang et al. \cite{Gao2011} implemented an integral backstepping control law, in which the integral term was shown to reduce steady state errors and the response time of the system greatly. 
+
+	\item [] \textbf{Adaptive control} This method is required when the parameters that are characterizing the system contain errors or are unknown. This type of control algorithms contains a parameter adaptation law, which is enclosed in the control to track the desired trajectory of the system, even if the model of the system is not completely known.
+For instance, Diao et al. \cite{Diao2011} obtained good performance even though the inertial parameters of the quadrotor and the aerodynamic coefficients were not perfectly known. This method is convenient in some cases, such as the existence of unpredictable wind \cite{Antonelli2013} or pick-and-place applications with small loads. 
+	 
+ \end{itemize}
+ 
+
+In the next section, the main control method that will be used in the master thesis will be explained.
+
+\newpage
+
+\section{Model Predictive Control}
+
+
+\newpage 
+ 
+
+
+
+
  
  \section{Second topic}
  
