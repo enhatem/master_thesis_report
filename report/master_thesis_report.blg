@@ -19,45 +19,45 @@ Warning--missing school in Sabatino2015
 Warning--empty journal in Zulu2016
 
 Done.
-You've used 34 entries,
+You've used 39 entries,
             4039 wiz_defined-function locations,
-            1020 strings with 13141 characters,
-and the built_in function-call counts, 20966 in all, are:
-= -- 1701
-> -- 418
-< -- 159
-+ -- 244
-- -- 67
-* -- 901
-:= -- 3264
-add.period$ -- 68
-call.type$ -- 34
-change.case$ -- 33
-chr.to.int$ -- 399
-cite$ -- 36
-duplicate$ -- 1563
-empty$ -- 1774
-format.name$ -- 83
-if$ -- 4832
+            1047 strings with 13943 characters,
+and the built_in function-call counts, 24045 in all, are:
+= -- 1945
+> -- 507
+< -- 171
++ -- 289
+- -- 86
+* -- 1041
+:= -- 3722
+add.period$ -- 78
+call.type$ -- 39
+change.case$ -- 39
+chr.to.int$ -- 423
+cite$ -- 41
+duplicate$ -- 1814
+empty$ -- 2035
+format.name$ -- 106
+if$ -- 5543
 int.to.chr$ -- 0
-int.to.str$ -- 34
-missing$ -- 248
-newline$ -- 127
-num.names$ -- 33
-pop$ -- 612
+int.to.str$ -- 39
+missing$ -- 297
+newline$ -- 144
+num.names$ -- 37
+pop$ -- 745
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1663
+skip$ -- 1904
 stack$ -- 0
-substring$ -- 971
-swap$ -- 1192
-text.length$ -- 26
+substring$ -- 1052
+swap$ -- 1370
+text.length$ -- 30
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 34
+type$ -- 39
 warning$ -- 2
-while$ -- 85
-width$ -- 36
-write$ -- 319
+while$ -- 94
+width$ -- 41
+write$ -- 364
 (There were 2 warnings)

@@ -179,6 +179,35 @@ K.~Ling, W.~Bingfang, H.~Minghua, and Z.~Yu, ``A model predictive controller
   for multirate cascade systems,'' in \emph{Proceedings of the 2004 American
   Control Conference}, vol.~2, 2004, pp. 1575--1579 vol.2.
 
+\bibitem{MPT3}
+M.~Herceg, M.~Kvasnica, C.~Jones, and M.~Morari, ``{Multi-Parametric Toolbox
+  3.0},'' in \emph{Proc.~of the European Control Conference}, Z\"urich,
+  Switzerland, July 17--19 2013, pp. 502--510,
+  \url{http://control.ee.ethz.ch/~mpt}.
+
+\bibitem{qpOASES}
+H.~J. Ferreau, C.~Kirches, A.~Potschka, H.~G. Bock, and M.~Diehl, ``qpoases: a
+  parametric active-set algorithm for quadratic programming,''
+  \emph{Mathematical Programming Computation}, vol.~6, no.~4, p. 327–363,
+  2014.
+
+\bibitem{FORCES}
+A.~Domahidi, A.~U. Zgraggen, M.~N. Zeilinger, M.~Morari, and C.~N. Jones,
+  ``Efficient interior point methods for multistage problems arising in
+  receding horizon control,'' \emph{2012 IEEE 51st IEEE Conference on Decision
+  and Control (CDC)}, 2012.
+
+\bibitem{ACADO}
+------, ``Efficient interior point methods for multistage problems arising in
+  receding horizon control,'' \emph{2012 IEEE 51st IEEE Conference on Decision
+  and Control (CDC)}, 2012.
+
+\bibitem{IPOPT}
+\BIBentryALTinterwordspacing
+``Ipopt documentation.'' [Online]. Available:
+  \url{https://coin-or.github.io/Ipopt/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{pythm001}
 O.~S. Pythagoras, ``{Theorem},'' \emph{Some old journal}, vol.~1, no.~1, Feb.
   -580.

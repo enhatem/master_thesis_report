@@ -67,9 +67,13 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{UAV} & unmanned aerial vehicle \\
   \textbf{CoG} & center of gravity \\
   \textbf{MPC} & model predictive control \\
+  \textbf{NMPC} & nonlinear model predictive control \\
   \textbf{HLC} & high level commander \\
   \textbf{SMC} & sliding mode control \\
   \textbf{MIMO} & multi-input multi-output \\
+  \textbf{SQP} & sequential quadratic program \\
+  \textbf{NLP} & nonlinear program \\
+  
   
  \end{tabular}\\
  \newpage
@@ -561,7 +565,7 @@ Furthermore, solving for a very long sequence of control inputs is irrelevant if
 
 \subsection{MPC applications on quadrotors}
 
- There have been numerous applications of MPC on quadrotors. The main MPC applications on drones can be separated into two different categories \cite{Alvarez-Valle2019}:
+ There have been numerous applications of MPC on quadrotors. The main MPC applications on drones can be separated into two different categories:
 
 \subsubsection{Centralized MPC}
  
@@ -602,18 +606,120 @@ Another implementation is using a MPC controller for the master structure and pa
 
 However, since the control law in this master thesis will be entirely focused on MPC controllers, and since the task will be to follow aggressive trajectories as perfectly as possible, then the centralized MPC was chosen since it is the simplest implementation of MPC and it results in the least amount of errors when compared to non-centralized MPC implementations. In addition, the computational load of MPC will not be a problem, since the MPC controller will not be running on the quadrotor itself. All the computations will be done on a computer which will have considerably larger computational power than the processor of the quadrotor. And, the control inputs will be sent to the quadrotor via radio signals. However, it should be noted that the quadrotor will be susceptible to delays.
 
+In the next section, the software used to implement the MPC controller is presented.
+
  \newpage  
-
-
-
-\newpage 
- 
-
-
-
+	 
 
  
- \section{Second topic}
+ \section{acados – fast embedded optimal control solvers}
+ 
+ \subsection{The difference between acados and other embedded optimal control solvers}
+ A big role in bringing MPC to real-time applications is played by the implementation of efficient embedded optimal control methods. This gave rise to software
+packages such as:
+    \begin{itemize}
+        \item \texttt{MPT}: for explicit MPC \cite{MPT3}.
+        \item \texttt{qpOASES}: an active-set solver for quadratic programming \cite{qpOASES}.
+        \item \texttt{FORCES}: an interior-point solver for quadratically constrained QP and NLPs with optimal control structure \cite{FORCES}.
+        \item \texttt{ACADO Code Generation tool}: for tailored SQP based NMPC solvers \cite{ACADO}.
+    \end{itemize}
+
+One challenge in developing software for embedded optimal control lies in the trade-off between flexibility, memory usage and speed. Moreover, many of the software packages mentioned above are based on \textit{automatic code generation}. This allows to have self-contained and efficient routines. However, the size of the problem and the choice of algorithms are usually fixed for one specific optimal control instance, which will result in a loss of flexibility. In addition, generated code is often hard to read, thus hard to debug. Finally, it is hard to predict if an automatic code optimization strategy is beneficial or counterproductive for some types of problems. This means that in some cases, a programmer can create faster and more efficient code.
+
+For these reasons, \texttt{acados} does not rely on automatic code generation to perform linear algebra operations. Instead, the high-performance linear algebra package \texttt{BLASFEO} is used. 
+
+Furthermore, other embedded optimal control softwares use global data in order to not sacrifice execution speed and memory. The resulting codebase is difficult to understand, maintain and extend. However, \texttt{acados} organizes the code in a modular way, with formal interfaces between the different algorithmic components. This makes it easier to interchange solvers, routines and libraries needed for the embedded control algorithm.
+
+Finally, \texttt{acados} uses \texttt{CasADi} modeling language instead of \texttt{Mathematics}, \texttt{sympy} or \texttt{MATLAB Symbolic Toolbox}. Many of these softwares make use of expression trees to represent mathematical funcions, which could lead to a large code size, high memory usage and slow evaluation of high-order derivatives for non-trivial models. Whereas \texttt{CasADi} is based on expression graphs. This usually leads to smaller and faster code which make it more suitable for embedded applications. In addition, it is free and open-source software. In summary, \texttt{acados} offers the following:
+
+\begin{itemize}
+	\item It contains efficient optimal control algorithms implemented in C.
+	\item it has a modular architecture enabling rapid prototyping of solution algorithms.
+	\item It interfaces to \texttt{C++}, \texttt{Python} and \texttt{MATLAB}.
+	\item It uses the high-performance linear algebra package \texttt{BLASFEO}.
+	\item It is compatible with \texttt{CasADi} expressions.
+	\item It is deployable on a variety of embedded devices.
+	\item It is a free and open-source software.
+\end{itemize}
+
+\subsection{Algorithm components for embedded nonlinear optimal control}
+
+\subsubsection{Nonlinear Optimal Control}
+
+The nonlinear optimal control problems that are typically solved by nonlinear MPC (NMPC) have the following form in continuous-time:
+
+\begin{equation}\label{ocp_continuous_form}
+        \begin{aligned}
+        \min_{x(\cdot),z(\cdot),u(\cdot)} \quad & \int_{t=0}^{T}{l(x(t), z(t), u(t))dt + M(x(T))}\\
+        \textrm{s.t.} \quad & x_0 = \bar{x}_0 \\
+            & 0 = f(\dot{x}(t), x(t), z(t), u(t)) \text{\hspace{1cm} }t \in [0,T], \\
+            & 0 \geq g(x(t), z(t), u(t)) \text{\hspace{1cm} } t \in [0,T] \\
+        \end{aligned}
+    \end{equation}
+    With: 
+    \begin{itemize}
+		\item $l$: Lagrange term or running cost.
+		\item $M$: Mayer term or terminal cost.        
+        \item $x$: differential states with $x \in \mathbb{R}^{n_x}$.
+        \item $z$: algebraic variables with $z \in \mathbb{R}^{n_z}$.
+        \item $u$: control inputs with $u \in \mathbb{R}^{n_u}$.
+        \item $f$: Dynamics (as implicit differential-algebraic equations).
+        \item g: Nonlinear path constraints.
+    \end{itemize} 
+ 
+\subsubsection{Multiple Shooting Discretization}
+In \texttt{acados}, the nonlinear OCP is discretized with a \textbf{multiple shooting} approach. The following elements are introduced:
+    \begin{itemize}
+        \item Time grid: $[t_0, t_1, \ldots, t_N]$ with $t_k < t_{k+1},\text{\space} k = 0, \ldots, N-1$
+        \item Discretized state variables: $x_0, x_1, \ldots, x_N$
+        \item Algebraic variables $z_0, z_1, \ldots, z_{N-1}$
+        \item Controls $u_0, u_1, \ldots, u_{N-1}$ $\Rightarrow$ piecewise constant parametrization is used.    
+    \end{itemize}    
+
+The numerical simulation routine on each time interval $[t_k, t_{k+1})$ can be written as:
+    $$ \begin{bmatrix}
+        x_{k+1}\\
+        z_k\\
+    \end{bmatrix} = \phi_k(x_k, u_k), \text{\space \space \space} k=0,1, \ldots, N-1$$  
+ 
+By performing multiple shooting discretization on the continuous-time optimal control problem formulation in equation (\ref{ocp_continuous_form}), this will result in the formulation of the nonlinear program (NLP) as shown below.
+
+\newpage
+
+\subsubsection{General Form of the Resulting Nonlinear Program}
+
+The general form of the resulting nonlinear program that can be handled by \texttt{acados} is:
+
+The resulting (general form) NLP problem becomes:
+    \begin{equation}\label{NLP}
+        \begin{aligned}
+        \min_{\substack{x_0,\ldots,x_N\\ u_0,\ldots, u_{N-1} \\ z_0,\ldots, z_{N-1}\\  s_0, \ldots, s_N}} \quad & \sum_{k=0}^{N-1}{l_k(x_k, u_k, z_k) + M(x_N) + \sum_{k=0}^N \rho_k(s_k)}\\
+        \textrm{s.t.} \quad & \begin{bmatrix}
+                                x_{k+1}\\
+                                z_k\\
+                                \end{bmatrix} = \phi_k(x_k, u_k) \text{ \hspace{2cm}} k=0,1, \ldots, N-1, \\
+                            & 0 \geq g_k(x_k, z_k, u_k) - J_{s,k}s_k \text{\hspace{1.15cm}} k=0,1, \ldots, N-1, \\
+                            & 0 \geq g_N(x_N) - J_{s,N}s_N, \\
+                            & 0 \leq s_k \text{\hspace{4.6cm}} k=0,1, \ldots, N-1.
+        \end{aligned}
+    \end{equation}
+    This NLP can be solved by any general-purpose NLP solver, like \texttt{IPOPT} \cite{IPOPT}. But, \texttt{acados} will use embedded optimal control methods to solve the NLP which are better suited in a real-time setting.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
  \chapter{Actual work}
   
