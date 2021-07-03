@@ -53,6 +53,10 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   $l$ & Arm length of a quadrotor \\
   $T$ & Total thrust input of the quadrotor\\  
   $\tau$ & Total torque of the quadrotor\\
+  $T_s$ & Sample Time \\
+  $N$ & Prediction horizon \\
+  $m$ & Control horizon \\
+  $J$ & Objective function \\
   
 
 \end{tabular}\\
@@ -65,7 +69,7 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{MPC} & model predictive control \\
   \textbf{HLC} & high level commander \\
   \textbf{SMC} & sliding mode control \\
-
+  \textbf{MIMO} & multi-input multi-output \\
   
  \end{tabular}\\
  \newpage
@@ -390,6 +394,216 @@ In the next section, the main control method that will be used in the master the
 \newpage
 
 \section{Model Predictive Control}
+
+\subsection{General Idea}\label{MPC_General_Idea}
+ 
+ There exist "open-loop" methods \cite{Kirillova2000} in which the control input sequence $\textbf{\textsc{u}}(t)$ is designed using a model of the system and a set of constraints. However, the problem with this approach is that modeling errors and noise are not taken into consideration. So, these inputs will not necessarily generate the desired response from the system. Because of that, a \textit{"closed-loop"} strategy is required in order to cancel out these errors. So, an approach that can be used is called \textit{"Model Predictive Control"} (MPC). This method is also known as \textit{"receding horizon control"} \cite{How2008} because the \textit{"prediction horizon"} (which is a finite horizon) translates forward by one time step after the current optimization problem is solved . In short, MPC is a \textit{feedback control} algorithm which uses a model of the system to predict the future outputs of the system and it solves an optimization problem on-line in order to select an optimal control.
+ 
+ \paragraph{Basic strategy}
+
+The basic strategy of MPC is the following:
+
+
+\begin{itemize}
+	\item At time step $k$, the system model and an optimizer will be used in order to design a sequence of control inputs
+	
+	$$ \textbf{\textsc{u}}(k|k), \textbf{\textsc{u}}(k+1|k), \textbf{\textsc{u}}(k+2|k), \textbf{\textsc{u}}(k+3|k),...,\textbf{\textsc{u}}(k+N|k) $$
+	
+	starting from the current state $\textbf{\textsc{x}}(k)$ over a prediction horizon $N$.
+	\item Only the first step of the sequence of control inputs will be applied on the system.
+	\item The processes above are then iterated for time $(k+1)$ at state $\textbf{\textsc{x}}(k+1)$. 
+\end{itemize}
+ 
+ 
+ \begin{figure}[h]
+ \centering
+ \includegraphics[width=0.6\textwidth]{Images/Control/MPC_general_idea.png}
+ \caption{Basic idea of MPC \cite{How2008}.}
+ \label{MPC_basic_idea}
+\end{figure}  
+ 
+\noindent It should be noted that the control algorithm of MPC is based on numerically solving an optimization problem at each time step. And, it is a constrained optimization in general.
+ 
+ \paragraph{Advantages and drawbacks of MPC} There are several advantages when using MPC: 
+ 
+ \begin{itemize}
+ 	\item MPC is able to control multi-input multi-output (MIMO) systems which might have interactions between their inputs and outputs.
+ 	\item MPC explicitly accounts for the constraints that are imposed on the system. So, it does not just design a controller to keep the system away from the constraints.
+ 	\item MPC can easily handle nonlinear dynamics and time-varying plant dynamics, because the controller is explicitly a function of the model of the system which can be modified in real-time.
+ \end{itemize}
+
+\noindent The main drawback of MPC is that it usually requires a powerful and fast processor with a large memory in order to properly solve the problem at hand. This is because MPC solves an optimization problem at each time step.
+ 
+\noindent There have been many commercial applications of MPC starting from the early 1970s in the process industry. The table \ref{table_MPC} below shows the different companies that have used MPC in different industries in 2014.
+ 
+
+\begin{table}[h]
+\setlength{\tabcolsep}{15pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1} % Default value: 1
+ \caption{The number of MPC applications in different industries in 2014 \cite{Kozak2014}.}
+ \label{table_MPC}
+\begin{tabular}{l c c c c c r}
+Application & Aspen & Honeywell & Adersa & CCI & Pavilion & Total \\
+\hline
+Refining & 950 & 300 & 290 & - & 15 & 1555 \\
+Chemicals & 437 & 55 & 12 & 21 & 25 & 550 \\
+Food & - & - & 48 & - & 14 & 62 \\
+Pulp paper & 21 & 39 & - & - & 3 & 63 \\
+Gas and air & 11 & 13 & - & 24 & - & 48 \\
+Polymer & 5 & - & - & - & 22 & 27 \\
+Utilities & 7 & 9 & - & 6 & - & 22 \\
+Other & 39 & - & 51 & 6 & - & 96 \\
+\hline 
+\hline
+Total & 1470 & 416 & 401 & 57 & 79 & 2423 \\
+\end{tabular}
+\end{table}
+
+\noindent However, as computational power has increased throughout the years thanks to the advancement of technology, there has been a renewed curiosity in applying this control approach to systems with fast dynamics for which the computational complexity is significantly larger when compared to the industrial applications for which computational complexity was not a concern (since MPC was applied on systems with slow dynamics in that case).
+ 
+\subsection{Design Parameters}
+The different parameters that can be tuned in a MPC controller (\cite{MathWorks2018, MathWorks2018b, MathWorks2018c}) are the following:
+
+\begin{itemize}
+	\item The sample time $T_s$.
+	\item The prediction horizon $N$.
+	\item The control horizon $m$.
+	\item The constraints.
+	\item The weights.
+\end{itemize}
+
+\noindent Choosing the proper values for the parameters stated above is very important since they affect the performance of the controller and the computational complexity of the MPC algorithm.
+
+\paragraph{Sample Time $T_s$} 
+
+The sample time determines the rate at which the controller executes the control algorithm. \begin{itemize}
+	\item If $T_s$ is too large, then when disturbances occur, the controller will be unable to react to the disturbances quickly enough.
+	\item If $T_s$ is too small, the controller will have much faster reaction times to disturbances and set-point changes. However, this comes at the cost of an excessive computational load.
+\end{itemize}
+
+\noindent In order to find reasonable balance between controller performance and computational effort, the general recommendation is to have between 10\% and 25\% of the minimum desired closed-loop response time .
+
+\paragraph{Prediction horizon $N$} 
+
+The prediction horizon $N$ (sometimes referred to with the variable $p$, however, $N$ will be used instead for the remaining of this report) is the number of predicted future time steps of the system. It shows how far the controller predicts into the future. Thus, a prediction horizon must be chosen in such a way that it covers the significant dynamics of the system. However, it should be noted that a large prediction horizon should not be selected, since unexpected phenomenons could occur that may affect the dynamics of the system, which will cause a waste of computational power. The general recommendation is to increase $N$ until additional increases will have little impact on the performance. The maximum $N$ is the number of control intervals needed for the open-loop step response of the system to become infinite. However, having $N>50$ is hardly ever required unless $T_s$ is very small.
+
+\paragraph{Control horizon m}
+
+The control horizon is the set of future actions which will lead to the predicted plant output. It represents the number of control moves until time step $m$. After the first $m$ steps, the remaining inputs will remain constant as shown in figure \ref{MPC_basic_idea} for the \textit{"Optimal"} future inputs. Moreover, each control input element in the control horizon is a free variable that will be computed by the optimizer. Thus, the smaller the control horizon, the fewer the computations. However, setting $m=1$ may not give the best possible output for the system. And, similarly to the prediction horizon, if the control horizon is increased, this will lead to better predictions at the cost of increasing the computational complexity. Moreover, the general recommendation for the control horizon is to keep it much smaller than the prediction horizon, because:
+
+\begin{itemize}
+	\item A smaller control horizon $m$ will lead to less variables to optimize in the QP that will be solved at each control input interval. This will encourage quicker computation times.
+	\item If delays are considered, then having $m<N$ is mandatory. Otherwise, some control input elements within the control horizon  may not have any effect on the plant outputs before the prediction horizon ends, which will lead to a QP Hessian matrix which is singular. 
+	\item Having a small value for $m$ encourages having an internally stable controller. However, this is not guaranteed.
+\end{itemize}
+
+\paragraph{Constraints} A model predictive controller can integrate constraints on the inputs, the rate of change of the inputs and the outputs. In addition, the constraints can be \textit{"soft"} constraints or \textit{"hard"} constraints. \textit{"Soft"} constraints represent constraints that are allowed to be violated if the MPC deems it to be necessary in order to find a solution for the control problem at hand.
+In addition, it should be noted that \textit{hard} constraints are a set of constraints that cannot be violated by the MPC. However, applying hard constraints on both the inputs and outputs at the same time may cause conflicts to occur between the constraints, which may lead to an unfeasible solution. Moreover, the general recommendation is to use soft constraints on the outputs and to avoid having hard constraints on both the inputs together with the rate of change of the inputs.
+
+\paragraph{Weights} Model Predictive Control could have many goals. A possible goal could be to have the outputs converge to their set-points as fast as possible. Another goal could be to have smooth control inputs in order to avoid aggressive control maneuvers. So, in order to achieve a balanced performance between these two competing goals, the input rates and the outputs can be weighted relatively to each other. It is also possible to adjust relative weights within the input rates and the outputs.
+
+\subsection{Basic formulation of a MPC problem} 
+
+For a given set of plant dynamics which is first assumed to be linear:
+
+\begin{equation}
+\begin{cases}
+\textbf{\textsc{x}}(k+1) = A\textbf{\textsc{x}}(k) + B \textbf{\textsc{u}}(k) \\
+\textbf{\textsc{z}}(k) = C \textbf{\textsc{x}}(k)\\
+\end{cases}
+\end{equation}
+
+\noindent and a cost function as follows: 
+
+\begin{equation}
+J = \sum_{j=0}^{N} \{ \|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}} + \|\textbf{\textsc{u}}(k+j|k)\|_{R_{uu}} \} + F \textbf{\textsc{x}}(k+N|k))
+\end{equation}
+
+ 
+\noindent With: 
+ 
+ \begin{itemize}
+ 	\item $\|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}}$ is the weighted $L^2$-norm of the state, so it is expressed as follows:
+
+ \begin{equation*}
+ \|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}} = \textbf{\textsc{z}}(k+j|k)^{\intercal}R_{zz}\textbf{\textsc{z}}(k+j|k)
+\end{equation*}   	
+ 	
+	\item  	$\|\textbf{\textsc{u}}(k+j|k)\|_{R_{uu}}$ is the weighted $L^2$-norm of the control input sequence, so it is expressed as follows:
+	
+\begin{equation*}
+ \|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}} = \textbf{\textsc{z}}(k+j|k)^{\intercal}R_{zz}\textbf{\textsc{z}}(k+j|k)
+\end{equation*}  
+
+	\item $F \textbf{\textsc{x}}(k+N|k))$ is a terminal cost function which can also have weights if required.
+ 	
+\end{itemize}  
+ 
+It should be noted that if  $N \rightarrow \infty$, and there are no additional constraints on  $\textbf{\textsc{z}}$ and/or $\textbf{\textsc{u}}$, then the problem falls back to the discrete LQR problem \cite{Kostova2013}. Moreover, when limits are added on 
+  $\textbf{\textsc{x}}$ and/or $\textbf{\textsc{u}}$, then the general solution cannot be found anymore in analytical form, and it has to be solved numerically.
+
+Furthermore, solving for a very long sequence of control inputs is irrelevant if the model used for the computations is expected to be erroneous or there are disturbances applied on the system, since only the first element of the optimized control sequence will be implemented. This is why MPC is generally designed by using a relatively small $N$.
+  
+  \paragraph{Typical problem statement}
+  
+  For a finite $N$ and with $F=0$ the problem can be expressed as follows: 
+  
+\begin{mini}|s|
+{u}{ J = \sum_{j=0}^{N}{  \{ \|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}} + \|\textbf{\textsc{u}}(k+j|k)\|_{R_{uu}} \} }}
+{}{}
+\addConstraint{ \textbf{\textsc{x}}(k+j+1|k) = A\textbf{\textsc{x}}(k+j|k) + B \textbf{\textsc{u}}(k+j|k) }
+\addConstraint{ \textbf{\textsc{x}}(k|k) \equiv \textbf{\textsc{x}}(k) }
+\addConstraint{\textbf{\textsc{z}}(k) = C \textbf{\textsc{x}}(k+j|k)}
+\addConstraint{|\textbf{\textsc{u}}(k+j|k)| \leq u_{max}}
+{}
+\label{optim_problem}
+\end{mini}
+
+\subsection{MPC applications on quadrotors}
+
+ There have been numerous applications of MPC on quadrotors. The main MPC applications on drones can be separated into two different categories \cite{Alvarez-Valle2019}:
+
+\subsubsection{Centralized MPC}
+ 
+In this type of application, the MPC controller is a signle structure that encapsulates both the translational dynamics and the rotational dynamics. It takes the trajectory waypoints as inputs, and directly outputs the control inputs required to control the quadrotor. This type of implementation of the MPC controller produces the least amount of errors. However, this comes at a cost of a larger computational load.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Images/Control/MPC/centralized_mpc.png}
+	\caption{Example of a centralized MPC control loop \cite{Alvarez-Valle2019}.}
+	\label{fig:centralized_mpc}
+\end{figure}
+
+As can be seen in figure \ref{fig:centralized_mpc}, which represents a centralized control loop structure for a basic MPC, the right block is the plant which represents the quadrotor dynamics. The MPC bloc taks as input the desired trajectory, and outputs control inputs to allow the quadrotor to follow the trajectory.
+
+It should be noted that different versions of the MPC controller shown in figure \ref{fig:centralized_mpc} can exist. For example, another version of the MPC could be that the state variables of roll and pitch angles can be added as outputs. This is mainly implemented in order to ensure that the quadrotor does not take extreme values in roll and pitch angles, which can potentially destabilize it, because no restrictions are being used for these angles otherwise.
+
+\newpage
+
+\subsubsection{Non-centralized MPC} 
+
+In this type of application, the state-space of the system will be split to obtain two different controllers in a master-slave structure. This more simplified structure allows the implementation of MPC in different embedded systems, each one with less computational load when compared to the complete structure of a centralized MPC. For example, the simplified slave structure can be used to control the attitude of the quadrotor, whereas the master structure can be used to control the position and direction of the quadrotor. In addition, this splitting allows different sample times for the master and slave loops \cite{Bingfang2004}. Furthermore, an implementation of non-centralized MPC could be of having both master and slave structures being MPC controllers. An example of this non-centralized MPC implementation is shown in figure \ref{fig:non_centralized_mpc_1} below:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Images/Control/MPC/non-centralized_mpc_1.png}
+	\caption{Example of a non-centralized MPC-MPC control loop \cite{Alvarez-Valle2019}.}
+	\label{fig:non_centralized_mpc_1}
+\end{figure}
+
+Another implementation is using a MPC controller for the master structure and pairing it with the slave structure that is using a controller with a different control law, such as a PD-P controller, in order to further reduce the computational load. An example of this non-centralized MPC implementation is shown in figure \ref{fig:non_centralized_mpc_2} below:
+
+ \begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Images/Control/MPC/non-centralized_mpc_2.png}
+	\caption{Example of a non-centralized MPC-PD-P control loop \cite{Alvarez-Valle2019}.}
+	\label{fig:non_centralized_mpc_2}
+\end{figure}
+
+However, since the control law in this master thesis will be entirely focused on MPC controllers, and since the task will be to follow aggressive trajectories as perfectly as possible, then the centralized MPC was chosen since it is the simplest implementation of MPC and it results in the least amount of errors when compared to non-centralized MPC implementations. In addition, the computational load of MPC will not be a problem, since the MPC controller will not be running on the quadrotor itself. All the computations will be done on a computer which will have considerably larger computational power than the processor of the quadrotor. And, the control inputs will be sent to the quadrotor via radio signals. However, it should be noted that the quadrotor will be susceptible to delays.
+
+ \newpage  
+
 
 
 \newpage 

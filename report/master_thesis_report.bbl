@@ -33,6 +33,20 @@ K.~R. Klemens~Fritzsche, Yuhang~Guo, ``Some remarks concerning differential
   \url{https://www.bitcraze.io/documentation/repository/crazyflie-firmware/master/functional-areas/sensor-to-control/controllers/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{How2008}
+{Jonathan How}, \emph{Principles of Optimal Control}.\hskip 1em plus 0.5em
+  minus 0.4em\relax MIT, 2008.
+
+\bibitem{Alvarez-Valle2019}
+R.~S. Alvarez-Valle and P.~S. Rivadeneira, ``Design of predictive control
+  structures to track trajectories for multi-rotor unmanned aerial vehicle,''
+  in \emph{2019 IEEE 4th Colombian Conference on Automatic Control (CCAC)},
+  2019, pp. 1--6.
+
+\bibitem{Kozak2014}
+K.~Kozak, ``State-of-the-art in control engineering,'' \emph{Journal of
+  Electrical Systems and Information Technology}, vol.~1, p. 1–9, 05 2014.
+
 \bibitem{Bouabdalla2007}
 S.~Bouabdallah, ``Design and control of quadrotors with application to
   autonomous flying,'' Ph.D. dissertation, École Polytechnique Fédérale de
@@ -134,6 +148,36 @@ G.~{Antonelli}, E.~{Cataldi}, P.~{Robuffo Giordano}, S.~{Chiaverini}, and
   A.~{Franchi}, ``Experimental validation of a new adaptive control scheme for
   quadrotors mavs,'' \emph{2013 IEEE/RSJ International Conference on
   Intelligent Robots and Systems (IROS)}, pp. 2439--2444, 2013.
+
+\bibitem{Kirillova2000}
+R.~Gabasov, F.~Kirillova, and N.~Balashevich, ``Open-loop and closed-loop
+  optimization of linear control systems,'' \emph{Asian Journal of Control},
+  vol.~2, pp. 155 -- 168, 09 2000.
+
+\bibitem{MathWorks2018}
+MathWorks, ``Choose sample time and horizons,''
+  \url{https://www.mathworks.com/help/releases/R2018a/mpc/ug/choosing-sample-time-and-horizons.html?s_eid=PSM_15028},
+  2018, from the Model Predictive Control Toolbox.
+
+\bibitem{MathWorks2018b}
+------, ``Specify constraints,''
+  \url{https://www.mathworks.com/help/releases/R2018a/mpc/ug/specifying-constraints.html?s_eid=PSM_15028},
+  2018, from the Model Predictive Control Toolbox.
+
+\bibitem{MathWorks2018c}
+------, ``Tune weights,''
+  \url{https://www.mathworks.com/help/mpc/ug/tuning-weights.html?s_eid=PSM_15028},
+  2018, from the Model Predictive Control Toolbox.
+
+\bibitem{Kostova2013}
+S.~Kostova, I.~Ivanov, L.~Imsland, and N.~Georgieva, ``Infinite horizon lqr
+  problem of linear discrete time positive systems,'' \emph{Proceeding of the
+  Bulgarian Academy of Sciences}, vol.~66, 01 2013.
+
+\bibitem{Bingfang2004}
+K.~Ling, W.~Bingfang, H.~Minghua, and Z.~Yu, ``A model predictive controller
+  for multirate cascade systems,'' in \emph{Proceedings of the 2004 American
+  Control Conference}, vol.~2, 2004, pp. 1575--1579 vol.2.
 
 \bibitem{pythm001}
 O.~S. Pythagoras, ``{Theorem},'' \emph{Some old journal}, vol.~1, no.~1, Feb.
