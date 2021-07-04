@@ -43,6 +43,27 @@ R.~S. Alvarez-Valle and P.~S. Rivadeneira, ``Design of predictive control
   in \emph{2019 IEEE 4th Colombian Conference on Automatic Control (CCAC)},
   2019, pp. 1--6.
 
+\bibitem{Castillo2018}
+F.~{Oliva-Palomo}, A.~{Sanchez-Orta}, P.~{Castillo}, and H.~{Alazki},
+  ``Nonlinear ellipsoid based attitude control for aggressive trajectories in a
+  quadrotor: closed-loop multiflips implementation,'' \emph{Control Engineering
+  Practice}, pp. 150--161, 2018.
+
+\bibitem{Gillula2011}
+J.~H. {Gillula}, H.~{Huang}, M.~P. {Vitus}, and C.~J. {Tomlin}, ``Design and
+  analysis of hybrid systems, with applications to robotic aerial vehicles,''
+  \emph{Robotics Research}, pp. 139--149, 2011.
+
+\bibitem{Lupashin2012}
+S.~{Lupashin} and R.~{D’Andrea}, ``Adaptive fast open-loop maneuvers for
+  quadrocopters,'' \emph{Autonomous Robots}, pp. 89--102, 2012.
+
+\bibitem{Chen2016}
+Y.~{Chen} and N.~O. {P´erez-Arancibia}, ``Generation and real-time
+  implementation of high-speed controlled maneuvers using an autonomous 19-gram
+  quadrotor,'' \emph{2016 IEEE International Conference on Robotics and
+  Automation (ICRA)}, pp. 3204--3211, 2016.
+
 \bibitem{Kozak2014}
 K.~Kozak, ``State-of-the-art in control engineering,'' \emph{Journal of
   Electrical Systems and Information Technology}, vol.~1, p. 1–9, 05 2014.
@@ -207,6 +228,83 @@ A.~Domahidi, A.~U. Zgraggen, M.~N. Zeilinger, M.~Morari, and C.~N. Jones,
 ``Ipopt documentation.'' [Online]. Available:
   \url{https://coin-or.github.io/Ipopt/}
 \BIBentrySTDinterwordspacing
+
+\bibitem{acados2019}
+R.~Verschueren, G.~Frison, D.~Kouzoupis, N.~van Duijkeren, A.~Zanelli,
+  B.~Novoselnik, J.~Frey, T.~Albin, R.~Quirynen, and M.~Diehl, ``acados: a
+  modular open-source framework for fast embedded optimal control,'' 10 2019.
+
+\bibitem{Diehl2002}
+\BIBentryALTinterwordspacing
+M.~Diehl, H.~Bock, J.~P. Schlöder, R.~Findeisen, Z.~Nagy, and F.~Allgöwer,
+  ``Real-time optimization and nonlinear model predictive control of processes
+  governed by differential-algebraic equations,'' \emph{Journal of Process
+  Control}, vol.~12, no.~4, pp. 577--585, 2002. [Online]. Available:
+  \url{https://www.sciencedirect.com/science/article/pii/S0959152401000233}
+\BIBentrySTDinterwordspacing
+
+\bibitem{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
+B.~B. Carlos, T.~Sartor, A.~Zanelli, G.~Frison, W.~Burgard, M.~Diehl, and
+  G.~Oriolo, ``An efficient real-time nmpc for quadrotor position control under
+  communication time-delay,'' \emph{2020 16th International Conference on
+  Control, Automation, Robotics and Vision (ICARCV)}, 2020.
+
+\bibitem{kloeser_schoels_sartor_zanelli_prison_diehl_2020}
+D.~Kloeser, T.~Schoels, T.~Sartor, A.~Zanelli, G.~Prison, and M.~Diehl, ``Nmpc
+  for racing using a singularity-free path-parametric model with obstacle
+  avoidance,'' \emph{IFAC-PapersOnLine}, vol.~53, no.~2, p. 14324–14329,
+  2020.
+
+\bibitem{Orsingher2019}
+M.~Orsingher, ``Making aggressive maneuvers with drones thanks to parallel
+  singularity crossing approaches.'' Master's thesis, 2019.
+
+\bibitem{Marino2020}
+A.~Marino, ``Robust and feasible trajectory generation of aggressive maneuvers
+  for quadrotors,'' Master's thesis, 2020.
+
+\bibitem{Gillula2010}
+J.~H. {Gillula}, H.~{Huang}, M.~P. {Vitus}, and C.~J. {Tomlin}, ``Design of
+  guaranteed safe maneuvers using reachable sets: Autonomous quadrotor
+  aerobatics in theory and practice,'' \emph{2010 IEEE international conference
+  on Robotics and Automation (ICRA)}, pp. 1649--1654, 2010.
+
+\bibitem{Lupashin2010}
+S.~{Lupashin}, A.~{Sch¨ollig}, M.~{Sherback}, and R.~{D’Andrea}, ``A simple
+  learning strategy for high-speed quadrocopter multi-flips,'' \emph{2010 IEEE
+  International Conference on Robotics and Automation (ICRA)}, pp. 1642--1648,
+  2010.
+
+\bibitem{Lupashin2011}
+S.~{Lupashin} and R.~{D’Andrea}, ``Adaptive open-loop aerobatic maneuvers for
+  quadrocopters,'' \emph{IFAC Proceedings Volumes}, pp. 2600--2606, 2011.
+
+\bibitem{Lee2010}
+T.~{Lee}, M.~{Leoky}, and N.~H. {McClamroch}, ``Geometric tracking control of a
+  quadrotor uav on se (3),'' \emph{49th IEEE Conference on Decision and Control
+  (CDC)}, pp. 5420--5425, 2010.
+
+\bibitem{Badawy2016}
+A.~A. {El-Badawy} and M.~A. {Bakr}, ``Quadcopter aggressive maneuvers along
+  singular configurations: An energy-quaternion based approach,'' \emph{Journal
+  of Control Science and Engineering}, 2016.
+
+\bibitem{Wang2014}
+L.~{Wang} and J.~{Su}, ``Switching control of attitude tracking on a quadrotor
+  uav for large-angle rotational maneuvers,'' \emph{2014 IEEE International
+  Conference on Robotics and Automation (ICRA)}, pp. 2907--2912, 2014.
+
+\bibitem{Chen2017}
+Y.~{Chen} and N.~O. {P´erez-Arancibia}, ``Lyapunov-based controller synthesis
+  and stability analysis for the execution of high-speed multi-flip quadrotor
+  maneuvers,'' \emph{2017 American Control Conference (ACC)}, pp. 3599--3606,
+  2017.
+
+\bibitem{Chen2018}
+Y.~{Chen} and N.~O. {Perez-Arancibia}, ``Nonlinear adaptive control of
+  quadrotor multiflipping maneuvers in the presence of time-varying torque
+  latency,'' \emph{2018 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems (IROS)}, pp. 1--9, 2018.
 
 \bibitem{pythm001}
 O.~S. Pythagoras, ``{Theorem},'' \emph{Some old journal}, vol.~1, no.~1, Feb.

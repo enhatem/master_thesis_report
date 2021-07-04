@@ -294,6 +294,15 @@ journal = {Proceeding of the Bulgarian Academy of Sciences}
   doi={10.23919/ACC.2004.1386801}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% acados %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@article{acados2019,
+author = {Verschueren, Robin and Frison, Gianluca and Kouzoupis, Dimitris and van Duijkeren, Niels and Zanelli, Andrea and Novoselnik, Branimir and Frey, Jonathan and Albin, Thivaharan and Quirynen, Rien and Diehl, Moritz},
+year = {2019},
+month = {10},
+pages = {},
+title = {acados: a modular open-source framework for fast embedded optimal control}
+}
+
 @InProceedings {MPT3,
     author={M. Herceg and M. Kvasnica and C.N. Jones and M. Morari},
     title={{Multi-Parametric Toolbox 3.0}},
@@ -312,6 +321,147 @@ journal = {Proceeding of the Bulgarian Academy of Sciences}
 @article{ACADO, title={Efficient interior point methods for multistage problems arising in receding horizon control}, DOI={10.1109/cdc.2012.6426855}, journal={2012 IEEE 51st IEEE Conference on Decision and Control (CDC)}, author={Domahidi, Alexander and Zgraggen, Aldo U. and Zeilinger, Melanie N. and Morari, Manfred and Jones, Colin N.}, year={2012}}
 
 @misc{IPOPT, title={IPOPT Documentation}, url={https://coin-or.github.io/Ipopt/}, journal={Ipopt: Documentation}}
+
+@article{Diehl2002,
+title = {Real-time optimization and nonlinear model predictive control of processes governed by differential-algebraic equations},
+journal = {Journal of Process Control},
+volume = {12},
+number = {4},
+pages = {577-585},
+year = {2002},
+issn = {0959-1524},
+doi = {https://doi.org/10.1016/S0959-1524(01)00023-3},
+url = {https://www.sciencedirect.com/science/article/pii/S0959152401000233},
+author = {Moritz Diehl and H.Georg Bock and Johannes P. Schlöder and Rolf Findeisen and Zoltan Nagy and Frank Allgöwer},
+keywords = {Predictive control, Nonlinear control systems, Differential algebraic equations, Numerical methods, Optimal control, Distillation columns},
+abstract = {Optimization problems in chemical engineering often involve complex systems of nonlinear DAE as the model equations. The direct multiple shooting method has been known for a while as a fast off-line method for optimization problems in ODE and later in DAE. Some factors crucial for its fast performance are briefly reviewed. The direct multiple shooting approach has been successfully adapted to the specific requirements of real-time optimization. Special strategies have been developed to effectively minimize the on-line computational effort, in which the progress of the optimization iterations is nested with the progress of the process. They use precalculated information as far as possible (e.g. Hessians, gradients and QP presolves for iterated reference trajectories) to minimize response time in case of perturbations. In typical real-time problems they have proven much faster than fast off-line strategies. Compared with an optimal feedback control computable upper bounds for the loss of optimality can be established that are small in practice. Numerical results for the Nonlinear Model Predictive Control (NMPC) of a high-purity distillation column subject to parameter disturbances are presented.}
+}
+
+@article{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020, title={An Efficient Real-Time NMPC for Quadrotor Position Control under Communication Time-Delay}, DOI={10.1109/icarcv50220.2020.9305513}, journal={2020 16th International Conference on Control, Automation, Robotics and Vision (ICARCV)}, author={Carlos, Barbara Barros and Sartor, Tommaso and Zanelli, Andrea and Frison, Gianluca and Burgard, Wolfram and Diehl, Moritz and Oriolo, Giuseppe}, year={2020}}
+
+@article{kloeser_schoels_sartor_zanelli_prison_diehl_2020, title={NMPC for Racing Using a Singularity-Free Path-Parametric Model with Obstacle Avoidance}, volume={53}, DOI={10.1016/j.ifacol.2020.12.1376}, number={2}, journal={IFAC-PapersOnLine}, author={Kloeser, Daniel and Schoels, Tobias and Sartor, Tommaso and Zanelli, Andrea and Prison, Gianluca and Diehl, Moritz}, year={2020}, pages={14324–14329}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% flip %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+@mastersthesis{Orsingher2019,
+   author={M. Orsingher},
+   title={Making aggressive maneuvers with drones thanks to parallel singularity crossing approaches.},
+   Institution={Ecole Centrale de Nantes},
+   year=2019,
+}
+
+@mastersthesis{Marino2020,
+   author={A. Marino},
+   title={Robust and Feasible Trajectory Generation of Aggressive Maneuvers for Quadrotors},
+   Institution={University of Genova},
+   year=2020,
+}
+
+@article{Castillo2018,
+author = {Fatima {Oliva-Palomo} and Anand {Sanchez-Orta} and Pedro {Castillo} and Hussain {Alazki}},
+year = {2018},
+title = {Nonlinear ellipsoid based attitude control for aggressive trajectories in a quadrotor: closed-loop multiflips implementation},
+journal = {Control Engineering Practice},
+pages = {150-161}
+}
+
+@article{Gillula2011,
+author = {Jeremy H. {Gillula} and Haomiao {Huang} and Michael P. {Vitus}  and Claire J. {Tomlin}},
+year = {2011},
+title = {Design and analysis of hybrid systems, with applications to robotic aerial vehicles},
+journal = {Robotics Research},
+pages = {139-149}
+}
+
+@article{Gillula2010,
+author = {Jeremy H. {Gillula} and Haomiao {Huang} and Michael P. {Vitus}  and Claire J. {Tomlin}},
+year = {2010},
+title = {Design of guaranteed safe maneuvers using reachable sets: Autonomous quadrotor aerobatics in theory and practice},
+journal = {2010 IEEE international conference on Robotics and Automation
+(ICRA)},
+pages = {1649-1654}
+}
+
+
+@article{Lupashin2010,
+author = {Sergei {Lupashin} and Angela {Sch¨ollig} and Michael {Sherback} and Raffaello {D’Andrea}},
+year = {2010},
+title = {A simple
+learning strategy for high-speed quadrocopter multi-flips},
+journal = {2010 IEEE International Conference on Robotics and Automation (ICRA)},
+pages = {1642-1648}
+}
+
+@article{Lupashin2011,
+author = {Sergei {Lupashin} and  Raffaello {D’Andrea}},
+year = {2011},
+title = {Adaptive open-loop aerobatic maneuvers for quadrocopters},
+journal = {IFAC Proceedings Volumes},
+pages = {2600-2606}
+}
+
+@article{Lupashin2012,
+author = {Sergei {Lupashin} and  Raffaello {D’Andrea}},
+year = {2012},
+title = {Adaptive fast open-loop maneuvers for quadrocopters},
+journal = {Autonomous Robots},
+pages = {89-102}
+}
+
+
+@article{Lee2010,
+author = {Taeyoung {Lee} and Melvin {Leoky} and N Harris {McClamroch}},
+year = {2010},
+title = {Geometric tracking control of a
+quadrotor UAV on SE (3)},
+journal = {49th IEEE Conference on Decision and Control (CDC)},
+pages = {5420-5425}
+}
+
+@article{Wang2014,
+author = {Lu {Wang} and Jianbo {Su}},
+year = {2014},
+title = {Switching control of attitude tracking on a quadrotor uav for
+large-angle rotational maneuvers},
+journal = {2014 IEEE International Conference on Robotics and
+Automation (ICRA)},
+pages = {2907-2912}
+}
+
+@article{Badawy2016,
+author = {Ayman A. {El-Badawy} and Mohamed A. {Bakr}},
+year = {2016},
+title = {Quadcopter aggressive maneuvers along singular configurations: An energy-quaternion based approach},
+journal = {Journal of Control Science
+and Engineering}
+}
+
+@article{Chen2016,
+author = {Ying {Chen} and N´estor Osvaldo {P´erez-Arancibia}},
+year = {2016},
+title = {Generation and real-time implementation of high-speed controlled maneuvers using an autonomous 19-gram quadrotor},
+journal = {2016 IEEE
+International Conference on Robotics and Automation (ICRA)},
+pages = {3204-3211}
+}
+
+@article{Chen2017,
+author = {Ying {Chen} and N´estor O {P´erez-Arancibia}},
+year = {2017},
+title = {Lyapunov-based controller synthesis and stability analysis for the execution of high-speed multi-flip quadrotor maneuvers},
+journal = {2017 American
+Control Conference (ACC)},
+pages = {3599-3606}
+}
+
+@article{Chen2018,
+author = {Ying {Chen} and Nestor O {Perez-Arancibia}},
+year = {2018},
+title = {Nonlinear adaptive control of quadrotor multiflipping maneuvers in the presence of time-varying torque latency},
+journal = {2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+pages = {1-9}
+}
 
 
 @article{pythm001,

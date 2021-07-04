@@ -1,33 +1,46 @@
-\contentsline {chapter}{Introduction}{9}{chapter*.4}%
-\contentsline {chapter}{\numberline {1}State of the art}{13}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Differential Flatness}{13}{section.1.1}%
-\contentsline {section}{\numberline {1.2}General Control Architecture}{15}{section.1.2}%
-\contentsline {section}{\numberline {1.3}General Control Approaches}{16}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Method of Linearization}{16}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Nonlinear Control Methods}{16}{subsection.1.3.2}%
-\contentsline {section}{\numberline {1.4}Model Predictive Control}{18}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}General Idea}{18}{subsection.1.4.1}%
-\contentsline {paragraph}{Basic strategy}{18}{subsection.1.4.1}%
-\contentsline {paragraph}{Advantages and drawbacks of MPC}{18}{figure.caption.10}%
-\contentsline {subsection}{\numberline {1.4.2}Design Parameters}{19}{subsection.1.4.2}%
-\contentsline {paragraph}{Sample Time $T_s$}{20}{subsection.1.4.2}%
-\contentsline {paragraph}{Prediction horizon $N$}{20}{subsection.1.4.2}%
-\contentsline {paragraph}{Control horizon m}{20}{subsection.1.4.2}%
-\contentsline {paragraph}{Constraints}{20}{subsection.1.4.2}%
-\contentsline {paragraph}{Weights}{21}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Basic formulation of a MPC problem}{21}{subsection.1.4.3}%
-\contentsline {paragraph}{Typical problem statement}{22}{equation.1.4.8}%
-\contentsline {subsection}{\numberline {1.4.4}MPC applications on quadrotors}{22}{subsection.1.4.4}%
-\contentsline {subsubsection}{\numberline {1.4.4.1}Centralized MPC}{22}{subsubsection.1.4.4.1}%
-\contentsline {subsubsection}{\numberline {1.4.4.2}Non-centralized MPC}{23}{subsubsection.1.4.4.2}%
-\contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{24}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{24}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{25}{subsection.1.5.2}%
-\contentsline {subsubsection}{\numberline {1.5.2.1}Nonlinear Optimal Control}{25}{subsubsection.1.5.2.1}%
-\contentsline {subsubsection}{\numberline {1.5.2.2}Multiple Shooting Discretization}{25}{subsubsection.1.5.2.2}%
-\contentsline {subsubsection}{\numberline {1.5.2.3}General Form of the Resulting Nonlinear Program}{26}{subsubsection.1.5.2.3}%
-\contentsline {chapter}{\numberline {2}Actual work}{27}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Experiments}{28}{chapter.3}%
-\contentsline {chapter}{Conclusion}{29}{chapter*.17}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{30}{appendix.A}%
-\contentsline {chapter}{Bibliography}{30}{appendix.A}%
+\contentsline {chapter}{Introduction}{10}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}State of the art}{14}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Differential Flatness}{14}{section.1.1}%
+\contentsline {section}{\numberline {1.2}General Control Architecture}{16}{section.1.2}%
+\contentsline {section}{\numberline {1.3}General Control Approaches}{17}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Method of Linearization}{17}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Nonlinear Control Methods}{17}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Model Predictive Control}{19}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}General Idea}{19}{subsection.1.4.1}%
+\contentsline {paragraph}{Basic strategy}{19}{subsection.1.4.1}%
+\contentsline {paragraph}{Advantages and drawbacks of MPC}{19}{figure.caption.10}%
+\contentsline {subsection}{\numberline {1.4.2}Design Parameters}{20}{subsection.1.4.2}%
+\contentsline {paragraph}{Sample Time $T_s$}{21}{subsection.1.4.2}%
+\contentsline {paragraph}{Prediction horizon $N$}{21}{subsection.1.4.2}%
+\contentsline {paragraph}{Control horizon m}{21}{subsection.1.4.2}%
+\contentsline {paragraph}{Constraints}{21}{subsection.1.4.2}%
+\contentsline {paragraph}{Weights}{22}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Basic formulation of a MPC problem}{22}{subsection.1.4.3}%
+\contentsline {paragraph}{Typical problem statement}{23}{equation.1.4.8}%
+\contentsline {subsection}{\numberline {1.4.4}MPC applications on quadrotors}{23}{subsection.1.4.4}%
+\contentsline {subsubsection}{\numberline {1.4.4.1}Centralized MPC}{23}{subsubsection.1.4.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.4.2}Non-centralized MPC}{24}{subsubsection.1.4.4.2}%
+\contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{25}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{25}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{26}{subsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.2.1}Nonlinear Optimal Control}{26}{subsubsection.1.5.2.1}%
+\contentsline {subsubsection}{\numberline {1.5.2.2}Multiple Shooting Discretization}{26}{subsubsection.1.5.2.2}%
+\contentsline {subsubsection}{\numberline {1.5.2.3}General Form of the Resulting Nonlinear Program}{27}{subsubsection.1.5.2.3}%
+\contentsline {subsubsection}{\numberline {1.5.2.4}Sequential Quadratic Programming and Real-Time Iterations}{28}{subsubsection.1.5.2.4}%
+\contentsline {subsubsection}{\numberline {1.5.2.5}Numerical Integration and Sensitivities}{29}{subsubsection.1.5.2.5}%
+\contentsline {subsubsection}{\numberline {1.5.2.6}Convex Hessian Approximation Methods}{29}{subsubsection.1.5.2.6}%
+\contentsline {paragraph}{Gauss-Newton Hessian approximation}{29}{subsubsection.1.5.2.6}%
+\contentsline {subsubsection}{\numberline {1.5.2.7}Structure-exploiting embedded QP solvers}{30}{subsubsection.1.5.2.7}%
+\contentsline {subsubsection}{\numberline {1.5.2.8}Real-time iterations}{30}{subsubsection.1.5.2.8}%
+\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{31}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{31}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{31}{subsection.1.6.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{32}{subsubsection.1.6.2.1}%
+\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{33}{subsubsection.1.6.2.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{34}{subsubsection.1.6.2.3}%
+\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{36}{subsection.1.6.3}%
+\contentsline {chapter}{\numberline {2}Actual work}{37}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Experiments}{38}{chapter.3}%
+\contentsline {chapter}{Conclusion}{39}{chapter*.21}%
+\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{40}{appendix.A}%
+\contentsline {chapter}{Bibliography}{40}{appendix.A}%

@@ -71,8 +71,11 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{HLC} & high level commander \\
   \textbf{SMC} & sliding mode control \\
   \textbf{MIMO} & multi-input multi-output \\
+  \textbf{OCP} & optimal control problem \\
   \textbf{SQP} & sequential quadratic program \\
-  \textbf{NLP} & nonlinear program \\
+  \textbf{QP} & quadratic program \\
+  \textbf{NLP} & a nonlinear program \\
+  \textbf{RTI} & real-time iteration \\
   
   
  \end{tabular}\\
@@ -465,7 +468,7 @@ Total & 1470 & 416 & 401 & 57 & 79 & 2423 \\
 
 \noindent However, as computational power has increased throughout the years thanks to the advancement of technology, there has been a renewed curiosity in applying this control approach to systems with fast dynamics for which the computational complexity is significantly larger when compared to the industrial applications for which computational complexity was not a concern (since MPC was applied on systems with slow dynamics in that case).
  
-\subsection{Design Parameters}
+\subsection{Design Parameters}\label{design_parameters}
 The different parameters that can be tuned in a MPC controller (\cite{MathWorks2018, MathWorks2018b, MathWorks2018c}) are the following:
 
 \begin{itemize}
@@ -634,7 +637,7 @@ Finally, \texttt{acados} uses \texttt{CasADi} modeling language instead of \text
 
 \begin{itemize}
 	\item It contains efficient optimal control algorithms implemented in C.
-	\item it has a modular architecture enabling rapid prototyping of solution algorithms.
+	\item It has a modular architecture enabling rapid prototyping of solution algorithms.
 	\item It interfaces to \texttt{C++}, \texttt{Python} and \texttt{MATLAB}.
 	\item It uses the high-performance linear algebra package \texttt{BLASFEO}.
 	\item It is compatible with \texttt{CasADi} expressions.
@@ -680,7 +683,7 @@ The numerical simulation routine on each time interval $[t_k, t_{k+1})$ can be w
     $$ \begin{bmatrix}
         x_{k+1}\\
         z_k\\
-    \end{bmatrix} = \phi_k(x_k, u_k), \text{\space \space \space} k=0,1, \ldots, N-1$$  
+    \end{bmatrix} = \phi_k(x_k, u_k), \text{\space \space \space} k=0,1, \ldots, N-1$$   
  
 By performing multiple shooting discretization on the continuous-time optimal control problem formulation in equation (\ref{ocp_continuous_form}), this will result in the formulation of the nonlinear program (NLP) as shown below.
 
@@ -703,23 +706,345 @@ The resulting (general form) NLP problem becomes:
                             & 0 \leq s_k \text{\hspace{4.6cm}} k=0,1, \ldots, N-1.
         \end{aligned}
     \end{equation}
-    This NLP can be solved by any general-purpose NLP solver, like \texttt{IPOPT} \cite{IPOPT}. But, \texttt{acados} will use embedded optimal control methods to solve the NLP which are better suited in a real-time setting.
+    
+    
+    It should be noted that that (\ref{NLP}) includes slack variables $s_k$ which can be reformulated as control inputs $u_k$. This allows the use of \textit{soft} constraints. 
+But, the slack variables $s_k$ cannot be included in the dynamics of the system. And, can only enter the cost linearly and quadratically, using the following function:
+
+\begin{equation}
+	\rho_k(s_k) = \sum_{i=1}^{n_{s_k}} \alpha_k^i s_k^i + \beta_k^i s_k^{i^2}
+\end{equation}
+
+with $\alpha_k^i \in \mathbb{R}, \beta_k^i > 0$. Slack variables $s_k$ can also be used to model piecewise quadratic, and possibly asymmetric cost functions.
+    
+In addition, \texttt{acados} is capable of exploiting the structure of the widely used linear and nonlinear least-squares functions, and can also handle general nonlinear functions.
+    
+Moreover, within the constraint function $g_k$ in (\ref{NLP}), \texttt{acados} is able to consider: 
+
+\begin{itemize}
+	\item Simple bounds on $x_k$ and $u_k$.
+	\item Linear constraints on $x_k$ and $u_k$.
+	\item Nonlinear constraints on $x_k$ and $u_k$.
+\end{itemize}
+    
+So, $g_k$ could be formulated as follows:
+
+\begin{equation}
+        g_k(x_k, z_k, u_k) = \begin{bmatrix}
+            J_{bx,k}x_k \\
+            J_{bu,k}u_k \\
+            C_{x,k}x_k + C_{u,k}u_k \\
+            g_{nonl}(x_k, z_k, u_k) \\
+        \end{bmatrix}
+    \end{equation}
+    where $J_{bx,k}$ and $J_{bu,k}$ are selection matrices that determine which components of $x_k$ and $u_k$ have simple bounds.
+
+The NLP in (\ref{NLP}) can be solved by any general-purpose NLP solver, like \texttt{IPOPT} \cite{IPOPT}. But, \texttt{acados} will use embedded optimal control methods to solve the NLP which are better suited in a real-time setting.
+
+\newpage
+
+\subsubsection{Sequential Quadratic Programming and Real-Time Iterations}
+
+    An embedded SQP algorithm must feature: 
+    \begin{itemize}
+        \item Numerical integration of the continuous-time dynamics.
+        \item Generation of first-order and possibly second-order sensitivities of objective and constraints.
+        \item A procedure for approximating the Hessian matrix.
+        \item An efficient QP solver.
+        \item Initialization strategies for warm-starting the algorithm for the next iteration.
+    \end{itemize}
+
+Moreover, the SQP algorithm in acados has the following form:
+
+\begin{align}
+	 w^{[i+1]} &=w^{[i]} + \Delta w^{QP}\\
+     \pi^{[i+1]} &= \pi^{QP} \\
+     \lambda^{[i+1]} &= \lambda^{QP}
+\end{align}
+
+
+Where:
+\begin{itemize}
+    \item $ w^{[i]} = [x_0^{[i] \intercal}, \ldots, u_0^{[i] \intercal}, \ldots, x_N^{[i] \intercal}]^{\intercal}$ is the primal iterate at SQP iteration $i$.
+    \item $\pi^i$ and $\lambda^i$ are the dual iterates, readily available from the QP solution.
+\end{itemize}
+
+It should be noted that the algebraic variables are eliminated from the OCP, but numerical approximations of these values are accessible from the numerical integration routine.
+
+Furthermore, the step $\Delta w^{QP}$ is computed by solving the following QP: 
+    \begin{equation}\label{step_QP}
+        \begin{aligned}
+        \min_{\substack{\Delta x_0,\ldots,\Delta x_N\\ \Delta u_0,\ldots, \Delta u_{N-1} \\ \Delta s_o,\ldots, \Delta s_N }} \quad & \sum_{k=0}^{N-1}{  \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix}^{\intercal} \overbrace{\begin{bmatrix} Q_k & S_k^{\intercal} \\ S_k & R_k \end{bmatrix}}^{H_k} \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix} + \begin{bmatrix} q_k \\ r_k \end{bmatrix}^{\intercal} \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix}} \\ & + \Delta x_N^{\intercal} Q_N \Delta x_N + q_N^{\intercal} \Delta x_n \\ & + \sum_{k=0}^N s_k^{\intercal} P_k s_k + p_k^{\intercal} s_k \\
+        \textrm{s.t.} \quad & \Delta x_{k+1} = A_k \Delta x_k + B_k \Delta u_k + \phi_k^x - x_{k+1},  k=0,1, \ldots, N-1,\\
+            & \Delta x_0 = \bar{x}_0 - x_0 \\
+            & -g_k \geq G_k^x \Delta x_k + G_k^u \Delta u_k + s_k, \text{\space \space \space} k=0,1, \ldots, N-1, \\
+            & -g_N \geq g_N^x \Delta x_N + s_N, \\
+            & 0 \leq s_k, \text{\space \space \space} k=0,1, \ldots, N.
+        \end{aligned}
+    \end{equation}
+
+\newpage
+
+\subsubsection{Numerical Integration and Sensitivities}
+
+In the family of single step integration methods, there are: 
+    \begin{itemize}
+        \item \textbf{Explicit} methods: Easy to implement, they rely on a direct combination of explicit evaluations of the right-hand side of the system dynamics. Example: Runge-Kutta method of order 4.
+        \item \textbf{Implicit} methods: More complex, it results in a nonlinear system which generally needs to be solved numerically using an iterative procedure such as a Newton-type method. And, when compared to explicit methods, implicit methods have improved numerical stability properties and higher order accuracy.
+    \end{itemize}
+
+
+When using numerical integration methods within direct multiple shooting, the first (and possibly second) order deriatives of the simulation
+results with respect to the state and control input values also need to be computed:
+    $$ \frac{\partial \phi_k^x (x_k, u_k)}{\partial x_k}, \frac{\partial \phi_k^x (x_k, u_k)}{\partial u_k}, \sum_{i=1}^{n_x} \pi_{k,i} \frac{\partial^2 \phi_{k,i}^x (x_k, u_k)}{\partial^2 (x_k, u_k)} $$
+    where $\pi_k \in \mathbb{R}^{n_x}$ is called the \textit{seed vector} \cite{acados2019}, for which the Lagrange multipliers are used to compute the exact Hessian of the Lagrangian.
+
+\subsubsection{Convex Hessian Approximation Methods}
+
+    \paragraph{Gauss-Newton Hessian approximation} In the case of a least-squares objective in (\ref{NLP}):
+    \begin{itemize}
+        \item $l(x_k, u_k) = \|r(x_k, u_k) \|_2^2, \text{\space \space \space} k=0, \ldots, N-1$
+        \item $M(x_N) = \|r_N (x_N)\|_2^2$,
+    \end{itemize}
+    with $r$: $\mathbb{R}^{n_x} \times \mathbb{R}^{n_u} \Rightarrow \mathbb{R}^{n_r}$, $r_N$: $\mathbb{R}^{n_x} \Rightarrow \mathbb{R}^{n_{r_N}}$
+
+This kind of residual function is a common case in embedded optimization.
+
+The Gauss-Newton Hessian approximation amounts to \cite{acados2019}:
+	\begin{equation}
+		H^{GN} = blkdiag(H_0^{GN}, \ldots, H_N^{GN})
+	\end{equation}	    
+    at the linearization point $w^{[i]\intercal} = [x_0^{[i]\intercal}, \ldots, u_0^{[i] \intercal}, \ldots, x_N^{[i] \intercal}]^{\intercal}$, where the Hessian blocks are defined as:
+    \begin{align}
+    	H_k^{GN} &= \bigg( \frac{\partial r}{\partial (x,u)} (x_k^i, u_k^i) \bigg)^{\intercal} \bigg( \frac{\partial r}{\partial (x,u)} (x_k^i, u_k^i) \bigg), \text{\space \space \space} k=0,\ldots,N-1 \\
+    	H_N^{GN} &= \bigg( \frac{\partial r_N}{\partial x} (x_N^i) \bigg)^{\intercal} \bigg( \frac{\partial r_N}{\partial x} (x_N^i) \bigg)
+    \end{align}
+    
+Moreover, the Gauss-Newton Hessian approximation offers a competitive alternative to SQP with exact Hessians, but it only converges linearly. And, for a quadratic objective function in (\ref{NLP}), the same quadratic objective arises in (\ref{step_QP}), and no additional computations are needed.
+
+There exist other Hessian approximation methods in \texttt{acados} and interested readers are referred to \cite{acados2019} for the full description of the other methods.
+
+\subsubsection{Structure-exploiting embedded QP solvers}
+
+There exist different strategies to solve for QP (\ref{step_QP}) in \texttt{acados} \cite{acados2019}:
+
+	\begin{itemize}
+        \item \textbf{Sparse approach}: OCP (\ref{step_QP}) can be solved directly by using a general-purpose sparse QP solver. 
+        \begin{itemize}
+            \item Example: OOQP(primal-dual interior point solver), OSQP(first order method).
+        \end{itemize}
+        \item \textbf{Structured approach}: OCP (\ref{step_QP}) can be solved by exploiting its multi-stage structure, but dense linear algebra is used. 
+        \begin{itemize}
+            \item Example: HPMPC, HPIPM (interior-point solvers).
+        \end{itemize}
+        \item \textbf{Condensing approach}: It uses the dynamics to eliminate the states from the decision variables.
+        \begin{itemize}
+            \item The state variables are expressed as an explicit function of the current state and future control inputs.
+            \item A smaller QP is then obtained with only the control inputs and (possibly) the initial state as optimization variables.
+        \end{itemize}
+        \item \textbf{Partial condensing approach}: It is a mix between structured and condensing, but only per blocks of $N/N_2$ (with $N$ an integer multiple of $N_2$), and $N_2$ the new horizon length of the partially condensed problem.
+        \begin{itemize}
+            \item This approach allows finding a better trade-off between horizon length and number of optimization variables for a given problem.
+        \end{itemize}
+    \end{itemize}
+
+\subsubsection{Real-time iterations}
+
+A downside of \texttt{acados} is that the length of control horizon $m$ cannot be set. In other words, after setting the length the prediction horizon $N$, the control horizon $m$ will directly take the same length as $N$ and it cannot be set to have a different length than $N$. As mention earlier in subsection (\ref{design_parameters}), this could result in significant computational loads.
+
+However, in a real-time control setting, the environment is continuously changing, and it is often sufficient to solve NLP (\ref{NLP}) approximately. In other words, it is useless to have a solution with high accuracy if the computation time deadline has passed.
+
+An existing online method for this approach is the \textit{real-time iteration} (RTI) scheme \cite{Diehl2002}. It allows to solve an inequality-constrained QP in each iteration. The resulting generalized predictor is better suited for predictions across active-set changes, than for example a tangential predictor  acquired from an interior-point method \cite{acados2019}.
+
+ In each RTI, one full iteration of an SQP-type scheme is performed, including generation of the sensitivities with respect to all variables. 
+ 
+ This approach made it possible to implement \texttt{acados} in real-time experiments as shown in \cite{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
+ and \cite{kloeser_schoels_sartor_zanelli_prison_diehl_2020}.
+ 
+\newpage
+
+\section{Flip maneuvers with quadrotors}
+
+
+The aim of this section is to explain the physics of the flip maneuver, in addition to the major difficulties that relate to the implementation of flipping maneuvers with quadrotors. Furthermore, a review of the existing limitations that the current approaches have are shown and the existing scientific literature is presented. The content of this chapter were thoroughly covered by the previous master students Marco Orsingher \cite{Orsingher2019} and Antonio Marino \cite{Marino2020} for which their papers were used as references for this section.  
+
+\subsection{Physics of a quadrotor flip}\label{multiflip_physics}
+
+
+In order to perform the tedious process of multi-flip maneuvers with a quadrotor, high angular velocity and large angle attitude control are needed. More conventionally, the multi-flip trajectory can be expressed as a rotation of $2n \pi$ about a flipping axis \textbf{a}, with n the number of desired flips to be carried out by the quadrotor. Physically, the maneuver can be divided into 4 different phases, which are shown in figure \ref{flipping_physics}.
+
+\begin{itemize}
+\setlength{\itemindent}{-.5in}
+	\item [] \textbf{Climb phase} The quadrotor must accelerate in a vertical direction as much as possible. This will ensure that the required height to perform the multi-flip maneuver is achieved. In fact, while performing the multi-flip maneuver, the thrust forces cannot balance out the weight of the drone. This will cause the drone to start falling. The duration of this phase is based on the number of flips that must be performed by the quadrotor. This number will be chosen by the user.
+
+	\item[] \textbf{Multi-flip phase} This stage begins the moment the vehicle starts rotating and continues until the flipping angle reaches the chosen value of $2n \pi$. In this phase, the quadrotor hits the maximum altitude because of the required high angular velocity and starts falling because of the gravity effect. Generally, all the focus is on following the desired closed-loop attitude, and the vertical position is not controlled. the time spent in this phase depends on the desired number of flips $n$ and on the maximum angular velocity achievable by the quadrotor.
+	
+	\item [] \textbf{Descent phase} In order for the quadrotor not to crash into the ground, the main idea is to set the maximum thrust reference to the actuation system. This will balance out the gravity force. The higher the number of required flips, the faster the quadrotor will fall due to gravity effects. Thus, this phase ends when the descent is fully balanced out. The user may also decide what the duration of this phase is if the physics of the problem allow a slower descent.
+	\item [] \textbf{Re-stabilization phase} In this phase, the altitude of the quadrotor is adjusted to a desired value. Moreover, this phase ends when a new control signal is provided by the user. 
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{Images/Flip/Physics}
+\caption{Representation of the different phases needed for performing multi-flip maneuvers\cite{Castillo2018}.}
+\label{flipping_physics}
+\end{figure}
+ 
+ \subsection{Control Approaches for Multi-Flip Maneuvers}
+ 
+The research community has tackled the multi-flip problem numerous times on quadrotors and different methods have been suggested to achieve up to triple flips both indoor and outdoor. The existing research can be stored into three different methods: hybrid systems theory, open-loop iterative learning and closed-loop attitude control. This section gives an inclusive overview and suitable references on the state of the art in flipping maneuvers with quadrotors.
+  
+ \subsubsection{Hybrid Systems Theory}
+ 
+A convenient approach for dealing with complex systems is to divide them into a set of individual modes. Each mode will have its own continuous dynamics equations. Then, they will be analyzed by using hybrid systems theory. Gillula et al. (\cite{Gillula2011,Gillula2010}) suggested using this strategy for quadrotor multi-flips. The main idea is to breakdown the flipping maneuver into a sequence of individual phases and then use an appropriate technique from hybrid systems theory to generate provable transitions between the modes. By doing this procedure, the maneuver will be able to be performed safely. The separate modes that are considered in this work are shown in figure \ref{hybrid_systems_theory_figure}, which should be right from right to left. When compared to the different phases shown in section \ref{multiflip_physics}, the climb phase is called the \textit{"impulse"}, the multi-flip phase is the \textit{"drift"} and the descent and the re-stabilization phases are merged together and are called \textit{"recovery"}.
+ 
+ \begin{figure}[h]
+ \centering
+ \includegraphics[width=\textwidth]{Images/Flip/Hybrid_Systems_Theory}
+ \caption{Representation of the individual phases during a backlip (from right to left)\cite{Gillula2011}}
+ \label{hybrid_systems_theory_figure}
+ \end{figure}
+
+\newpage
+ 
+ \noindent The tool used for generating feasible transitions between the individual modes is called the \textit{"theory of reachable sets"}. By considering a system characterized by the following dynamics: 
+
+\begin{equation}
+	\dot{\textbf{\textsc{x}}}=  \textbf{\textsc{f}} ( \textbf{\textsc{x}}, \textbf{\textsc{u}}, \textbf{\textsc{d}})
+\end{equation}
+
+
+with $\textbf{\textsc{x}}$ the state of the system, $\textbf{\textsc{u}} \in U$ the control input of the system and $\textbf{\textsc{d}} \in D$ a bounded noise applied on the system. In that case, two different types of reachable sets are established:
+
+\begin{enumerate}
+	\item A \textit{capture set} which represents all the states for which, for any possible value of the noise $\textbf{\textsc{d}}$, the control input $\textbf{\textsc{u}}$ is still capable of driving the state into a desired state region in a finite time horizon $t$.
+	\item An \textit{avoid set} which represents all the states for which, for any possible value of the control input $\textbf{\textsc{u}}$, the noise $\textbf{\textsc{d}}$ will drive the system into an undesired set. Thus, the roles of $\textbf{\textsc{u}}$ and $\textbf{\textsc{d}}$ are reversed when compared to the capture set.
+\end{enumerate}
+
+\noindent Generating quadrotor maneuvers using reachable sets is achievable by using a backward approach. The main idea consists of starting from the final desired set, the dynamics of the $n$-th mode can be run in reverse to build a capture set for that phase. This capture set becomes the target region for the $(n-1)$-th node and the procedure will be repeated between every 2 modes. By applying this procedure, feasible transitions between a chain of individual modes can be built. From a mathematical perspective, the problem is formulated as a differential battle between the control and the noise.
+In fact, the aim of the control input $\textbf{\textsc{u}}$ is to keep the state of the system away from the region of undesired sets which the noise $\textbf{\textsc{d}}$ is attempting to drive the state of system into (\textit{avoid set}) and also to reach a desired set. Whereas the noise attempts to drive the state of the system out of it (\textit{capture set}). This method has been proven to be successful with a 1.1 kg quadrotor which was able to perform a backflip outdoors. However, the main disadvantage of this method is that it necessitates a long procedure of generating such capture sets and avoid sets. 
+ 
+ \subsubsection{Open-Loop Iterative Learning}
+
+One of the main issues that is related to performing aggressive maneuvers with quadrotors is that having an exact physical modeling of the quadrotor during an intense flight procedure is very complicated. In addition, generating reference trajectories for aerobatic flight is not an easy operation. Beginning from these factors, Lupashin et al. (\cite{Lupashin2010,Lupashin2011,Lupashin2012})
+designed a simple open-loop iterative learning method to perform multi-flip maneuvers without performing any aerodynamic modeling nor trajectory planning. The workflow of this method is shown in figure \ref{Open_Loop_iterative_Learning} on the left.
 
 
 
+\begin{figure}[h]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Images/Flip/Open_Loop_iterative_learning_a}
+         \caption{The global workflow of the algorithm}
+         \label{fig:Open_Loop_a}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Images/Flip/Open_Loop_iterative_learning_b}
+         \caption{The global workflow of the algorithm}
+         \label{fig:Open_Loop_b}
+     \end{subfigure}
+        \caption{The open-loop iterative learning workflow for performing multi-flips with quadrotors\cite{Lupashin2012}.}
+        \label{Open_Loop_iterative_Learning}
+\end{figure}
+
+\noindent The first step which is needed is to determine the desired motion in a parameterized manner, so that it is possible to optimize vector $\textbf{\textsc{p}}$ over such parameters. $\textbf{\textsc{p}}$ contains the time and the accelerations needed during each phase of the flip maneuver.  The second procedure which is needed to initialize the iterative learning algorithm is to calculate the nominal motion and to build the correction matrix. Starting from a simplified model of the quadrotor and a coarse initial guess $\textbf{\textsc{p}}^g$, then a numerical solver is utilized to calculate the nominal parameters $\textbf{\textsc{p}}^0$ in order to execute the multi-flip maneuver. In fact, assuming that the desired final state $\textbf{\textsc{x}}^{*}$ can be attained with the control input $\textbf{\textsc{u}}(\textbf{\textsc{p}},t)$ and by referring to $\bm{\Phi}(\textbf{\textsc{p}},\hat{\textbf{\textsc{s}}})$ as the final state of the nominal system after the maneuver is executed.(with the vector $\hat{\textbf{\textsc{s}}}$ representing physical constants), then the nominal set of parameters $\textbf{\textsc{p}}^0$ is the solution of the following optimization problem, as shown in figure \ref{Open_Loop_iterative_Learning}:
+
+\begin{equation}
+	\textbf{\textsc{p}}^0 = \text{arg}\min \|\bm{\Phi}(\textbf{\textsc{p}},\hat{\textbf{\textsc{s}}})-\textbf{\textsc{x}}^{*}\|
+\end{equation}
 
 
+\noindent Moreover, by denoting $\bm{\Phi}(\textbf{\textsc{p}}^0,\hat{\textbf{\textsc{s}}})$ as the final state of the nominal model obtained using the nominal set of parameters calculated earlier, then the correction matrix for the iterative learning algorithm is expressed as follows:
 
+\begin{equation}
+	\bm{C}=\bigg(\frac{\partial \bm{\Phi}(\textbf{\textsc{p}}^0,\hat{\textbf{\textsc{s}}})}{\partial \textbf{\textsc{p}}}\bigg)^{-1}
+\end{equation}
 
+\noindent In the end, steps 3 to 5 in figure \ref{fig:Open_Loop_a} will then run online in an iterative manner until a proposed convergence criterion is satisfied. For $i=0 \ldots n$, the motion is carried out on the quadrotor itself while using the current set of parameters $\textbf{\textsc{p}}^i$ and the final measured error $\textbf{\textsc{e}}^i$. Subsequently, the parameters are updated according to the following law: 
 
+\begin{equation}
+\textbf{\textsc{p}}^{i+1} = \textbf{\textsc{p}}^i - \gamma \textbf{\textsc{C}}\textbf{\textsc{e}}^i
+\end{equation}
 
+with $\gamma$ being a step size which is defined by the user. This method is very simple does not require complex computations. But, it is by definition an open-loop method. Thus, there are no guarantees that the maneuver will be performed successfully. In fact, a triple flip maneuver has been done during experiments with this method, however the repeatability of this result is a big problem. In addition, "creating a parameterized input trajectory formulation that results in a robust learning strategy remains a difficult and tedious task" \cite{Lupashin2012}.
+ 
+ 
+ \subsubsection{Closed-Loop Attitude Control}
+ 
+ The most known strategy for obtaining great results in flipping maneuvers of quadrotors is to use closed-loop control just for the attitude part of the platform, thus the position of the center of mass during the flipping maneuver is ignored. Many research works can be recognized under this context, and all of them follow the same ideology: a proper reference on attitude or angular velocity is planned and then tracked in closed-loop with a nonlinear control law. Each paper is distinguished from the others based on the strategy that is chosen to build the control law: attractive ellipsoid method \cite{Castillo2018}, geometric control \cite{Lee2010},  energy-based control\cite{Badawy2016} , direct Lyapunov method \cite{Wang2014}.
+Particularly, Chen et al. (\cite{Chen2016}, \cite{Chen2017} ,\cite{Chen2018}) generated interesting series of papers  within this framework that should be mentioned because they applied the method on the same physical platform of this thesis (Crazyflie 2.0); moreover, significant theoretical contributions have been provided in these papers to greatly comprehend the issue of quadrotor flipping. Particularly, three elements have been investigated:
 
+\begin{enumerate}
+	\item A new depiction of the flipping angle, called $\phi_g$, such that a flip around a random axis $\textbf{\textsc{a}}$ through the center of mass of the quadrotor can be determined. This has permitted to execute multiple flips about the body-fixed axis $\textbf{\textsc{b}}_1$, and another general axis, rotated by $45 ^{\circ}$ on the ($\textbf{\textsc{b}}_1$,$\textbf{\textsc{b}}_2$) plane.
+	\item A meticulous angular speed planning approach using cubic splines to produce the reference signal $\bm{\omega}_d$ in such a way that the dynamics of actuation are respected by ensuring that $w_{max}$ is never surpassed. Particularly, the reference is made out of three distinct stages, corresponding to the physical stages presented in figure \ref{closed_loop_a}. In fact, throughout the \textit{climb phase} a rising-speed section  $\bm{\omega}_{d,1}$ is needed to reach  $\bm{\omega}_{max}$, then a stage of constant-speed at  $\bm{\omega}_{d,2}= \bm{\omega}_{max}$ is held while the quadrotor is flipping (\textit{multi-flip phase}), and in the end, the angular velocity $\bm{\omega}_{d,3}$ is reduced to zero within the \textit{descent} and \textit{re-stabilization phase}. The use of cubic functions ensures that the angular accelerations is kept continuous during all the process. Other works, such as \cite{Castillo2018}, suggested equivalent shape, however linear functions were used instead of splines. Considering that the time derivative of a linear function is just a constant, this resulted in undesirable jumps in the angular reference.\\
+Considering the desired number of rotations accumulated with each stage $\Phi_{g,i}1$, the time of each stage is changed based on the current flipping angle $\phi_g$:
 
+\begin{equation}
+	\bm{\omega}_d(t) = \begin{cases}
+	\bm{\omega}_{d,1} \text{\hspace{0.5cm} if \hspace{0.5cm}} \phi_g \leq \Phi_{g,1} \\
+	\bm{\omega}_{d,2} \text{\hspace{0.5cm} if \hspace{0.5cm}} \Phi_{g,1} < \phi_g \leq \Phi_{g,1} + \Phi_{g,2} \\
+	\bm{\omega}_{d,3} \text{\hspace{0.5cm} if \hspace{0.5cm}} \Phi_{g,1} + \Phi_{g,2} < \phi_g \leq \Phi_{g,1} + \Phi_{g,2} + \Phi_{g,3} \\
+	\end{cases} 
+\end{equation}	
 
+where: 
 
+\begin{equation}
+	\Phi_{g,1} + \Phi_{g,2} + \Phi_{g,3} = 2 n \pi 
+\end{equation}
 
+in order to carry-out the flip.
 
+\begin{figure}[h]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Images/Flip/Closed_Loop_a}
+         \caption{The reference of the angular velocity.}
+         \label{closed_loop_a}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{Images/Flip/Closed_Loop_b}
+         \caption{The stages of the multi-flip maneuver.}
+         \label{closed_loop_b}
+     \end{subfigure}
+        \caption{The reference of the flipping speed and the different flipping phases. \cite{Chen2016}}
+        \label{closed_loop_c}
+\end{figure}
 
+	\item Three distinct control methods to track the reference of the angular speed, which are then compared in terms of the root mean square error. First, a linear time-invariant (LTI) has been proposed \cite{Chen2016} as follows. Provided the error of the angular velocity 
+	$\textbf{\textsc{e}}_{\omega} = \bm{\omega} - \omega_d \textbf{\textsc{a}}$ and the error of the angular acceleration $\textbf{\textsc{e}}_{\alpha} = F(s) \bm{\omega} - \dot{\omega}_d \textbf{\textsc{a}}$, with F(s) a filter expressed as $F(s) = \lambda s(s+\lambda)^{-1}$, $\lambda >0$, the consequence control law is: 
+	
+\begin{equation}
+	\bm{\tau} = -\bm{K}_{\omega} \textbf{\textsc{e}}_{\omega} - \bm{K}_{\alpha} \textbf{\textsc{e}}_{\alpha}
+\end{equation}
+
+In the subsequent works, a backstepping control approach \cite{Chen2017} has been examined to solve the latency issue which is the result of the slow response of the actuators, in addition to an adaptive control law to estimate unknown parameters on the fly \cite{Chen2018}. In the two cases, these methods achieved better performance when compared to the LTI controller. However, they were not able to successfully reduce the oscillation of the angular velocity within the descent and re-stabilization phase.
+
+\end{enumerate}
+
+\noindent Regardless, this series of papers are by far the most successfull and comprehensive work available in literature on performing multi-flip maneuvers with quadrotors.
+ 
+ 
+ \subsection{Shortcomings of Current Strategies}
+ The control approaches for multi-flip maneuvers that have been presented in section {\ref{control_approaches_for_multi_flip_maneuvers}} demonstrate that the implementation of flipping maneuvers is currently addressed as a more complicated version of the classical attitude control problem. But, no attention has been given on the consequent Cartesian path of the center of mass of the quadrotor, nor on an accurate depiction of the climb phase. In fact, within the first stage, the maximum thrust is established in order to acquire sufficient height. However, none of the works presented above deals with comprehensive altitude analysis in order to give an approximation of the necessary duration for the climb phase. This is mainly done heuristically in experiments. This problem, combined with the fact that the attention is put only on attitude planning and control, results in a totally erratic trajectory for the quadrotor. Thus, it is important to be able to predict the consequent trajectory of the quadrotor during a flipping maneuver. Because, this will help to keep the quadrotor safe, particularly in complex outdoor settings.
+ 
+ 
+\newpage
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  \chapter{Actual work}
   
