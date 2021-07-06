@@ -22,45 +22,45 @@ Warning--missing school in Orsingher2019
 Warning--missing school in Marino2020
 
 Done.
-You've used 57 entries,
+You've used 58 entries,
             4039 wiz_defined-function locations,
-            1148 strings with 18023 characters,
-and the built_in function-call counts, 37456 in all, are:
-= -- 3040
-> -- 872
-< -- 281
-+ -- 498
-- -- 150
-* -- 1650
-:= -- 5688
-add.period$ -- 114
-call.type$ -- 57
-change.case$ -- 57
+            1152 strings with 18441 characters,
+and the built_in function-call counts, 37914 in all, are:
+= -- 3052
+> -- 898
+< -- 279
++ -- 511
+- -- 156
+* -- 1668
+:= -- 5733
+add.period$ -- 116
+call.type$ -- 58
+change.case$ -- 58
 chr.to.int$ -- 702
-cite$ -- 62
-duplicate$ -- 2785
-empty$ -- 3041
-format.name$ -- 186
-if$ -- 8661
+cite$ -- 63
+duplicate$ -- 2822
+empty$ -- 3102
+format.name$ -- 193
+if$ -- 8770
 int.to.chr$ -- 0
-int.to.str$ -- 57
-missing$ -- 452
-newline$ -- 200
+int.to.str$ -- 58
+missing$ -- 464
+newline$ -- 205
 num.names$ -- 55
-pop$ -- 1128
+pop$ -- 1180
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 2952
+skip$ -- 2984
 stack$ -- 0
-substring$ -- 1746
-swap$ -- 2170
-text.length$ -- 47
+substring$ -- 1747
+swap$ -- 2182
+text.length$ -- 45
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 57
+type$ -- 58
 warning$ -- 5
 while$ -- 149
-width$ -- 59
-write$ -- 527
+width$ -- 60
+write$ -- 533
 (There were 5 warnings)

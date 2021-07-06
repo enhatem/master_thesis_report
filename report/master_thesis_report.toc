@@ -32,15 +32,17 @@
 \contentsline {paragraph}{Gauss-Newton Hessian approximation}{29}{subsubsection.1.5.2.6}%
 \contentsline {subsubsection}{\numberline {1.5.2.7}Structure-exploiting embedded QP solvers}{30}{subsubsection.1.5.2.7}%
 \contentsline {subsubsection}{\numberline {1.5.2.8}Real-time iterations}{30}{subsubsection.1.5.2.8}%
-\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{31}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{31}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{31}{subsection.1.6.2}%
-\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{32}{subsubsection.1.6.2.1}%
-\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{33}{subsubsection.1.6.2.2}%
-\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{34}{subsubsection.1.6.2.3}%
-\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{36}{subsection.1.6.3}%
-\contentsline {chapter}{\numberline {2}Actual work}{37}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Experiments}{38}{chapter.3}%
-\contentsline {chapter}{Conclusion}{39}{chapter*.21}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{40}{appendix.A}%
-\contentsline {chapter}{Bibliography}{40}{appendix.A}%
+\contentsline {subsubsection}{\numberline {1.5.2.9}Python Interface Overview}{31}{subsubsection.1.5.2.9}%
+\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{32}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{32}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{32}{subsection.1.6.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{33}{subsubsection.1.6.2.1}%
+\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{34}{subsubsection.1.6.2.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{35}{subsubsection.1.6.2.3}%
+\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{37}{subsection.1.6.3}%
+\contentsline {section}{\numberline {1.7}Dynamic Model}{38}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Planar Quadrotor}{38}{subsection.1.7.1}%
+\contentsline {chapter}{\numberline {2}Experiments}{39}{chapter.2}%
+\contentsline {chapter}{Conclusion}{40}{chapter*.22}%
+\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{41}{appendix.A}%
+\contentsline {chapter}{Bibliography}{41}{appendix.A}%

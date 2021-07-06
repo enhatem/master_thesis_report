@@ -43,6 +43,12 @@ R.~S. Alvarez-Valle and P.~S. Rivadeneira, ``Design of predictive control
   in \emph{2019 IEEE 4th Colombian Conference on Automatic Control (CCAC)},
   2019, pp. 1--6.
 
+\bibitem{Verschueren2018}
+R.~Verschueren, G.~Frison, D.~Kouzoupis, N.~van Duijkeren, A.~Zanelli,
+  R.~Quirynen, and M.~Diehl, ``Towards a modular software package for embedded
+  optimization,'' in \emph{Proceedings of the IFAC Conference on Nonlinear
+  Model Predictive Control (NMPC)}, 2018.
+
 \bibitem{Castillo2018}
 F.~{Oliva-Palomo}, A.~{Sanchez-Orta}, P.~{Castillo}, and H.~{Alazki},
   ``Nonlinear ellipsoid based attitude control for aggressive trajectories in a
@@ -63,6 +69,12 @@ Y.~{Chen} and N.~O. {P´erez-Arancibia}, ``Generation and real-time
   implementation of high-speed controlled maneuvers using an autonomous 19-gram
   quadrotor,'' \emph{2016 IEEE International Conference on Robotics and
   Automation (ICRA)}, pp. 3204--3211, 2016.
+
+\bibitem{planar_quadrotor_figure}
+\BIBentryALTinterwordspacing
+``Aerial robotics lecture 3a - 1 2-d quadrotor control.'' [Online]. Available:
+  \url{https://www.scribd.com/doc/297378844/Aerial-Robotics-Lecture-3A-1-2-D-Quadrotor-Control}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Kozak2014}
 K.~Kozak, ``State-of-the-art in control engineering,'' \emph{Journal of
@@ -305,10 +317,6 @@ Y.~{Chen} and N.~O. {Perez-Arancibia}, ``Nonlinear adaptive control of
   quadrotor multiflipping maneuvers in the presence of time-varying torque
   latency,'' \emph{2018 IEEE/RSJ International Conference on Intelligent Robots
   and Systems (IROS)}, pp. 1--9, 2018.
-
-\bibitem{pythm001}
-O.~S. Pythagoras, ``{Theorem},'' \emph{Some old journal}, vol.~1, no.~1, Feb.
-  -580.
 
 \bibitem{euclides300}
 O.~A. Euclides, ``{Elements},'' \emph{Self-published}, vol.~1, no.~1, Feb.

@@ -8,12 +8,12 @@
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Example of a centralized MPC control loop \cite {Alvarez-Valle2019}.\relax }}{23}{figure.caption.12}%
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Example of a non-centralized MPC-MPC control loop \cite {Alvarez-Valle2019}.\relax }}{24}{figure.caption.13}%
 \contentsline {figure}{\numberline {1.6}{\ignorespaces Example of a non-centralized MPC-PD-P control loop \cite {Alvarez-Valle2019}.\relax }}{24}{figure.caption.14}%
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Representation of the different phases needed for performing multi-flip maneuvers\cite {Castillo2018}.\relax }}{32}{figure.caption.15}%
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Representation of the individual phases during a backlip (from right to left)\cite {Gillula2011}\relax }}{32}{figure.caption.16}%
-\contentsline {figure}{\numberline {1.9}{\ignorespaces The open-loop iterative learning workflow for performing multi-flips with quadrotors\cite {Lupashin2012}.\relax }}{34}{figure.caption.17}%
-\contentsline {figure}{\numberline {1.10}{\ignorespaces The reference of the flipping speed and the different flipping phases. \cite {Chen2016}\relax }}{35}{figure.caption.18}%
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Overview of the Python API classes in acados \cite {Verschueren2018}\relax }}{31}{figure.caption.15}%
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Representation of the different phases needed for performing multi-flip maneuvers\cite {Castillo2018}.\relax }}{33}{figure.caption.16}%
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Representation of the individual phases during a backlip (from right to left)\cite {Gillula2011}\relax }}{33}{figure.caption.17}%
+\contentsline {figure}{\numberline {1.10}{\ignorespaces The open-loop iterative learning workflow for performing multi-flips with quadrotors\cite {Lupashin2012}.\relax }}{35}{figure.caption.18}%
+\contentsline {figure}{\numberline {1.11}{\ignorespaces The reference of the flipping speed and the different flipping phases. \cite {Chen2016}\relax }}{36}{figure.caption.19}%
+\contentsline {figure}{\numberline {1.12}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{38}{figure.caption.20}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A triangle with letters\relax }}{37}{figure.caption.19}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{38}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{39}{figure.caption.21}%
 \addvspace {10\p@ }

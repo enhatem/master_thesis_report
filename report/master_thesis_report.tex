@@ -76,6 +76,7 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{QP} & quadratic program \\
   \textbf{NLP} & a nonlinear program \\
   \textbf{RTI} & real-time iteration \\
+  \textbf{API} & application programming interface \\
   
   
  \end{tabular}\\
@@ -861,6 +862,31 @@ An existing online method for this approach is the \textit{real-time iteration} 
  This approach made it possible to implement \texttt{acados} in real-time experiments as shown in \cite{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
  and \cite{kloeser_schoels_sartor_zanelli_prison_diehl_2020}.
  
+ \newpage
+ 
+ \subsubsection{Python Interface Overview}
+ 
+ Before testing the mpc controller in ROS2 and Gazebo, the mpc controller was first designed using the acados Python interface. And, simulations were done by making use of a Runge-Kutta of order 4 integrator that is already implemented in acados. 
+ 
+ 
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{Images/acados/python_interface.png}
+ 	\caption{Overview of the Python API classes in acados \cite{Verschueren2018}}
+ 	\label{fig:python_interface}
+ \end{figure}
+ 
+ As can be seen from figure \ref{fig:python_interface}, there exists two main classes in the acados python interface. Namely, \texttt{AcadosOcpSolver} and \texttt{AcadosSimSolver}. 
+ 
+ In order to create the optimal control problem solver class (\texttt{AcadosOcpSolver}), the dynamic model of the system, along with the dimensions of the OCP, the cost function, the constraints and the solver options must be clearly defined. Then, the OCP is solved, which results in the control inputs.
+ Then, a simulator class can be used in order to apply the resulting control inputs on the dynamics and compute the new state of the system. So, in order to create the \texttt{AcadosSimSolver} class, the dynamic model of the system must also be used, along with the dimensions and the solver options.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 \newpage
 
 \section{Flip maneuvers with quadrotors}
@@ -1037,31 +1063,47 @@ In the subsequent works, a backstepping control approach \cite{Chen2017} has bee
  
 \newpage
  
+% \chapter{Actual work}
  
+% When dealing with rectangled triangles (see Figure \ref{triangle}) I sometimes used this theorem from \cite{pythm001}:
+%  \begin{equation}\label{theo}
+%   a^2 + b^2 = c^2
+%  \end{equation}The demonstration is in Appendix \ref{sec:prooftheorem}. 
+%
+%  \begin{figure}[h]\centering
+%  \includegraphics[width=.5\linewidth]{triangle1}
+%  \caption{A triangle with letters} \label{triangle}
+%  \end{figure}
  
- 
- 
- 
- 
- 
- 
- 
- \chapter{Actual work}
-  
- 
- When dealing with rectangled triangles (see Figure \ref{triangle}) I sometimes used this theorem from \cite{pythm001}:
- \begin{equation}\label{theo}
-  a^2 + b^2 = c^2
- \end{equation}The demonstration is in Appendix \ref{sec:prooftheorem}.
- 
- \begin{figure}[h]\centering
-  \includegraphics[width=.5\linewidth]{triangle1}
-  \caption{A triangle with letters} \label{triangle}
- \end{figure}
- 
- 
+\section{Dynamic Model} 
+In this section, the dynamic models of both the planar quadrotor along with the dynamic model of the 3D quadrotor will be presented.
 
+\subsection{Planar Quadrotor}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Images/dynamics/planar_quadrotor.jpg}
+	\caption{Representation of a planar drone. \cite{planar_quadrotor_figure}}
+\end{figure}
+
+The dynamic model of the planar quadrotor is:
+
+\begin{equation}\label{dynamics_planar_quadrotor}
+ \begin{cases} 
+       \ddot{y} = - \frac{u_1}{m} \sin{\phi} \\
+       \ddot{z} = - g + \frac{u_1}{m} \cos{\phi} \\
+       \ddot{\phi} = \frac{u_2}{I_{xx}} \\
+   \end{cases}
+\end{equation}
+
+With: 
+
+\begin{itemize}
+	\item $u_1$: Total thrust applied on the planar quadrotor.
+	\item $u_2$: Torque applied by the planar quadrotor along the x-axis.
+\end{itemize}
+
+The dynamic model in equation \ref{dynamics_planar_quadrotor} assumes that the quadrotor is free to maneuver in the y-z plane. This means that torque control input $u_2$ is only applied along the x-axis.
  
  
  \chapter{Experiments}
