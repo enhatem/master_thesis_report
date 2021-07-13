@@ -23,6 +23,7 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Representation of the Euler Transformations \cite {Fantoni2016} \relax }}{43}{figure.caption.26}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Model of the quadrotor represented with motor torques and Euler angles \cite {Fantoni2016}.\relax }}{45}{figure.caption.27}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{46}{figure.caption.28}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{50}{figure.caption.29}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{49}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{51}{figure.caption.30}%
 \addvspace {10\p@ }
