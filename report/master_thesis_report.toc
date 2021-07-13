@@ -17,32 +17,42 @@
 \contentsline {paragraph}{Weights}{22}{subsection.1.4.2}%
 \contentsline {subsection}{\numberline {1.4.3}Basic formulation of a MPC problem}{22}{subsection.1.4.3}%
 \contentsline {paragraph}{Typical problem statement}{23}{equation.1.4.8}%
-\contentsline {subsection}{\numberline {1.4.4}MPC applications on quadrotors}{23}{subsection.1.4.4}%
-\contentsline {subsubsection}{\numberline {1.4.4.1}Centralized MPC}{23}{subsubsection.1.4.4.1}%
-\contentsline {subsubsection}{\numberline {1.4.4.2}Non-centralized MPC}{24}{subsubsection.1.4.4.2}%
-\contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{25}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{25}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{26}{subsection.1.5.2}%
-\contentsline {subsubsection}{\numberline {1.5.2.1}Nonlinear Optimal Control}{26}{subsubsection.1.5.2.1}%
-\contentsline {subsubsection}{\numberline {1.5.2.2}Multiple Shooting Discretization}{26}{subsubsection.1.5.2.2}%
-\contentsline {subsubsection}{\numberline {1.5.2.3}General Form of the Resulting Nonlinear Program}{27}{subsubsection.1.5.2.3}%
-\contentsline {subsubsection}{\numberline {1.5.2.4}Sequential Quadratic Programming and Real-Time Iterations}{28}{subsubsection.1.5.2.4}%
-\contentsline {subsubsection}{\numberline {1.5.2.5}Numerical Integration and Sensitivities}{29}{subsubsection.1.5.2.5}%
-\contentsline {subsubsection}{\numberline {1.5.2.6}Convex Hessian Approximation Methods}{29}{subsubsection.1.5.2.6}%
-\contentsline {paragraph}{Gauss-Newton Hessian approximation}{29}{subsubsection.1.5.2.6}%
-\contentsline {subsubsection}{\numberline {1.5.2.7}Structure-exploiting embedded QP solvers}{30}{subsubsection.1.5.2.7}%
-\contentsline {subsubsection}{\numberline {1.5.2.8}Real-time iterations}{30}{subsubsection.1.5.2.8}%
-\contentsline {subsubsection}{\numberline {1.5.2.9}Python Interface Overview}{31}{subsubsection.1.5.2.9}%
-\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{32}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{32}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{32}{subsection.1.6.2}%
-\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{33}{subsubsection.1.6.2.1}%
-\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{34}{subsubsection.1.6.2.2}%
-\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{35}{subsubsection.1.6.2.3}%
-\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{37}{subsection.1.6.3}%
-\contentsline {section}{\numberline {1.7}Dynamic Model}{38}{section.1.7}%
-\contentsline {subsection}{\numberline {1.7.1}Planar Quadrotor}{38}{subsection.1.7.1}%
-\contentsline {chapter}{\numberline {2}Experiments}{39}{chapter.2}%
-\contentsline {chapter}{Conclusion}{40}{chapter*.22}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{41}{appendix.A}%
-\contentsline {chapter}{Bibliography}{41}{appendix.A}%
+\contentsline {subsection}{\numberline {1.4.4}Different MPC Methods}{23}{subsection.1.4.4}%
+\contentsline {paragraph}{In case of linear systems}{23}{subsection.1.4.4}%
+\contentsline {paragraph}{In case of a nonlinear systems}{24}{figure.caption.12}%
+\contentsline {paragraph}{Adaptive MPC}{24}{figure.caption.13}%
+\contentsline {paragraph}{Gain-Scheduled MPC}{24}{figure.caption.13}%
+\contentsline {paragraph}{Nonlinear MPC}{24}{figure.caption.13}%
+\contentsline {subsubsection}{\numberline {1.4.4.1}Strategies to Improve Computational Time}{25}{subsubsection.1.4.4.1}%
+\contentsline {paragraph}{Order reduction techniques}{25}{subsubsection.1.4.4.1}%
+\contentsline {paragraph}{Explicit MPC}{25}{subsubsection.1.4.4.1}%
+\contentsline {paragraph}{Suboptimal Solution}{26}{figure.caption.16}%
+\contentsline {subsection}{\numberline {1.4.5}MPC applications on quadrotors}{27}{subsection.1.4.5}%
+\contentsline {subsubsection}{\numberline {1.4.5.1}Centralized MPC}{27}{subsubsection.1.4.5.1}%
+\contentsline {subsubsection}{\numberline {1.4.5.2}Non-centralized MPC}{28}{subsubsection.1.4.5.2}%
+\contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{29}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{29}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{30}{subsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.2.1}Nonlinear Optimal Control}{30}{subsubsection.1.5.2.1}%
+\contentsline {subsubsection}{\numberline {1.5.2.2}Multiple Shooting Discretization}{30}{subsubsection.1.5.2.2}%
+\contentsline {subsubsection}{\numberline {1.5.2.3}General Form of the Resulting Nonlinear Program}{31}{subsubsection.1.5.2.3}%
+\contentsline {subsubsection}{\numberline {1.5.2.4}Sequential Quadratic Programming and Real-Time Iterations}{32}{subsubsection.1.5.2.4}%
+\contentsline {subsubsection}{\numberline {1.5.2.5}Numerical Integration and Sensitivities}{33}{subsubsection.1.5.2.5}%
+\contentsline {subsubsection}{\numberline {1.5.2.6}Convex Hessian Approximation Methods}{33}{subsubsection.1.5.2.6}%
+\contentsline {paragraph}{Gauss-Newton Hessian approximation}{33}{subsubsection.1.5.2.6}%
+\contentsline {subsubsection}{\numberline {1.5.2.7}Structure-exploiting embedded QP solvers}{34}{subsubsection.1.5.2.7}%
+\contentsline {subsubsection}{\numberline {1.5.2.8}Real-time iterations}{34}{subsubsection.1.5.2.8}%
+\contentsline {subsubsection}{\numberline {1.5.2.9}Python Interface Overview}{35}{subsubsection.1.5.2.9}%
+\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{36}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{36}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{36}{subsection.1.6.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{37}{subsubsection.1.6.2.1}%
+\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{38}{subsubsection.1.6.2.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{39}{subsubsection.1.6.2.3}%
+\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{41}{subsection.1.6.3}%
+\contentsline {section}{\numberline {1.7}Dynamic Model}{42}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Planar Quadrotor}{42}{subsection.1.7.1}%
+\contentsline {chapter}{\numberline {2}Experiments}{43}{chapter.2}%
+\contentsline {chapter}{Conclusion}{44}{chapter*.28}%
+\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{45}{appendix.A}%
+\contentsline {chapter}{Bibliography}{45}{appendix.A}%

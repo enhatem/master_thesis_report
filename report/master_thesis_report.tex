@@ -38,9 +38,13 @@ Therefore, the analysis will be extended from the previous studies to create gen
  \section*{Acknowledgements}
  
  I would like to express my special thanks and gratitude to my supervisors Dr. Sébastien Briot and Dr. Isabelle Fantoni who gave me the  opportunity to work on this wonderful project which encapsulates control theory, dynamics and quadrotors, which are all subjects that are very interesting for me. 
-This project has allowed me to perform research on all of these topics and I am now more knowledgeable thanks to my supervisors. Moreover, I would like to thank them for believing in my capabilities and giving me the confidence and the support when I needed it. \\\\
-I would like to thank my patient and understanding girlfriend Glysa, who has been with me for more than 6 years. Thank you for all the love, support and comfort that you have given me in these stressful 2 years. \\\\
-I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle Fadi, his wife Lara and my aunt Bernadette. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be here if it wasn't for them.
+This project has allowed me to perform research on all of these topics and I am now more knowledgeable thanks to my supervisors. Moreover, I would like to thank them for believing in my capabilities and giving me the confidence and the support when I needed it. \\
+
+Moreover, I would like to thank Julian Erskine, Damien Six and Shiyu Liu for their help throughout my master thesis. I have learned alot about quadrotors, ROS and coding in general from them. \\
+
+I would like to thank my patient and understanding girlfriend Glysa, who has been with me for more than 6 years. Thank you for all the love, support and comfort that you have given me during these stressful 2 years. \\
+
+I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle Fadi, his wife Lara and my aunt Bernadette. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be where I am today if it wasn't for them.
  
  \newpage
  
@@ -567,6 +571,112 @@ Furthermore, solving for a very long sequence of control inputs is irrelevant if
 \label{optim_problem}
 \end{mini}
 
+
+\subsection{Different MPC Methods}
+The MPC methods that are mainly used are the following:
+
+\begin{itemize}
+	\item Linear time-invariant MPC.
+	\item Adaptive MPC.
+	\item Gain-Scheduled MPC.
+	\item Non-linear MPC.
+\end{itemize} 
+
+\noindent The method to be used is chosen based on the complexity of the system at hand and on the required goals to be reached. 
+
+\paragraph{In case of linear systems} The method to be used is called linear time-invariant MPC. The constraints must be linear and the cost function must be quadratic. These characteristics will result in a convex optimization problem \cite{ZEMAN2003325} which has a global optimum. An example of a convex function is shown in figure \ref{convex_function} below.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{Images/Control/MPC_Convex_Equation}
+\caption{Representation of a convex function.}
+\label{convex_function}
+\end{figure}
+
+\paragraph{In case of a nonlinear systems} If the system is linearizable, then both Adaptive MPC and Gain-Scheduled MPC can be used in this case. But the constraints are still linear and the cost function is still quadratic. In this case, the nonlinear function can be linearized around an operating point, which will result in a linear function that approximates the nonlinear system well near the operating point. However, it should be noted that the linear function will not work well outside the operating region. This is why it is interesting to find multiple linearized models, with each model representing the nonlinear function well around it's operating point.
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.45\textwidth]{Images/Control/linearization}
+\caption{Example of the linearization of a nonlinear function around an operating point \cite{Erickson2020}.}
+\label{nonlinear_function_linearization}
+\label{non_convex_function}
+\end{figure}
+
+
+
+\paragraph{Adaptive MPC} In this case, a linear model is computed on-line as the operating conditions change. And, the internal plant model used by the MPC is updated with the corresponding linear model at each time step. Moreover, it should be noted that the optimization problem remains the same across different operating points. In other words, the number of elements in the state and the constraints remain the same across different operating conditions \cite{Bujarbaruah2018}.
+
+\paragraph{Gain-Scheduled MPC} In this case, linearization of the nonlinear model is done offline at the operating points of interest. Then, a linear MPC controller is designed for each operating point. However, it should be noted that unlike Adaptive MPC, each controller is now independent from the other. In other words, the number of elements in the state and the constraints are different across different operating conditions.
+It should also be noted that for this method, an algorithm must be designed to switch between the predefined MPC controllers for different operating conditions. Moreover, Gain-Scheduled MPC also uses more memory than Adaptive MPC \cite{7347864}.
+
+\paragraph{Nonlinear MPC} If the system is nonlinear and cannot be linearized, and both the constraints and the cost function are also nonlinear, then nonlinear MPC can be used in that case. It is the most powerful method of all the different methods mentioned earlier, since it uses the most accurate representation of the plant. Thus, predictions are more accurate. However, nonlinear MPC is the most difficult method to solve in real-time. Because, in that case the problem becomes a non-convex optimization problem. Thus, the cost function may have many local minima, and finding the global minimum may be hard in that case. An example of a non-convex function is shown in figure \ref{nonconvex_function} below.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{Images/Control/MPC_Nonconvex_Equation_b}
+\caption{Representation of a non-convex function.}
+\label{nonconvex_function}
+\end{figure}
+
+\subsubsection{Strategies to Improve Computational Time}
+
+As demonstrated in (\ref{MPC_problem}), an MPC problem is formulated as a QP problem that tries to minimize a quadratic cost function in general. Moreover, MPC computations become more complex as the number of state elements, the number of constraints and the MPC parameters increase. Moreover, as stated in section \ref{MPC_General_Idea}, if the MPC controller is running on applications with slow dynamics, then computational complexity is not a concern. However, if MPC is running on applications with fast dynamics, then the computational complexity becomes crucial. In addition, it is important to note that the matrices that are stored in the processor of the system for MPC computations grows with the increasing number of optimization variables. Thus, this could cause a memory problem. So, to reduce the complexity and computational time of MPC, the following methods can be used:
+
+\paragraph{Order reduction techniques} They are used to discard states that do not contribute to the dynamics of the system \cite{4421358}. And, using order reduction techniques will also reduce the memory usage of the controller.
+
+\begin{comment}
+\paragraph{For applications with small $T_s$} In these cases, the performance of the MPC controller can be increased by \cite{bequette2003process}:
+\begin{itemize}
+	\item Shortening the prediction horizon.
+	\item Shortening the control horizon.
+	\item Reducing the number of constraints.
+	\item Having lower precision operations and data representation.
+\end{itemize} 
+It should be noted that for applications with even smaller sample times, \textit{Explicit} MPC can be used.
+\end{comment}
+
+\paragraph{Explicit MPC} Instead of solving the optimization problem online for the current state, \textit{Explicit} MPC solves it offline for each value of the state \textbf{\textsc{x}} within a given range \cite{Bemporad2013}. Thus, for each state value within a given range, the Explicit MPC precomputes the optimal solution. And, this solution consists of linear functions that are piecewise affine and continuous is \textbf{\textsc{x}}. An example of Explicit MPC applied on a one-dimensional system is shown in figure \ref{Explicit_MPC_1D} below.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{Images/Control/Explicit_MPC_a}
+\caption{Example of an Explicit MPC controller applied on a one-dimensional system \cite{MathWorks2018_new}.}
+\label{Explicit_MPC_1D}
+\end{figure}
+
+\noindent As can be observed from figure \ref{Explicit_MPC_1D}, the constraints cut the solution space into different regions. And, each region maps into a unique solution.
+Another example of an Explicit MPC applied on a two-dimensional system is shown in figure \ref{Explicit_MPC_2D} below. 
+
+\newpage
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{Images/Control/Explicit_MPC_b}
+\caption{Example of an Explicit MPC controller applied on a two-dimensional system \cite{MathWorks2018_new}.}
+\label{Explicit_MPC_2D}
+\end{figure}
+
+\noindent As can be observed from figure \ref{Explicit_MPC_2D}, the Explicit MPC finds the  region that the current state lies in and evaluates the linear function that creates the current control input.
+
+\noindent Thus, it can be concluded that if the iterative optimization process is reduced to linear function evaluations, then this will greatly simplify the online computations. However, if there is a large number of regions that the state can lie in, then searching for the current state region could sometimes be time consuming. Also, having many regions could cause memory problems for the processor. Thus, the number of regions can be reduced by merging some regions together. However, thee computed solution in that case is not optimal anymore \cite{Hovland2008}.
+
+\paragraph{Suboptimal Solution}
+It is another method to improve the computational time of the MPC controller. In a MPC problem, the optimal solution is very unpredictable and can drastically change between each time step. In addition, the computational time may exceed the sample time $T_s$. So, it is mandatory to make sure that a solution can be found within $T_s$ and that there still exists additional time for other tasks that need to be executed \cite{Gulez2014}. A simple example is provided in figure \ref{Suboptimal_solution_example} below where a maximum value for the iterations is determined, and it is taken as 5 for illustration purposes. 
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Images/Control/Suboptimal_Solution.png}
+\caption{Example showing how the suboptimal solution is found when the maximum number of iterations is set to 5.}
+\label{Suboptimal_solution_example}
+\end{figure}
+
+\noindent As can be seen from figure \ref{Suboptimal_solution_example}, the optimal solution is reached in 10 iterations. However, the controller will stop at iteration 5 and take the suboptimal solution. Moreover, it is important to note that the suboptimal solution still satisfies all the constraints of the optimization problem. The only question that remain is how to determine the maximum number of iterations. This can be done by testing the algorithm on the hardware directly and identifying the execution time used by each iteration. Then, the maximum number of iterations is chosen such that the total execution time does not exceed the sample time of the controller.
+
 \subsection{MPC applications on quadrotors}
 
  There have been numerous applications of MPC on quadrotors. The main MPC applications on drones can be separated into two different categories:
@@ -585,8 +695,6 @@ In this type of application, the MPC controller is a signle structure that encap
 As can be seen in figure \ref{fig:centralized_mpc}, which represents a centralized control loop structure for a basic MPC, the right block is the plant which represents the quadrotor dynamics. The MPC bloc taks as input the desired trajectory, and outputs control inputs to allow the quadrotor to follow the trajectory.
 
 It should be noted that different versions of the MPC controller shown in figure \ref{fig:centralized_mpc} can exist. For example, another version of the MPC could be that the state variables of roll and pitch angles can be added as outputs. This is mainly implemented in order to ensure that the quadrotor does not take extreme values in roll and pitch angles, which can potentially destabilize it, because no restrictions are being used for these angles otherwise.
-
-\newpage
 
 \subsubsection{Non-centralized MPC} 
 
@@ -608,7 +716,7 @@ Another implementation is using a MPC controller for the master structure and pa
 	\label{fig:non_centralized_mpc_2}
 \end{figure}
 
-However, since the control law in this master thesis will be entirely focused on MPC controllers, and since the task will be to follow aggressive trajectories as perfectly as possible, then the centralized MPC was chosen since it is the simplest implementation of MPC and it results in the least amount of errors when compared to non-centralized MPC implementations. In addition, the computational load of MPC will not be a problem, since the MPC controller will not be running on the quadrotor itself. All the computations will be done on a computer which will have considerably larger computational power than the processor of the quadrotor. And, the control inputs will be sent to the quadrotor via radio signals. However, it should be noted that the quadrotor will be susceptible to delays.
+However, since the control law in this master thesis will be entirely focused on MPC controllers, and since the task will be to follow aggressive trajectories in real-time, then using a non-centralized MPC is a good method to consider, since this will result in a lower computational load on the processor. Thus, it is preferable to follow a trajectory with slightly less accuracy if it results in a faster computation time, which is crucially needed in real-time experimentation.
 
 In the next section, the software used to implement the MPC controller is presented.
 

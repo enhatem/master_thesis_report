@@ -37,6 +37,14 @@ K.~R. Klemens~Fritzsche, Yuhang~Guo, ``Some remarks concerning differential
 {Jonathan How}, \emph{Principles of Optimal Control}.\hskip 1em plus 0.5em
   minus 0.4em\relax MIT, 2008.
 
+\bibitem{Erickson2020}
+\BIBentryALTinterwordspacing
+R.~W. Erickson and D.~Maksimovi{\'{c}}, \emph{AC Equivalent Circuit
+  Modeling}.\hskip 1em plus 0.5em minus 0.4em\relax Cham: Springer
+  International Publishing, 2020, pp. 215--275. [Online]. Available:
+  \url{https://doi.org/10.1007/978-3-030-43881-4_7}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Alvarez-Valle2019}
 R.~S. Alvarez-Valle and P.~S. Rivadeneira, ``Design of predictive control
   structures to track trajectories for multi-rotor unmanned aerial vehicle,''
@@ -206,6 +214,26 @@ MathWorks, ``Choose sample time and horizons,''
 S.~Kostova, I.~Ivanov, L.~Imsland, and N.~Georgieva, ``Infinite horizon lqr
   problem of linear discrete time positive systems,'' \emph{Proceeding of the
   Bulgarian Academy of Sciences}, vol.~66, 01 2013.
+
+\bibitem{ZEMAN2003325}
+\BIBentryALTinterwordspacing
+J.~Zeman and B.~{Rohá I'-Ilkiv}, ``Robust model predictive control of linear
+  time invariant system with disturbances,'' \emph{IFAC Proceedings Volumes},
+  vol.~36, no.~18, pp. 325 -- 332, 2003, 2nd IFAC Conference on Control Systems
+  Design (CSD '03), Bratislava, Slovak Republic, 7-10 September 2003. [Online].
+  Available:
+  \url{http://www.sciencedirect.com/science/article/pii/S147466701734689X}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Bujarbaruah2018}
+M.~{Bujarbaruah}, X.~{Zhang}, U.~{Rosolia}, and F.~{Borrelli}, ``Adaptive mpc
+  for iterative tasks,'' in \emph{2018 IEEE Conference on Decision and Control
+  (CDC)}, 2018, pp. 6322--6327.
+
+\bibitem{7347864}
+L.~{Cui}, L.~{Chen}, and D.~{Duan}, ``Gain-scheduling model predictive control
+  for unmanned airship with lpv system description,'' \emph{Journal of Systems
+  Engineering and Electronics}, vol.~26, no.~5, pp. 1043--1051, 2015.
 
 \bibitem{Bingfang2004}
 K.~Ling, W.~Bingfang, H.~Minghua, and Z.~Yu, ``A model predictive controller
