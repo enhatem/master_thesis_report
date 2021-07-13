@@ -19,7 +19,10 @@
 \contentsline {figure}{\numberline {1.15}{\ignorespaces Representation of the individual phases during a backlip (from right to left)\cite {Gillula2011}\relax }}{37}{figure.caption.23}%
 \contentsline {figure}{\numberline {1.16}{\ignorespaces The open-loop iterative learning workflow for performing multi-flips with quadrotors\cite {Lupashin2012}.\relax }}{39}{figure.caption.24}%
 \contentsline {figure}{\numberline {1.17}{\ignorespaces The reference of the flipping speed and the different flipping phases. \cite {Chen2016}\relax }}{40}{figure.caption.25}%
-\contentsline {figure}{\numberline {1.18}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{42}{figure.caption.26}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{43}{figure.caption.27}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Representation of the Euler Transformations \cite {Fantoni2016} \relax }}{43}{figure.caption.26}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Model of the quadrotor represented with motor torques and Euler angles \cite {Fantoni2016}.\relax }}{45}{figure.caption.27}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{46}{figure.caption.28}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{49}{figure.caption.29}%
 \addvspace {10\p@ }

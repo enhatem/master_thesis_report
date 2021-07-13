@@ -51,16 +51,22 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
  
  \section*{Notations}
   \begin{tabular}{cp{0.8\textwidth}}
-  $I_{xx}, I_{yy}, I_{zz}$ & Diagonal terms of the inertia matrix\\
+  $I_{xx}, I_{yy}, I_{zz}$ & diagonal terms of the inertia matrix\\
   $\omega_x, \omega_y, \omega_z$ & angular rates with respect to the x,y and z axes respectively \\ 
   $\phi, \theta, \psi$ & roll, pitch and yaw angles respectively\\
-  $l$ & Arm length of a quadrotor \\
-  $T$ & Total thrust input of the quadrotor\\  
-  $\tau$ & Total torque of the quadrotor\\
-  $T_s$ & Sample Time \\
-  $N$ & Prediction horizon \\
-  $m$ & Control horizon \\
-  $J$ & Objective function \\
+  $l$ & arm length of a quadrotor \\
+  $T$ & total thrust input of the quadrotor\\  
+  $\tau$ & total torque of the quadrotor\\
+  $T_s$ & sample Time \\
+  $N$ & prediction horizon \\
+  $m$ & control horizon \\
+  $J$ & objective function \\
+  $M_i$ & motor i \\
+  $b$ & thrust factor \\
+  $d$ & drag force \\
+  $\Omega_i$ & speed of motor i \\
+  $f_i$ & force resulting from rotor i, perpendicular to the rigid body \\
+  
   
 
 \end{tabular}\\
@@ -81,6 +87,8 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{NLP} & a nonlinear program \\
   \textbf{RTI} & real-time iteration \\
   \textbf{API} & application programming interface \\
+  \textbf{EKF} & extended Kalman filter \\
+  \textbf{ODE} & ordinary differential equations \\
   
   
  \end{tabular}\\
@@ -709,14 +717,14 @@ In this type of application, the state-space of the system will be split to obta
 
 Another implementation is using a MPC controller for the master structure and pairing it with the slave structure that is using a controller with a different control law, such as a PD-P controller, in order to further reduce the computational load. An example of this non-centralized MPC implementation is shown in figure \ref{fig:non_centralized_mpc_2} below:
 
- \begin{figure}[h]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Control/MPC/non-centralized_mpc_2.png}
 	\caption{Example of a non-centralized MPC-PD-P control loop \cite{Alvarez-Valle2019}.}
 	\label{fig:non_centralized_mpc_2}
 \end{figure}
 
-However, since the control law in this master thesis will be entirely focused on MPC controllers, and since the task will be to follow aggressive trajectories in real-time, then using a non-centralized MPC is a good method to consider, since this will result in a lower computational load on the processor. Thus, it is preferable to follow a trajectory with slightly less accuracy if it results in a faster computation time, which is crucially needed in real-time experimentation.
+However, since the control law in this master thesis will be entirely focused on MPC controllers, and since the task will be to follow aggressive trajectories in real-time, then using a non-centralized MPC is a good method to consider, since this will result in a lower computational load on the processor. In other words, it is preferable to follow a trajectory with slightly less accuracy if it results in a faster computation time, which is crucially needed in real-time experimentation.
 
 In the next section, the software used to implement the MPC controller is presented.
 
@@ -1169,8 +1177,7 @@ In the subsequent works, a backstepping control approach \cite{Chen2017} has bee
  The control approaches for multi-flip maneuvers that have been presented in section {\ref{control_approaches_for_multi_flip_maneuvers}} demonstrate that the implementation of flipping maneuvers is currently addressed as a more complicated version of the classical attitude control problem. But, no attention has been given on the consequent Cartesian path of the center of mass of the quadrotor, nor on an accurate depiction of the climb phase. In fact, within the first stage, the maximum thrust is established in order to acquire sufficient height. However, none of the works presented above deals with comprehensive altitude analysis in order to give an approximation of the necessary duration for the climb phase. This is mainly done heuristically in experiments. This problem, combined with the fact that the attention is put only on attitude planning and control, results in a totally erratic trajectory for the quadrotor. Thus, it is important to be able to predict the consequent trajectory of the quadrotor during a flipping maneuver. Because, this will help to keep the quadrotor safe, particularly in complex outdoor settings.
  
  
-\newpage
- 
+\newpage 
 % \chapter{Actual work}
  
 % When dealing with rectangled triangles (see Figure \ref{triangle}) I sometimes used this theorem from \cite{pythm001}:
@@ -1183,8 +1190,255 @@ In the subsequent works, a backstepping control approach \cite{Chen2017} has bee
 %  \caption{A triangle with letters} \label{triangle}
 %  \end{figure}
  
-\section{Dynamic Model} 
-In this section, the dynamic models of both the planar quadrotor along with the dynamic model of the 3D quadrotor will be presented.
+\chapter{MPC Design and Simple Simulations}
+In this chapter, the equations of motions of the planar quadrotor and the 3D quadrotor will be presented. And, an extended Kalman filter (EKF) will be designed for the planar case to test the controller in the presence of disturbance. Then, the MPC controller design will be presented. Finally, the MPC controller will by making the quadrotor follow a circular trajectory.
+
+\section{System Modeling} 
+In this section, the equations of motion of both the planar quadrotor and the 3D quadrotor will be presented and explained. However, the notion of position and orientation will be explained first. The two main references used for this section are \cite{Fantoni2016} and \cite{Erskine2021}. 
+
+\subsection{Notion of Position and Orientation}
+
+The configuration of a vehicle, namely the \textit{pose}, includes the parameters that pertmits to describe the mobile frame $R_M$ with respect to the working frame $R_O$. In addition, there are several methods to describe the rotation of a rigid body in space, for instance, Euler angles, Cardan angles, \cite{Goldstein1980}, etc. The main distinction between the Euler angles and the Cardan angles is that Cardan angles express rotations around three different axes (e.g. $x-y-z$, or $x-y'' -z''$), whereas Euler angles utilize the same axis for both the first and third elemental rotations(e.g., $z-x-z$, or $z-x'-z''$)
+
+A common representation of the pose of a vehicle in 3D Euclidean space is the following:
+
+
+
+\begin{equation}
+q=[\begin{array}{c c c c c c }
+x & y & z & \psi & \theta & \phi
+\end{array}]^{\intercal}
+\end{equation}
+
+The pose can be described as the transformation from the working frame related to the environment $R_O$ to the mobile frame $R_M$ based on the four following procedures \cite{Fantoni2016}:
+
+\begin{itemize}
+	\item The translation $\overrightarrow{OM}$ from $R_O$ to $R_M$: $(M,\overrightarrow{s_0}, \overrightarrow{n_0}, \overrightarrow{a_0} )$.
+	\item The rotation $(\psi, \overrightarrow{a_0})$ where $\psi$ is the yaw angle from $R_O(M,\overrightarrow{s_0}, \overrightarrow{n_0}, \overrightarrow{a_0} )$ to $R_1(M,\overrightarrow{s_1}, \overrightarrow{n_1}, \overrightarrow{a_0} )$.
+	\item The rotation $(\theta, \overrightarrow{n_1})$ where $\theta$ is the pitch angle from $R_1$ to $R_2 (M,\overrightarrow{s_2}, \overrightarrow{n_1}, \overrightarrow{a_1} )$.
+	\item The rotation $(\phi, \overrightarrow{s_2})$ where $\phi$ is the roll angle from $R_2$ to $R_M (M,\overrightarrow{s_2}, \overrightarrow{n_2}, \overrightarrow{a_2} ) = R_M$ 
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{Images/Modeling/Fantoni_d}
+\caption{Representation of the Euler Transformations \cite{Fantoni2016} }
+\label{Fantoni_d}
+\end{figure}
+
+\newpage
+
+The related change of coordinates matrices are expressed as follows:
+
+
+\begin{equation}
+	L = {}^{O}A_1 = Rot(\psi, \overrightarrow{a_0}) = \begin{bmatrix}
+	\cos \psi && - \sin \psi && 0 \\
+	\sin \psi && \cos \psi && 0 \\
+	0 && 0 && 1 
+	\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+	T = {}^{1}A_2 = Rot(\theta, \overrightarrow{n_1}) = \begin{bmatrix}
+	\cos \theta && 0 && \sin \theta \\
+	0 && 1 && 0 \\
+	- \sin \theta && 0 && \cos \theta 
+	\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+	R = {}^{2}A_M = Rot(\phi, \overrightarrow{s_2}) = \begin{bmatrix}
+	1 && 0 && 0 \\
+	0 && \cos \phi && - \sin \phi \\
+	0 && \sin \phi && \cos \phi 
+	\end{bmatrix}
+\end{equation}
+
+with $L, T$ and $R$ denoting rotation matrices of roll, pitch and yaw respectively.
+Hereafter, $Rot(\psi, \overrightarrow{a_0})$, $Rot(\theta, \overrightarrow{n_1})$ and $Rot(\phi, \overrightarrow{s_2})$ will denote the corresponding change of coordinate matrices.
+
+Thus, the transition matrix from the mobile frame to the fixed frame is then expressed as follows: 
+
+\begin{align}
+	LTR &= {}^{O}A_M = Rot(\psi, \overrightarrow{a_0}) Rot(\theta, \overrightarrow{n_1}) Rot(\phi, \overrightarrow{s_2}) \nonumber \\
+	&= \begin{bmatrix}
+	\cos \psi \cos \theta && - \sin \psi \cos \phi + \cos \psi \sin \theta \sin \phi && \sin \psi \sin \theta + \cos \psi \sin \theta \cos \phi \\
+	\cos \theta \sin \psi && \cos \psi \cos \phi + \sin \psi \sin \theta \sin \phi && - \sin \phi \cos \psi + \sin \psi \sin \theta \cos \phi \\
+	-\sin \theta && \cos \theta \sin \phi && \cos \theta \cos \phi
+	\end{bmatrix}
+\end{align}
+
+
+\subsection{Inputs}
+
+The principal forces and torques that the quadrotor is subject to, are generated by the rotations of the propellers. 
+
+\paragraph{The forces} The forces that are acting on the quadrotor are the weight and the consequent lift which is created by the 4 rotors:
+
+\begin{equation}
+\overrightarrow{F_{\xi}}= \overrightarrow{P} + \sum \overrightarrow{f_i}
+\end{equation} 
+
+with the weight is expressed as 
+$ \overrightarrow{P}= \begin{bmatrix}
+0 \\ 
+0 \\
+-mg \\
+\end{bmatrix}$
+
+And, $\overrightarrow{f_{i}}$ is the lift resulting from every individual motor $M_i$ given that the motors $M_1$ and $M_3$ are rotating in the counter-clockwise direction and the motors $M_2$ and $M_4$ are rotating in the clockwise direction. So, $\overrightarrow{f_i}$ is expressed as $\overrightarrow{f_i}=\begin{bmatrix}
+0 \\ 
+0 \\
+f_i \\
+\end{bmatrix}=b \begin{bmatrix}
+0 \\ 
+0 \\
+\Omega_i^2 \\
+\end{bmatrix} $  
+
+$f_i = b \Omega^2; i=1,\ldots,4$\\
+$\Omega_i$: rotational velocity of motor $M_i$\\
+$b$: Thrust coefficient\\
+
+The consequent lift is the full thrust of the UAV and is expressed by $u=\sum \overrightarrow{f_i}$. It is lying on the same line as the $u_z$ axis of the $R_U$ frame where the final expression of $\overrightarrow{F_{\xi}}$ is made of two parts . The first part (the weight)  is expressed in the fixed frame and the second part (the total thrust $u$) is expressed in the mobile frame: 
+
+\begin{equation}
+\overrightarrow{F_{\xi}}  = \begin{bmatrix}
+0 \\
+0 \\
+-mg \\
+\end{bmatrix} 
++ 
+b \begin{bmatrix}
+0 \\ 
+0 \\
+\Omega_1^2 + \Omega_2^2 + \Omega_3^2 + \Omega_4^2\\
+\end{bmatrix}=
+\prescript{O}{}{\begin{bmatrix}
+0 \\
+0 \\
+-mg \\
+\end{bmatrix}}
++ b \prescript{U}{}{\begin{bmatrix}
+0 \\ 
+0 \\
+\Omega_1^2 + \Omega_2^2 + \Omega_3^2 + \Omega_4^2\\
+\end{bmatrix}}
+\end{equation}
+
+\paragraph{The torques}
+Regarding the torques, they are also divided into two parts. The first part is the result of the relations between the velocities of the rotors. Whereas the other part is generated by the gyroscopic effects that are resulting from the change of attitude direction of the rotors. In fact, a rotation around the $u_x$ or $u_y$ axis coupled to the rotation of the rotors that is executed around the $u_z$ axis, generates a torque respectively on $u_x$ or $u_y$ axis.
+
+By taking $\tau=\begin{bmatrix}
+\tau_1 && \tau_2 && \tau_3 
+\end{bmatrix}^{\intercal}$ to be the consequent torque of the quadrotor. It is divided into two parts, namely $\tau_a$ which contains the rotation torques (roll,pitch and yaw) on the 3 axes ($\tau_{\phi}, \tau_{\theta}, \tau_{\psi}$) and the torque $\tau_G$ which is the result of the gyroscopic effects of the rotors, which is usually neglected in many works.
+
+\begin{equation}
+	\tau = \tau_a + \tau_G
+\end{equation}
+
+with:
+
+\begin{itemize}
+	\item $\tau_a = \begin{bmatrix}
+\tau_{\phi}\\
+\tau_{\theta}\\
+\tau_{\psi}\\
+\end{bmatrix}= \begin{bmatrix}
+l(f_4 - f_2)\\
+l(f_3 - f_1)\\
+\sum \tau_{M_i}\\
+\end{bmatrix}$\\
+$\sum \tau_{M_i} = \sum d \Omega_i^2=d(\Omega_1^2-\Omega_2^2+\Omega_3^2-\Omega_4^2); i=1,\ldots 4$: motor torque about the axis.\\
+$d$: drag coefficient .\\
+$l$: distance between the center of gravity (CoG) of the quadrotor and the axis of motor $M_i$.
+
+	\item $\tau_G=\overrightarrow{\omega}\times J_r \begin{bmatrix}
+0 \\
+0 \\
+\Omega_1 - \Omega_2 + \Omega_3 - \Omega_4 \\
+\end{bmatrix} = \begin{bmatrix}
+-q J_r (\Omega_1 - \Omega_2 + \Omega_3 - \Omega_4)\\
+p J_r (\Omega_1 - \Omega_2 + \Omega_3 - \Omega_4)\\
+0 \\
+\end{bmatrix}$
+
+$\overrightarrow{\omega} = \begin{bmatrix}
+p \\
+q \\
+r \\
+\end{bmatrix}$: angular velocities in the body frame.
+$\Omega_i$: spinning speeds of motors $M_i$.
+$J_r$: rotor inertia.
+\end{itemize}
+
+Thus, the total torque $\bm{\tau}$ is expressed as follows:
+
+\begin{equation}\label{total_torque_equation}
+\bm{\tau} = \begin{bmatrix}
+\tau_1\\
+\tau_2\\
+\tau_3\\
+\end{bmatrix} = \tau_a + \tau_G = \begin{bmatrix}
+l(f_4-f_2) - qJ_r(\Omega_1-\Omega_2+\Omega_3-\Omega_4)\\
+l(f_3-f_1) + pJ_r(\Omega_1-\Omega_2+\Omega_3-\Omega_4)\\
+d(\Omega_1^2-\Omega_2^2+\Omega_3^2-\Omega_4^2)\\
+\end{bmatrix}
+\end{equation}
+
+\subsubsection*{System Inputs}
+
+Thus, there exists two types of forces and torques that are acting on the quadrotor platform: the translation force $F_{\xi}$ which is called the thrust $u$, and the torque $\tau$ which represents all the torques about the distinct axes ($\tau_{\phi}, \tau_{\theta}, \tau_{\psi} $). \\
+
+Rather than controling the velocities of the motors, the control in torque and thrust is synthesized, from which motor velocities are effortlessly inferred. Thus, the quadrotor has four control inputs, which are the inputs of its motors:
+
+\begin{align*}
+u_1 &= u \text{ (thrust)} \\
+u_2 &= \tau_{\phi}\\
+u_3 &= \tau_{\theta}\\
+u_4 &= \tau_{\psi}\\
+\end{align*}
+
+The various torques and forces which are taken into account are illustrated in figure \ref{Fantoni_a}.
+
+\subsection{Dynamical equations}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{Images/Modeling/Fantoni_a}
+\caption{Model of the quadrotor represented with motor torques and Euler angles \cite{Fantoni2016}.}
+\label{Fantoni_a}
+\end{figure}
+
+The equations of motion presented in the next subsection are based on the following assumptions:
+
+\begin{itemize}
+	\item The quadrotor has a rigid structure.
+	\item The quadrotor has a symmetrical structure.
+	\item The center of gravity (CoG) and the fixed frame at the center of the body are assumed to be coincident.
+	\item The propellers of the quadrotor are assumed to be rigid.
+	\item The thrust and drag forces are assumed to be proportional to the square of the spinning speed of each propeller.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Planar Quadrotor}
 
@@ -1194,7 +1448,7 @@ In this section, the dynamic models of both the planar quadrotor along with the 
 	\caption{Representation of a planar drone. \cite{planar_quadrotor_figure}}
 \end{figure}
 
-The dynamic model of the planar quadrotor is:
+The equations of motion of the planar quadrotor are:
 
 \begin{equation}\label{dynamics_planar_quadrotor}
  \begin{cases} 
@@ -1211,8 +1465,142 @@ With:
 	\item $u_2$: Torque applied by the planar quadrotor along the x-axis.
 \end{itemize}
 
-The dynamic model in equation \ref{dynamics_planar_quadrotor} assumes that the quadrotor is free to maneuver in the y-z plane. This means that torque control input $u_2$ is only applied along the x-axis.
- 
+The dynamic model in equation (\ref{dynamics_planar_quadrotor}) assumes that the quadrotor is free to maneuver in the y-z plane. This means that the torque control input $u_2$ is only applied along the x-axis. 
+Moreover, the equations of $\ddot{y}$ and $\ddot{z}$ represent the translational dynamics of the planar quadrotor, and they are controlled by $u_1$.
+Furthermore, the equation of $\ddot{\phi}$ represents the rotational dynamics of the planar quadrotor, and it is controlled by $u_2$.
+Finally, it should be noted that the total thrust $u_1$ is nothing else than the sum of the two thrust forces generated by the two rotors in the planar quadrotor.
+
+\newpage
+
+\subsection{3D Quadrotor}
+
+In the case of the 3D quadrotor, the equations of motion can be expressed in different ways. They can either be expressed using the Euler angles $\phi, \theta, \psi$, which represent the roll, pitch and yaw angles respectively, or they can be expressed using quaternions. Both expressions will be presented below using the Newton-Euler formalism instead of the Lagrange-Euler formalism, since it is easier to implement when writing code.
+
+\subsubsection{Equations of Motion with Euler Angles}\label{N_E_section}
+
+\subsubsection*{Translational Model}
+
+Based on Newton's second law:
+
+\begin{equation}
+	\sum \overrightarrow{F}=m\overrightarrow{a}
+\end{equation}
+
+with
+
+
+
+\begin{itemize}
+	\item $\overrightarrow{F}=\overrightarrow{F}_{\xi}=\begin{bmatrix}
+F_x \\
+F_y \\
+F_z \\
+\end{bmatrix}$ : vector of external forces.
+
+\item $\overrightarrow{a} = \begin{bmatrix}
+\ddot{x} \\
+\ddot{y} \\
+\ddot{z} \\
+\end{bmatrix}$: accelerations vector.
+\item $m$: mass of the quadrotor.
+\end{itemize}
+
+So, by applying Newton's second law on the quadrotor problem at hand:
+
+\begin{equation*}
+	m\begin{bmatrix}
+	\ddot{x}\\
+	\ddot{y}\\
+	\ddot{z}\\
+	\end{bmatrix} = \prescript{O}{}{\begin{bmatrix}
+	0 \\
+	0 \\
+	-mg 
+	\end{bmatrix}} + \prescript{U}{}{\begin{bmatrix}
+	0 \\
+	0 \\
+	u 
+	\end{bmatrix}} = \prescript{O}{}{\begin{bmatrix}
+	0 \\
+	0 \\
+	-mg 
+	\end{bmatrix}} + b \prescript{U}{}{\begin{bmatrix}
+	0 \\
+	0 \\
+	\Omega_1^2 + \Omega_2^2 + \Omega_3^2 + \Omega_4^2
+	\end{bmatrix}}
+\end{equation*}
+
+Where $u$ is the total thrust resulting from the 4 rotors. If $u$ is then expressed in the world frame, the equations of the translational model can be expressed as follows \cite{Fantoni2016}:
+
+\begin{equation}\label{translation_model_N_E}
+\begin{cases}
+m \ddot{x} = (\sin \psi \sin \phi + \cos \psi \sin \theta \cos \phi)u \\
+m \ddot{y} = (- \sin \phi \cos \psi + \sin \psi \sin \theta \cos \phi )u \\
+m \ddot{z} = \cos \theta \cos \phi u -mg \\
+\end{cases}
+\end{equation}
+
+
+
+\subsubsection*{Rotational Model}
+
+Based on the Newton-Euler equations, for a rotating frame \cite{Murray1994}: 
+
+\begin{equation}\label{rotational_model_N_E_general_formula}
+I \dot{\omega} + \omega \times I \omega = \tau
+\end{equation}
+with
+
+\begin{itemize}
+	\item $\bm{I} = \begin{bmatrix}
+	I_{xx} && 0 && 0 \\
+	0 && I_{yy} && 0 \\
+	0 && 0 && I_{zz} \\
+	\end{bmatrix}$
+	\item $\bm{\eta}=\begin{bmatrix}
+	p \\
+	q \\
+	r \\
+	\end{bmatrix}$
+	\item $\bm{\tau} = \begin{bmatrix}
+	\tau_1 \\
+	\tau_2 \\
+	\tau_3 \\
+	\end{bmatrix}$
+\end{itemize}
+
+Thus, equation (\ref{rotational_model_N_E_general_formula}) becomes:
+
+\begin{equation}
+\begin{bmatrix}
+I_{xx}\dot{p}\\
+I_{yy}\dot{q}\\
+I_{zz}\dot{r}\\
+\end{bmatrix}+ \begin{bmatrix}
+qr(I_{zz}-I_{yy})\\
+pr(I_{xx}-I_{zz})\\
+pq(I_{yy}-I_{xx})
+\end{bmatrix} = \begin{bmatrix}
+\tau_1 \\
+\tau_2 \\
+\tau_3
+\end{bmatrix}
+\end{equation}
+
+
+If equation \ref{total_torque_equation} is used, then input vector $\bm{\tau}$ can be substituted to acquire the final model of the rotation in the body frame:
+
+\begin{equation}
+\begin{cases}
+\dot{p} = qr \frac{(I_{yy}-I_{zz})}{I_{xx}} + \frac{l}{I_{xx}}(f_4-f_2) - \frac{1}{I_{xx}}qJ_r (\Omega_1 - \Omega_2 + \Omega_3 - \Omega_4) \\
+\dot{q} = pr \frac{(I_{zz}-I_{xx})}{I_{yy}} + \frac{l}{I_{yy}}(f_3-f_1) + \frac{1}{I_{yy}}pJ_r (\Omega_1 - \Omega_2 + \Omega_3 - \Omega_4) \\
+\dot{r} = pq \frac{(I_{xx}-I_{yy})}{I_{zz}} + \frac{1}{I_{zz}} d (\Omega_1^2 -\Omega_2^2 + \Omega_3^2 - \Omega_4^2)
+\end{cases}
+\end{equation}
+
+However, it can be inferred that the translational dynamics \ref{translation_model_N_E} and the rotational dynamics \ref{rotational_model_N_E_general_formula} are highly nonlinear when they are expressed using Euler angles. And, this could result in high computational loads when they are included in a controller that solves an optimization problem at each time instant such as MPC. For this reason, it is better to express the dynamics of the quadrotor using quaternions. Quaternions are highly efficient for analyzing situations where rotations in $\mathbb{R}^3$ are considered. A quaternion is a 4-tuple, which is a more brief and simple representation than a rotation matrix. Its geometric meaning is also more clear as the rotation axis and angle can be easily retrieved. In addition, quaternions allow the easy composition of rotations. This is due to the fact that composition of quaternions takes only sixteen multiplications and twelve additions \cite{jia_2013}. Thus, using quaternions will result in equations that are more linear, which will result in ordinary differential equations (ODE's) that are easier to solve with MPC.
+
  
  \chapter{Experiments}
  

@@ -78,6 +78,10 @@ Y.~{Chen} and N.~O. {P´erez-Arancibia}, ``Generation and real-time
   quadrotor,'' \emph{2016 IEEE International Conference on Robotics and
   Automation (ICRA)}, pp. 3204--3211, 2016.
 
+\bibitem{Fantoni2016}
+I.~{Fantoni}, ``Lecture notes in modelling of terrestrial and aerial
+  vehicles,'' December 2016.
+
 \bibitem{planar_quadrotor_figure}
 \BIBentryALTinterwordspacing
 ``Aerial robotics lecture 3a - 1 2-d quadrotor control.'' [Online]. Available:
@@ -345,6 +349,30 @@ Y.~{Chen} and N.~O. {Perez-Arancibia}, ``Nonlinear adaptive control of
   quadrotor multiflipping maneuvers in the presence of time-varying torque
   latency,'' \emph{2018 IEEE/RSJ International Conference on Intelligent Robots
   and Systems (IROS)}, pp. 1--9, 2018.
+
+\bibitem{Erskine2021}
+\BIBentryALTinterwordspacing
+J.~Erskine, R.~Balderas-Hill, I.~Fantoni, and A.~Chriette, ``{Model Predictive
+  Control for Dynamic Quadrotor Bearing Formations},'' in \emph{{IEEE
+  International Conference on Robotics and Automation}}, Xi'an (virtual),
+  China, May 2021. [Online]. Available:
+  \url{https://hal.archives-ouvertes.fr/hal-03177635}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Goldstein1980}
+P.~C. {Goldstein}, H., and J.~{Safko}, \emph{Classical Mechanics}.\hskip 1em
+  plus 0.5em minus 0.4em\relax London: Adisson Wesly Series in Physics,
+  Adison-Wesley,U.S.A. World Scientific, 1980.
+
+\bibitem{Murray1994}
+R.~M. et~al., ``A mathematical introduction to robotic manipulation,''
+  \emph{CRC}, 1994.
+
+\bibitem{jia_2013}
+\BIBentryALTinterwordspacing
+Y.-B. Jia, ``Quaternions and rotations,'' Sep 2013. [Online]. Available:
+  \url{http://graphics.stanford.edu/courses/cs348a-17-winter/Papers/quaternion.pdf}
+\BIBentrySTDinterwordspacing
 
 \bibitem{euclides300}
 O.~A. Euclides, ``{Elements},'' \emph{Self-published}, vol.~1, no.~1, Feb.
