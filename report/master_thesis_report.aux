@@ -35,6 +35,7 @@
 \citation{Fantoni2016}
 \citation{Fantoni2016}
 \citation{planar_quadrotor_figure}
+\citation{EKF_bitcraze}
 \citation{Kozak2014}
 \citation{Bouabdalla2007}
 \citation{Bouabdalla2007}
@@ -292,6 +293,7 @@
 \citation{planar_quadrotor_figure}
 \citation{planar_quadrotor_figure}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Planar Quadrotor}{46}{subsection.2.1.4}\protected@file@percent }
+\newlabel{subsec:planar_quadrotor}{{2.1.4}{46}{Planar Quadrotor}{subsection.2.1.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Representation of a planar drone. \cite  {planar_quadrotor_figure}\relax }}{46}{figure.caption.28}\protected@file@percent }
 \newlabel{dynamics_planar_quadrotor}{{2.10}{46}{Planar Quadrotor}{equation.2.1.10}{}}
 \citation{Fantoni2016}
@@ -304,24 +306,52 @@
 \newlabel{rotational_model_N_E_general_formula}{{2.13}{48}{}{equation.2.1.13}{}}
 \citation{Erskine2021}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.5.2}Equations of Motion with Quaternions}{49}{subsubsection.2.1.5.2}\protected@file@percent }
+\newlabel{equations_of_motion_quaternion_form}{{2.1.5.2}{49}{Equations of Motion with Quaternions}{subsubsection.2.1.5.2}{}}
 \newlabel{translation_model_quaternion}{{2.16}{49}{Equations of Motion with Quaternions}{equation.2.1.16}{}}
 \newlabel{rotational_model_quaternion}{{2.17}{49}{Equations of Motion with Quaternions}{equation.2.1.17}{}}
+\citation{AUVE2020}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{50}{figure.caption.29}\protected@file@percent }
 \newlabel{non_centralized_mpc_for_SIL}{{2.4}{50}{Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }{figure.caption.29}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Extended Kalman Filter for the Planar Quadrotor}{50}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Experiments}{51}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Evolution Model}{50}{subsection.2.2.1}\protected@file@percent }
+\newlabel{planar_drone_states}{{2.18}{50}{Evolution Model}{equation.2.2.18}{}}
+\newlabel{evolution_model}{{2.19}{50}{Evolution Model}{equation.2.2.19}{}}
+\citation{EKF_bitcraze}
+\citation{EKF_bitcraze}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Measurement Model}{51}{subsection.2.2.2}\protected@file@percent }
+\newlabel{measurement_model}{{2.20}{51}{Measurement Model}{equation.2.2.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Diagram of the EKF embedded in the crazyflie2.1 \cite  {EKF_bitcraze}.\relax }}{51}{figure.caption.30}\protected@file@percent }
+\newlabel{ekf_diagram_crazyflie}{{2.5}{51}{Diagram of the EKF embedded in the crazyflie2.1 \cite {EKF_bitcraze}.\relax }{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Prediction Phase}{51}{subsection.2.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Correction Phase}{53}{subsection.2.2.4}\protected@file@percent }
+\citation{Forster2015}
+\citation{crazyflie_datasheet}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Design of the MPC controller}{54}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Parameters of the Crazyflie 2.1}{54}{subsection.2.3.1}\protected@file@percent }
+\newlabel{subsec:parameters_of_the_crazyflie}{{2.3.1}{54}{Parameters of the Crazyflie 2.1}{subsection.2.3.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 equiped with the battery and properllers.\relax }}{54}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:crazyflie_weight}{{2.6}{54}{Mass of the crazyflie 2.1 equiped with the battery and properllers.\relax }{figure.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }}{55}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:max_thrust}{{2.7}{55}{Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Planar Quadrotor MPC}{56}{subsection.2.3.2}\protected@file@percent }
+\newlabel{mpc_optimization_problem_planar_quadrotor}{{2.34}{56}{Planar Quadrotor MPC}{equation.2.3.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }}{57}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:computation_time_planar_quadrotor}{{2.8}{57}{Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}3D Quadrotor MPC}{59}{subsection.2.3.3}\protected@file@percent }
+\newlabel{mpc_optimization_problem_3d_quadrotor}{{2.49}{59}{3D Quadrotor MPC}{equation.2.3.49}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Experiments}{61}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{51}{figure.caption.30}\protected@file@percent }
-\newlabel{triangle2}{{3.1}{51}{Triangle drawn by my program. Note the 4th side.\relax }{figure.caption.30}{}}
-\@writefile{toc}{\contentsline {chapter}{Conclusion}{52}{chapter*.31}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{61}{figure.caption.34}\protected@file@percent }
+\newlabel{triangle2}{{3.1}{61}{Triangle drawn by my program. Note the 4th side.\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {chapter}{Conclusion}{62}{chapter*.35}\protected@file@percent }
 \citation{euclides300}
 \bibdata{../biblio}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Proof of theorem \ref  {theo}}{53}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Proof of theorem \ref  {theo}}{63}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:prooftheorem}{{A}{53}{Proof of theorem \ref {theo}}{appendix.A}{}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{53}{appendix.A}\protected@file@percent }
+\newlabel{sec:prooftheorem}{{A}{63}{Proof of theorem \ref {theo}}{appendix.A}{}}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{63}{appendix.A}\protected@file@percent }
 \bibcite{Fritzsche2019}{1}
 \bibcite{bitcraze}{2}
 \bibcite{How2008}{3}
@@ -334,59 +364,63 @@
 \bibcite{Chen2016}{10}
 \bibcite{Fantoni2016}{11}
 \bibcite{planar_quadrotor_figure}{12}
-\bibcite{Kozak2014}{13}
-\bibcite{Bouabdalla2007}{14}
-\bibcite{Parallel_Manipulators}{15}
-\bibcite{DAndrea2012}{16}
-\bibcite{Mellinger2011}{17}
-\bibcite{Faessler2018}{18}
-\bibcite{Sabatino2015}{19}
-\bibcite{BouabdallahNothSiegwart2018}{20}
-\bibcite{Cowling2007}{21}
-\bibcite{Minh2010}{22}
-\bibcite{Han2012}{23}
-\bibcite{Altug2007}{24}
-\bibcite{Zulu2016}{25}
-\bibcite{Utkin1997}{26}
-\bibcite{DeCarlo1998}{27}
-\bibcite{Hung1993}{28}
-\bibcite{Young1999}{29}
-\bibcite{Bartolini2008}{30}
-\bibcite{Madani2006}{31}
-\bibcite{Gao2011}{32}
-\bibcite{Diao2011}{33}
-\bibcite{Antonelli2013}{34}
-\bibcite{Kirillova2000}{35}
-\bibcite{MathWorks2018}{36}
-\bibcite{MathWorks2018b}{37}
-\bibcite{MathWorks2018c}{38}
-\bibcite{Kostova2013}{39}
-\bibcite{ZEMAN2003325}{40}
-\bibcite{Bujarbaruah2018}{41}
-\bibcite{7347864}{42}
-\bibcite{Bingfang2004}{43}
-\bibcite{MPT3}{44}
-\bibcite{qpOASES}{45}
-\bibcite{FORCES}{46}
-\bibcite{ACADO}{47}
-\bibcite{IPOPT}{48}
-\bibcite{acados2019}{49}
-\bibcite{Diehl2002}{50}
-\bibcite{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}{51}
-\bibcite{kloeser_schoels_sartor_zanelli_prison_diehl_2020}{52}
-\bibcite{Orsingher2019}{53}
-\bibcite{Marino2020}{54}
-\bibcite{Gillula2010}{55}
-\bibcite{Lupashin2010}{56}
-\bibcite{Lupashin2011}{57}
-\bibcite{Lee2010}{58}
-\bibcite{Badawy2016}{59}
-\bibcite{Wang2014}{60}
-\bibcite{Chen2017}{61}
-\bibcite{Chen2018}{62}
-\bibcite{Erskine2021}{63}
-\bibcite{Goldstein1980}{64}
-\bibcite{Murray1994}{65}
-\bibcite{jia_2013}{66}
-\bibcite{euclides300}{67}
-\gdef \@abspage@last{59}
+\bibcite{EKF_bitcraze}{13}
+\bibcite{Kozak2014}{14}
+\bibcite{Bouabdalla2007}{15}
+\bibcite{Parallel_Manipulators}{16}
+\bibcite{DAndrea2012}{17}
+\bibcite{Mellinger2011}{18}
+\bibcite{Faessler2018}{19}
+\bibcite{Sabatino2015}{20}
+\bibcite{BouabdallahNothSiegwart2018}{21}
+\bibcite{Cowling2007}{22}
+\bibcite{Minh2010}{23}
+\bibcite{Han2012}{24}
+\bibcite{Altug2007}{25}
+\bibcite{Zulu2016}{26}
+\bibcite{Utkin1997}{27}
+\bibcite{DeCarlo1998}{28}
+\bibcite{Hung1993}{29}
+\bibcite{Young1999}{30}
+\bibcite{Bartolini2008}{31}
+\bibcite{Madani2006}{32}
+\bibcite{Gao2011}{33}
+\bibcite{Diao2011}{34}
+\bibcite{Antonelli2013}{35}
+\bibcite{Kirillova2000}{36}
+\bibcite{MathWorks2018}{37}
+\bibcite{MathWorks2018b}{38}
+\bibcite{MathWorks2018c}{39}
+\bibcite{Kostova2013}{40}
+\bibcite{ZEMAN2003325}{41}
+\bibcite{Bujarbaruah2018}{42}
+\bibcite{7347864}{43}
+\bibcite{Bingfang2004}{44}
+\bibcite{MPT3}{45}
+\bibcite{qpOASES}{46}
+\bibcite{FORCES}{47}
+\bibcite{ACADO}{48}
+\bibcite{IPOPT}{49}
+\bibcite{acados2019}{50}
+\bibcite{Diehl2002}{51}
+\bibcite{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}{52}
+\bibcite{kloeser_schoels_sartor_zanelli_prison_diehl_2020}{53}
+\bibcite{Orsingher2019}{54}
+\bibcite{Marino2020}{55}
+\bibcite{Gillula2010}{56}
+\bibcite{Lupashin2010}{57}
+\bibcite{Lupashin2011}{58}
+\bibcite{Lee2010}{59}
+\bibcite{Badawy2016}{60}
+\bibcite{Wang2014}{61}
+\bibcite{Chen2017}{62}
+\bibcite{Chen2018}{63}
+\bibcite{Erskine2021}{64}
+\bibcite{Goldstein1980}{65}
+\bibcite{Murray1994}{66}
+\bibcite{jia_2013}{67}
+\bibcite{AUVE2020}{68}
+\bibcite{Forster2015}{69}
+\bibcite{crazyflie_datasheet}{70}
+\bibcite{euclides300}{71}
+\gdef \@abspage@last{69}

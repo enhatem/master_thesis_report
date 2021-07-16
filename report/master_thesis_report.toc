@@ -62,7 +62,15 @@
 \contentsline {subsubsection}{\numberline {2.1.5.1}Equations of Motion with Euler Angles}{47}{subsubsection.2.1.5.1}%
 \contentsline {subsubsection}{\numberline {2.1.5.2}Equations of Motion with Quaternions}{49}{subsubsection.2.1.5.2}%
 \contentsline {section}{\numberline {2.2}Extended Kalman Filter for the Planar Quadrotor}{50}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Experiments}{51}{chapter.3}%
-\contentsline {chapter}{Conclusion}{52}{chapter*.31}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{53}{appendix.A}%
-\contentsline {chapter}{Bibliography}{53}{appendix.A}%
+\contentsline {subsection}{\numberline {2.2.1}Evolution Model}{50}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Measurement Model}{51}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Prediction Phase}{51}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Correction Phase}{53}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Design of the MPC controller}{54}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Parameters of the Crazyflie 2.1}{54}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Planar Quadrotor MPC}{56}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}3D Quadrotor MPC}{59}{subsection.2.3.3}%
+\contentsline {chapter}{\numberline {3}Experiments}{61}{chapter.3}%
+\contentsline {chapter}{Conclusion}{62}{chapter*.35}%
+\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{63}{appendix.A}%
+\contentsline {chapter}{Bibliography}{63}{appendix.A}%

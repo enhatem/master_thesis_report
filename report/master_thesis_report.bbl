@@ -88,6 +88,12 @@ I.~{Fantoni}, ``Lecture notes in modelling of terrestrial and aerial
   \url{https://www.scribd.com/doc/297378844/Aerial-Robotics-Lecture-3A-1-2-D-Quadrotor-Control}
 \BIBentrySTDinterwordspacing
 
+\bibitem{EKF_bitcraze}
+\BIBentryALTinterwordspacing
+``State estimation.'' [Online]. Available:
+  \url{https://www.bitcraze.io/documentation/repository/crazyflie-firmware/2020.06/functional-areas/state_estimators/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Kozak2014}
 K.~Kozak, ``State-of-the-art in control engineering,'' \emph{Journal of
   Electrical Systems and Information Technology}, vol.~1, p. 1–9, 05 2014.
@@ -372,6 +378,20 @@ R.~M. et~al., ``A mathematical introduction to robotic manipulation,''
 \BIBentryALTinterwordspacing
 Y.-B. Jia, ``Quaternions and rotations,'' Sep 2013. [Online]. Available:
   \url{http://graphics.stanford.edu/courses/cs348a-17-winter/Papers/quaternion.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{AUVE2020}
+E.~Le-Carpentier, \emph{Statistical Signal Processing and Estimation Theory},
+  Nantes, FR, 2020.
+
+\bibitem{Forster2015}
+J.~Förster, ``System identification of the crazyflie 2.0 nano quadrocopter,''
+  2015.
+
+\bibitem{crazyflie_datasheet}
+\BIBentryALTinterwordspacing
+Bitcraze, ``Crazyflie 2.1 datasheet.'' [Online]. Available:
+  \url{https://www.bitcraze.io/documentation/hardware/crazyflie_2_1/crazyflie_2_1-datasheet.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{euclides300}

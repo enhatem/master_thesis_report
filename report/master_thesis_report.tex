@@ -51,6 +51,7 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
  
  \section*{Notations}
   \begin{tabular}{cp{0.8\textwidth}}
+  $I_{k \times k}$ & identity matrix of size $k \times k$ \\
   $I_{xx}, I_{yy}, I_{zz}$ & diagonal terms of the inertia matrix\\
   $\phi, \theta, \psi$ & roll, pitch and yaw angles respectively\\
   $l$ & arm length of a quadrotor \\
@@ -59,7 +60,7 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   $u, T$ & total thrust input of the 3D quadrotor (depending on the model used)\\  
   $\bm{\tau}$ & vector of the torque inputs \\
   $\omega_x, \omega_y, \omega_z$ & angular rates inputs with respect to the x, y and z axes respectively \\
-  $T_s$ & sample Time \\
+  $T_s, \Delta t$ & sample Time \\
   $N$ & prediction horizon \\
   $m$ & control horizon \\
   $J$ & objective function \\
@@ -89,8 +90,9 @@ I would like to thank my family as well: my parents Naji and Yolla, my sister Re
   \textbf{NLP} & a nonlinear program \\
   \textbf{RTI} & real-time iteration \\
   \textbf{API} & application programming interface \\
-  \textbf{EKF} & extended Kalman filter \\
   \textbf{ODE} & ordinary differential equations \\
+  \textbf{EKF} & extended Kalman filter \\
+  \textbf{KF} & Kalman filter \\
   
   
  \end{tabular}\\
@@ -1442,7 +1444,7 @@ The equations of motion presented in the next subsection are based on the follow
 
 
 
-\subsection{Planar Quadrotor}
+\subsection{Planar Quadrotor}\label{subsec:planar_quadrotor}
 
 \begin{figure}[h]
 	\centering
@@ -1605,7 +1607,7 @@ However, it can be inferred that the translational dynamics in  (\ref{translatio
 
 \newpage
 
-\subsubsection{Equations of Motion with Quaternions}
+\subsubsection{Equations of Motion with Quaternions}\label{equations_of_motion_quaternion_form}
 
 The equations of motion of a quadrotor expressed with quaternions are \cite{Erskine2021}:
 
@@ -1690,6 +1692,535 @@ Moreover, the control inputs that will be outputted by the MPC controller are:
 As shown in figure \ref{non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the low-level controller. Then, the low-level controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to follow a desired trajectory.
 
 \section{Extended Kalman Filter for the Planar Quadrotor}
+In order to perform simple simulations with acados in the planar case under the presence of disturbance, it is useful to design an Extended Kalman Filter (EKF) for the planar quadrotor in order to reduce the effects of the noise on the system and increase the tracking accuracy of a desired trajectory. The Extended Kalman Filter was chosen instead of the Kalman Filter (KF) because the Kalman Filter works well for linear systems. However, the quadrotor dynamics are highly  nonlinear as seen in (\ref{subsec:planar_quadrotor}), which the Extended Kalman Filter can handle well. The EKF works by linearizing the nonlinear equations of motion at each time step. This is done by using the current values of the state vector of the planar quadrotor, in addition to the Jacobian matrices of the state vector. However, it should be noted that the EKF will not provide proper measurements if the initial condition of the state vector is not properly defined. The equations used are from the following reference \cite{AUVE2020}.
+
+\subsection{Evolution Model}
+
+The state vector used for the planar quadrotor is: 
+\begin{equation}\label{planar_drone_states}
+	X = \begin{bmatrix}
+		y & z & \phi & v_y & v_z & \dot{\phi} \\ 
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+So, the evolution model can be expressed as follows: 
+
+\begin{equation}\label{evolution_model}
+        \begin{bmatrix}
+            y_{k+1} \\ z_{k+1} \\ \phi_{k+1} \\ v_{y_{k+1}} \\ v_{z_{k+1}} \\ \dot{\phi}_{k+1} 
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            y_{k} \\ z_{k} \\ \phi_{k} \\ v_{y_{k}} \\ v_{z_{k}} \\ \dot{\phi}_{k} 
+        \end{bmatrix}
+        + \Delta t \begin{bmatrix} 
+            v_{y_{k}} \\ v_{z_{k}} \\ \dot{\phi}_{k} \\ -\frac{u_{1_k}}{m} \sin \phi_k \\ -g + \frac{u_{1_k}}{m} \cos \phi_k \\ \frac{u_2}{I_{xx}}
+        \end{bmatrix}
+    \end{equation}
+With $\Delta t$ being the sample time.
+
+\newpage    
+    
+	\subsection{Measurement Model}
+	
+	Generally, quadrotors make use of an embedded Inertial Measurement Unit (IMU) sensor, which typically measures angular rates and body-frame accelerations. In addition, an embedded air pressure sensor can also be used to measure the altitude of the quadrotor. However, since simple simulations will be conducted in acados, it is assumed the all the states can be measured. This will result in the following measurement model:
+	
+	\begin{equation}\label{measurement_model}
+        Y = CX = I_{6 \times 6} X = [y, z, \phi, v_y, v_z, \dot{\phi}]^{\intercal}
+    \end{equation}
+
+So, in this very simplified case, the measurement vector is identical to the state vector.
+Moreover, for the case of the 3D drone, the quadrotor that will be used already has an EKF implemented that is able to take inputs from different sensors and fuse them in order to output filtered measurements.
+A figure showing a representation of the EKF implemented on the real quadrotor with all the available inputs and outputs is shown below:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.5\textwidth]{Images/ekf/extended_kalman_filter.png}
+	\caption{Diagram of the EKF embedded in the crazyflie2.1 \cite{EKF_bitcraze}.}
+	\label{ekf_diagram_crazyflie}
+\end{figure}
+
+	\subsection{Prediction Phase}
+	In the prediction phase, no measurement is taken. The state is predicted using the evolution model and Jacobian matrices of the state vector.
+	
+Using the state vector and the control inputs of the previous time instant, the current state vector can predicted using the evolution in model in \ref{evolution_model}. So,
+    \begin{equation}
+        X_k = evolution(X_{k-1}, U_{k-1},\Delta t)
+    \end{equation}
+
+And, in order to show how accurate the prediction is, a covariance matrix for the prediction is computed as follows:
+
+    \begin{equation}
+        P_k = A_{k-1} P_{k-1} A_{k-1}^{\intercal} + B_{k-1} Q_{\beta} B_{k-1}^{\intercal} + Q_{\alpha}
+    \end{equation}
+
+Where: 
+
+\begin{itemize}
+	\item $P_{k-1}$: the covariance matrix of the previous time instant.
+	\item $A_{k-1}$: the Jacobian of the state vector with respect to each state at the previous time instant.
+	\item $B_{k-1}$: the Jacobian of the state vector with respect to the control inputs at the previous time instant.
+	\item $Q_{\alpha}$: the covariance matrix of the state noise.
+	\item $Q_{\beta}$: the covariance matrix of the input noise.
+\end{itemize}	
+
+And, the expressions of $A_{k-1}$ and $B_{k-1}$ are:
+
+\begin{equation}
+        A_{k-1} = \begin{bmatrix}
+                1 & 0 & 0 & \Delta t  & 0 & 0 \\
+                0 & 1 & 0 & 0  & \Delta t & 0 \\
+                0 & 0 & 1 & 0 & 0 & \Delta t \\
+                0 & 0 & -\frac{u_{1_{k-1}}}{m} \cos \phi_{k-1} \Delta t & 1 & 0 & 0 \\
+                0 & 0 & -\frac{u_{1_{k-1}}}{m} \sin \phi_{k-1} \Delta t & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 \\
+            \end{bmatrix}
+    \end{equation}
+    \begin{equation}
+        B_{k-1} = \begin{bmatrix}
+            0 & 0 \\
+            0 & 0 \\
+            0 & 0 \\
+            - \frac{\sin \phi_{k-1}}{m} \Delta t & 0 \\
+            - \frac{\cos \phi_{k-1}}{m} \Delta t & 0 \\
+            0 & \frac{\Delta t}{I_{xx}} \\
+        \end{bmatrix}
+    \end{equation}
+    
+In addition, the expression of $Q_{\alpha}$ was found using trial and error based on the amount of noise added on the state and the inputs:
+
+\begin{equation}
+        Q_{\alpha} = \begin{bmatrix}
+                10^{-7} & 0 & 0 & 0  & 0 & 0 \\
+                0 & 10^{-4} & 0 & 0  & 0 & 0 \\
+                0 & 0 & 10^{-5} & 0 & 0 & 0 \\
+                0 & 0 & 0 & 10^{-7} & 0 & 0 \\
+                0 & 0 & 0 & 0 & 10^{-4} & 0 \\
+                0 & 0 & 0 & 0 & 0 & 10^{-5} \\
+            \end{bmatrix}
+\end{equation}
+With each value representing the variance of the state noise on each element of the state vector. It is important not to have $Q_{\alpha}=0_{6 \times 6}$ because in the case of the planar quadrotor, the previous states have a great influence on the evolution model as can be seen in (\ref{evolution_model}).
+
+As for the covariance matrix of the input noise $Q_{\beta}$:
+
+\begin{equation}
+	Q_{\beta} = \begin{bmatrix}
+	(10^{-3})^2 & 0 \\
+	0 & (10^{-4})^2 \\
+	\end{bmatrix}
+\end{equation}
+
+Where the first diagonal term represents the variance of the noise on the thrust input $u_1$. This variance represents an input noise between $-0.001N$ and $0.001N$. As for the second diagonal term, it represent the variance of the noise on the torque input $u_2$. This variance represents  an input noise between $-0.0001N.m$ and $0.0001N.m$. The variance values were chosen to be small because the quadrotor used will have a maximum thrust of $0.45N$, as will be shown in future sections, which is already very small. 
+
+\newpage
+
+In addition, the covariance matrix of the initial state is chosen to be:
+
+\begin{equation}
+P_0 = \begin{bmatrix}
+                10^{-2} & 0 & 0 & 0  & 0 & 0 \\
+                0 & 10^{-2} & 0 & 0  & 0 & 0 \\
+                0 & 0 & 10^{-2} & 0 & 0 & 0 \\
+                0 & 0 & 0 & 10^{-2} & 0 & 0 \\
+                0 & 0 & 0 & 0 & 10^{-2} & 0 \\
+                0 & 0 & 0 & 0 & 0 & 10^{-2} \\
+            \end{bmatrix}
+\end{equation}
+
+$P_0$ represents the accuracy of the initial condition of the state vector.
+
+	\subsection{Correction Phase}
+	The correction phase is where the measurement from the sensors are taken and fused with the outputs of the predicted state to provide a proper estimation of the state.
+	
+First, the measurement prediction is computed: 
+
+	\begin{equation}
+        \hat{Y}_k = C X_k 
+    \end{equation}
+    
+    Where $C \equiv	I_{6 \times 6}$, similarly to (\ref{measurement_model}).
+
+Then, the Kalman gain is computed as follows:
+
+\begin{equation}
+        K = P_k C^{\intercal} (C P_k C^{\intercal} + Q_{\gamma})^{-1}
+    \end{equation}
+
+Where, $Q_{\gamma}$ is the covariance matrix of the measurement noise. The square root of each diagonal term in $Q_{\gamma}$ was used as the magnitude for added white Gaussian noise of the corresponding state. So, $Q_{\gamma}$ was chosen to be:
+
+ \begin{equation}
+        Q_{\gamma} = \begin{bmatrix}
+                (10^{-2})^2 & 0 & 0 & 0  & 0 & 0 \\
+                0 & (10^{-2})^2 & 0 & 0  & 0 & 0 \\
+                0 & 0 & (\frac{\pi}{180})^2 & 0 & 0 & 0 \\
+                0 & 0 & 0 & (10^{-3})^2 & 0 & 0 \\
+                0 & 0 & 0 & 0 & (10^{-3})^2 & 0 \\
+                0 & 0 & 0 & 0 & 0 & (\frac{\pi}{180})^2 \\
+            \end{bmatrix}
+\end{equation}
+
+The diagonal terms in $Q_{\gamma}$ mean the following:
+
+\begin{itemize}
+	\item The added noise on $y$ is between $-1cm$ and $1cm$.
+	\item The added noise on $z$ is between $-1cm$ and $1cm$.
+	\item The added noise on the roll angle $\phi$ is between $-1^{\circ}$ and $1^{\circ}$
+	\item The added noise on $v_y$ is between $-0.01m/s$ and $0.01m/s$.
+	\item The added noise on $v_z$ is between $-0.01m/s$ and $0.01m/s$.
+	\item The added noise on $\dot{\phi}$ is between $-1^{\circ}/s$ and $1^{\circ}/s$.
+\end{itemize}
+    
+    \newpage
+    
+    In addition, the state vector is updated as follows:
+    
+    \begin{equation}
+        X_k = X_k + K (Y_k-\hat{Y}_k)
+    \end{equation}
+    
+    Finally, the covariance matrix of the state vector is updated. There exist many formulas to update the covariance matrix of the state after the state vector has been corrected. However, the Joseph form was used since it is better conditioned when compared to the other available formulas. So, the covariance matrix of the state vector is updated using the following: 
+    
+    \begin{equation}
+        P_k = ( I - K C) P_k ( I - K C)^{\intercal} + K Q_{\gamma} K^{\intercal}
+    \end{equation}
+
+\section{Design of the MPC controller}
+
+\subsection{Parameters of the Crazyflie 2.1}\label{subsec:parameters_of_the_crazyflie}
+
+The parameters of crazyflie were identified in \cite{Forster2015}. However, to increase the accuracy of the simulations that will be performed, the drone was weighed using a small scale to determine its actual mass.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth, angle =-90]{Images/crazyflie/weight.jpg}
+	\caption{Mass of the crazyflie 2.1 equiped with the battery and properllers.}
+	\label{fig:crazyflie_weight}
+\end{figure}
+
+As can be seen in figure \ref{fig:crazyflie_weight}, the mass of the crazyflie is $29.5g$. However, it should be noted that the crazyflie is marketed to have a mass of $27g$ as shown in the crazyflie 2.1 datasheet \cite{crazyflie_datasheet}.
+
+Then, in order to find the maximum thrust, several experiments were conducted with different added masses to the quadrotor. And, the maximum thrust was found when the quadrotor was barely able to support its weight and hover.
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth, angle =-90]{Images/crazyflie/max_thrust.jpg}
+	\caption{Mass of the crazyflie 2.1 with the maximum added mass that it can support.}
+	\label{fig:max_thrust}
+\end{figure}
+
+As can be seen in figure \ref{fig:max_thrust}, the maximum thrust was found when the crazyflie had a total mass of $46g$. So, the maximum thrust of the drone is:
+
+\begin{equation}
+	T_{max}^{actual} = 46 \times 10^{-3} kg \times 9.81 \frac{m}{s^2} = 0.45126 N
+\end{equation}
+
+So, the parameters of the quadrotor that will be used in all the simulations are:
+
+\begin{itemize}
+	\item $m = 0.0295 kg$
+	\item $I_{xx}$ = $1.657171 \times 10^{-5} N.m$
+	\item $I_{yy}$ = $1.657171 \times 10^{-5} N.m$
+	\item $I_{zz}$ = $2.9261652 \times 10^{-5} N.m$
+	\item $l = 0.046m$
+	
+\end{itemize}
+
+It should be noted that in the case of the planar quadrotor, the mass and the total thrust will be divided by 2 since only 2 rotors will be present instead of 4 in the planar case.
+
+In addition, the maximum thrust is never used. Because, when the maximum thrust is applied by the quadrotor, the quadrotor will not be able to do move freely in space. In other words, the quadrotor will only be able to move vertically and hover at a desired position. As a result, a general rule of thumb is to set the maximum thrust to be 90\% of the actual maximum. This way, the remaining 10\% of the thrust can be used to control the torque in order to perform maneuvers and move in the 3D space. In addition, the planar drone will also be restricted to keeping only a 10\% margin for steering torque. This is done because the maximum torque $\tau_{max}$ is the maximum torque that can be given around any one axis. However, the torque must be limited greatly in order to stabilize and have more control of the quadrotor. These constraints are set in the MPC controller when it is being designed.
+
+\newpage
+
+\subsection{Planar Quadrotor MPC}
+
+The MPC optimization problem is formulated as follows:
+
+	\begin{equation}\label{mpc_optimization_problem_planar_quadrotor}
+\begin{aligned}
+            \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
+            \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
+            & 0 \leq T \leq T_{max} \\
+            & - \tau_{max} \leq \tau \leq \tau_{max}
+        \end{aligned}
+\end{equation}
+with: 
+\begin{multicols}{3}
+\begin{itemize}
+	\item $\bm{V}_x \in \mathbb{R}^{n_y \times n_x}$
+	\item $\bm{V}_u \in \mathbb{R}^{n_y \times n_u}$ 
+	\item $\bm{V}_z \in \mathbb{R}^{n_y \times n_z}$
+	\item $\bm{V}_x^e \in \mathbb{R}^{n_{ye}\times n_x}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{y}_{ref} \in \mathbb{R}^{n_y}$
+	\item $\bm{y}_{ref_e} \in \mathbb{R}^{n_{y_e}}$
+	\item $\bm{W} \in \mathbb{R}^{n_y \times n_y}$
+	\item $\bm{W}_e \in \mathbb{R}^{n_{y_e} \times n_{y_e}}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{Q},\bm{Q}_e \in \mathbb{R}^{n_x \times n_x}$
+	\item $\bm{R} \in \mathbb{R}^{n_u \times n_u}$
+	\item $\bm{W} = diag(\bm{Q},\bm{R}) $
+	\item $\bm{W}_e = \bm{Q}_e $
+\end{itemize}
+\end{multicols}
+
+And, by taking the state vector as shown in (\ref{planar_drone_states}) and by using the equations of motion of the planar quadrotor as shown in (\ref{dynamics_planar_quadrotor}), it is evident that the states evolve according to:
+
+			\begin{align}
+                \dot{y} &= v_y \\
+                \dot{z} &= v_z \\
+                \dot{\phi} &= \dot{\phi} \equiv \dot{roll} \\
+                \dot{v}_y &= - \frac{u_1}{m} \sin(\phi) \\
+                \dot{v}_z &= - g + \frac{u_1}{m} \cos(\phi) \\
+                \ddot{\phi} &= \frac{u_2}{I_{xx}}
+            \end{align}   
+
+As shown in \ref{subsec:planar_quadrotor}, the control inputs vector in this case is :
+	\begin{equation}
+	\bm{u} = \begin{bmatrix}
+		u_1 & u_2 \\
+	\end{bmatrix}^{\intercal}
+	\end{equation}
+
+Then, the initial condition of the states of the quadrotor is set: 
+
+\begin{equation}
+	\bm{x}_0 = \begin{bmatrix}
+	x_0 & y_0 & \phi_0 & v_{y_0} & v_{z_0} & \dot{\phi}_0 \\
+	\end{bmatrix}^{\intercal}
+\end{equation} 
+
+And, the desired trajectory will be fed to the MPC controller as a reference by using the future $N$ waypoints of the trajectory, which contain the desired states at each time instant:
+
+\begin{equation}
+	\bm{x}_d = \begin{bmatrix}
+		x_d & y_d & \phi_d & v_{y_d} & v_{z_d} & \dot{\phi}_d \\
+\end{bmatrix}^{\intercal}	 
+\end{equation}
+
+Furthermore, the desired control inputs $\bm{u}_d$ can also be fed to the MPC controller:
+
+
+\begin{equation}
+	\bm{u}_d = \begin{bmatrix}
+		u_{1_d} & u_{2_d} \\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+ The reference vector $\bm{y}_{ref}$ in the running cost can be constructed using the desired waypoints and the desired control inputs for the next $(N-1)$ time steps:
+
+\begin{equation}
+	\bm{y}_{ref} = \begin{bmatrix}
+		\bm{x}_d^{\intercal} & \bm{u}_d^{\intercal} \\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+The reference vector $\bm{y}_{ref}^e$ in the terminal cost contains the desired waypoint at time step $N$:
+\begin{equation}
+	\bm{y}_{ref}^e = \bm{x}_d
+\end{equation}
+
+\newpage
+
+Moreover, the MPC parameters are chosen to be:
+\begin{itemize}
+	\item $N = 100$ : number of discretization steps in the prediction horizon.
+	\item $T_f = 1s$ : prediction horizon.
+\end{itemize}
+
+It should be noted that the number of discretization steps that was used is rather large, and will surely be reduced during the experimentation phase. However, it was still used in the simple acados simulations since the total computation time of the MPC while tracking a $22s$ trajectory as around $8.5s$ on an Inter Core i5-6300u 2.4GHz with 4 cores, which can be considered as a mid-range processor. An example of a MPC computation time for a planar quadrotor which is tracking a circular trajectory is shown in figure \ref{fig:computation_time_planar_quadrotor} below.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Images/acados_simulations/circular_trajectory/planar_drone/computation_time.png}
+	\caption{Computation of the MPC for a planar quadrotor tracking a 22s trajectory.}
+	\label{fig:computation_time_planar_quadrotor}
+\end{figure}
+
+Finally, the maximum thrust and torque are computed as explained in \ref{subsec:parameters_of_the_crazyflie}: 
+
+	\begin{equation}
+		T_{max} = 0.9 (\frac{T_{max}^{actual}}{2})=0.203067N
+	\end{equation}
+	
+	\begin{equation}
+		\tau_{max} = 0.1(\frac{1}{2}T_{max}l)=0.0004670541N.m
+	\end{equation}
+
+And, as for the components of the linear least-squared cost function:
+
+\begin{multicols}{2}
+        \begin{itemize}
+                \item $\bm{V}_x = \begin{bmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 \\
+                0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 \\
+                \end{bmatrix}$
+                
+                \item $\bm{V}_{x_e} = \begin{bmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 \\
+                \end{bmatrix}$
+                
+                \item $\bm{V}_u = \begin{bmatrix}
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                1 & 0 \\
+                0 & 1 \\
+                \end{bmatrix}$
+                
+            \end{itemize}
+			\columnbreak
+            \begin{itemize}
+            	\item $\bm{Q} = \begin{bmatrix}
+                 30 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 30  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 0 & 5 & 0 & 0 \\
+                 0 & 0  & 0 & 0 & 5 & 0 \\
+                 0 & 0  & 0 & 0 & 0 & 0 \\
+                \end{bmatrix}$
+                
+                \item $\bm{Q}_e = \begin{bmatrix}
+                 30 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 30  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 0 & 5 & 0 & 0 \\
+                 0 & 0  & 0 & 0 & 5 & 0 \\
+                 0 & 0  & 0 & 0 & 0 & 0 \\
+                \end{bmatrix}$
+                
+                \item $\bm{R} = \begin{bmatrix}
+                1 & 0 \\
+                0 & 1 \\
+                \end{bmatrix}$
+                
+            \end{itemize}
+\end{multicols}
+
+The matrices $\bm{V}_x$ and  $\bm{V}_u$ are used to refer to each element of the state in the state vector $\bm{x}$ and to each element of the inputs in the input vector $\bm{u}$ in the running cost, respectively. And, it should be noted that there are no algebraic variables $\bm{z}$ in the problem at hand. However, it is included in the cost function of equation (\ref{mpc_optimization_problem_planar_quadrotor}) for completeness. Furthermore, the matrix $\bm{V}_{x_e}$ is used to refer to each element of the state vector $\bm{x}$ in the terminal cost. And, it can be inferred that there are no control inputs at the terminal cost since the terminal cost represents the final position that the system is desired to reach.
+Moreover, the diagonal terms of the matrices $\bm{Q}$ and $\bm{R}$ represent the weights applied on each element of the state vector and the control inputs vector in the running cost, respectively. Finally, the diagonal terms in the matrix $\bm{Q}_e$ represent the weights applied on each element of the state vector in the terminal cost. Usually, the weights on the terminal cost are higher than the weights on the running cost, because, it will push the MPC controller to generate control inputs that will allow the system to reach the final desired position. However, in the case of tracking a desired trajectory, all the waypoints are equally important. For this reason, the weights on the elements of the state vector in both the running cost and the terminal cost, are equal ($\bm{Q}=\bm{Q}_e$). 
+
+%So, the $y$ and $z$ elements of the state vector have the highest importance when following a given 
+%As for the weights on the inputs, even if the 
+
+After the optimization problem is solved for the current time instant, the MPC controller will have the next $N$ control input solutions for the next $N$ states. However, the MPC will only output the first solution for the control inputs, and discard the other $N-1$ solutions. Then, the system will take 1 step forward using the control inputs that were provided by the MPC controller. Finally, the optimization problem is repeated until the final waypoint of the trajectory is reached.
+
+\newpage
+
+\subsection{3D Quadrotor MPC}
+
+In the 3D quadrotor case, the MPC optimization problem has the same formulation as in (\ref{mpc_optimization_problem_planar_quadrotor})
+but with different constraints on the dynamics.
+	\begin{equation}\label{mpc_optimization_problem_3d_quadrotor}
+\begin{aligned}
+            \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
+            \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
+            & 0 \leq T \leq T_{max}
+        \end{aligned}
+\end{equation}
+with: 
+\begin{multicols}{3}
+\begin{itemize}
+	\item $\bm{V}_x \in \mathbb{R}^{n_y \times n_x}$
+	\item $\bm{V}_u \in \mathbb{R}^{n_y \times n_u}$ 
+	\item $\bm{V}_z \in \mathbb{R}^{n_y \times n_z}$
+	\item $\bm{V}_x^e \in \mathbb{R}^{n_{ye}\times n_x}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{y}_{ref} \in \mathbb{R}^{n_y}$
+	\item $\bm{y}_{ref_e} \in \mathbb{R}^{n_{y_e}}$
+	\item $\bm{W} \in \mathbb{R}^{n_y \times n_y}$
+	\item $\bm{W}_e \in \mathbb{R}^{n_{y_e} \times n_{y_e}}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{Q},\bm{Q}_e \in \mathbb{R}^{n_x \times n_x}$
+	\item $\bm{R} \in \mathbb{R}^{n_u \times n_u}$
+	\item $\bm{W} = diag(\bm{Q},\bm{R}) $
+	\item $\bm{W}_e = \bm{Q}_e $
+\end{itemize}
+\end{multicols}
+
+And, by taking the state vector as:
+
+\begin{equation}
+	\bm{x} = \begin{bmatrix}
+		x & y & z & q_w & q_x & q_y & q_z & v_x & v_y & v_z\\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+And, by using the equations of motion of the 3D quadrotor in quaternion form as shown in (\ref{translation_model_quaternion}) and (\ref{rotational_model_quaternion}), it is evident that the states evolve according to: 
+
+\begin{multicols}{2}
+            \begin{align}
+                \dot{x} &= v_x \\
+                \dot{y} &= v_y \\
+                \dot{z} &= v_z \\
+                \dot{q}_w &=\frac{1}{2}( - \omega_x q_x - \omega_y q_y - \omega_z q_z) \\
+                \dot{q}_x &=\frac{1}{2}( \omega_x q_w + \omega_z q_y - \omega_y q_z)
+            \end{align}
+        \columnbreak
+            \begin{align}
+                \dot{q}_y &=\frac{1}{2}( \omega_y q_w - \omega_z q_x + \omega_x q_z) \\
+                \dot{q}_z &=\frac{1}{2}( \omega_z q_w + \omega_y q_x - \omega_x q_y) \\
+                \dot{v}_x &= 2( q_w q_y + q_x q_z )\frac{T}{m} \\
+                \dot{v}_y &= 2(q_y q_z - q_w q_x )\frac{T}{m} \\
+                \dot{v}_z &= ( 1 - 2 q_x^2 - 2 q_y^2 )\frac{T}{m} - g
+            \end{align}
+\end{multicols}
+
+\newpage
+
+As shown in \ref{equations_of_motion_quaternion_form}, the control inputs vector in this case is: 
+
+\begin{equation}
+	\bm{u} = \begin{bmatrix}
+		T & \omega_x & \omega_y & \omega_z \\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+Then, the initial condition of the states of the quadrotor is set:
+
+\begin{equation}
+	\bm{x}_0 = \begin{bmatrix}
+		x_0 & y_0 & z_0 & q_{w_0} & q_{x_0} & q_{y_0} & q_{z_0} & v_{x_0} & v_{y_0} & v_{z_0}\\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+And, similarly to the planar quadrotor case, the desired trajectory will be fed to the MPC as a reference by using the future $N$ waypoints of the trajectory, which contain the desired states at each time instant:
+
+\begin{equation}
+	\bm{x}_d = \begin{bmatrix}
+		x_d & y_d & z_d & q_{w_d} & q_{x_d} & q_{y_d} & q_{z_d} & v_{x_d} & v_{y_d} & v_{z_d}\\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+
+
+
+
+
+
+
 
 
 
@@ -1703,6 +2234,7 @@ As shown in figure \ref{non_centralized_mpc_for_SIL}, the MPC controller will so
  \end{figure}
  
 Unless there is a bug in my program, which is unlikely, this research indicates that the whole theory on triangles having 3 sides has been wrong for years, maybe decades.
+
  
  \chapter*{Conclusion}
  \addcontentsline{toc}{chapter}{Conclusion}

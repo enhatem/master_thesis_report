@@ -24,6 +24,10 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Model of the quadrotor represented with motor torques and Euler angles \cite {Fantoni2016}.\relax }}{45}{figure.caption.27}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{46}{figure.caption.28}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{50}{figure.caption.29}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Diagram of the EKF embedded in the crazyflie2.1 \cite {EKF_bitcraze}.\relax }}{51}{figure.caption.30}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 equiped with the battery and properllers.\relax }}{54}{figure.caption.31}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }}{55}{figure.caption.32}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }}{57}{figure.caption.33}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{51}{figure.caption.30}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{61}{figure.caption.34}%
 \addvspace {10\p@ }
