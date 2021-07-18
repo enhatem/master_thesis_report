@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  16 JUL 2021 01:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  16 JUL 2021 15:38
 entering extended mode
 **./master_thesis_report.tex
 (master_thesis_report.tex
@@ -1207,26 +1207,26 @@ rone/computation_time.png  used on input line 2039.
 (pdftex.def)             Requested size: 338.58632pt x 48.76028pt.
  [57 <./Images/acados_simulations/circular_trajectory/planar_drone/computation_
 time.png>] [58]
-[59] [60]
+[59]
 Chapter 3.
-<triangle2.pdf, id=1097, 146.83774pt x 87.67285pt>
+<triangle2.pdf, id=1092, 146.83774pt x 87.67285pt>
 File: triangle2.pdf Graphic file (type pdf)
 <use triangle2.pdf>
-Package pdftex.def Info: triangle2.pdf  used on input line 2232.
+Package pdftex.def Info: triangle2.pdf  used on input line 2230.
 (pdftex.def)             Requested size: 241.84843pt x 144.40912pt.
-[61
+[60
 
- <./triangle2.pdf>] [62
+ <./triangle2.pdf>] [61
 
 ]
 Appendix A.
 
-LaTeX Warning: Reference `theo' on page 63 undefined on input line 2249.
+LaTeX Warning: Reference `theo' on page 62 undefined on input line 2247.
 
 
-LaTeX Warning: Reference `theo' on page 63 undefined on input line 2254.
+LaTeX Warning: Reference `theo' on page 62 undefined on input line 2252.
 
-(master_thesis_report.bbl [63
+(master_thesis_report.bbl [62
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 32--35
@@ -1234,9 +1234,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--35
 tional-[]areas / sensor-[]to-[]control /
  []
 
-[64
+[63
 
-] [65]
+] [64]
 Underfull \hbox (badness 1789) in paragraph at lines 198--202
 []\OT1/cmr/m/n/12 G. Antonelli, E. Cataldi, P. Robuffo Giordano, S. Chiaverini,
  and A. Franchi,
@@ -1254,13 +1254,13 @@ Underfull \hbox (badness 2671) in paragraph at lines 214--217
 2018, from the Model Predictive
  []
 
-[66]
+[65]
 Underfull \hbox (badness 4673) in paragraph at lines 329--331
 []\OT1/cmr/m/n/12 S. Lupashin and R. D'Andrea, ``Adaptive open-loop aerobatic m
 aneuvers for
  []
 
-[67]) [68] (master_thesis_report.aux (thesisfront.aux))
+[66]) [67] (master_thesis_report.aux (thesisfront.aux))
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1274,8 +1274,8 @@ Package rerunfilecheck Info: File `master_thesis_report.out' has not changed.
 (rerunfilecheck)             Checksum: 0D1E23ADA51D9C9DAF86B9A7D4F9411A;11642.
  ) 
 Here is how much of TeX's memory you used:
- 14567 strings out of 481266
- 226376 string characters out of 2908708
+ 14566 strings out of 481266
+ 226369 string characters out of 2908708
  576749 words of memory out of 3000000
  31137 multiletter control sequences out of 15000+600000
  421209 words of font info for 92 fonts, out of 8000000 for 9000
@@ -1314,9 +1314,9 @@ ts/type1/public/amsfonts/cm/cmtt10.pfb></home/elie/.miktex/texmfs/install/fonts
 /type1/public/amsfonts/cm/cmtt12.pfb></home/elie/.miktex/texmfs/install/fonts/t
 ype1/public/amsfonts/symbols/msam10.pfb></home/elie/.miktex/texmfs/install/font
 s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on master_thesis_report.pdf (69 pages, 6970442 bytes).
+Output written on master_thesis_report.pdf (68 pages, 6969898 bytes).
 PDF statistics:
- 1316 PDF objects out of 1440 (max. 8388607)
- 331 named destinations out of 1000 (max. 500000)
+ 1311 PDF objects out of 1440 (max. 8388607)
+ 330 named destinations out of 1000 (max. 500000)
  627 words of extra memory for PDF output out of 10000 (max. 10000000)
 

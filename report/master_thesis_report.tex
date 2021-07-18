@@ -2116,10 +2116,10 @@ And, as for the components of the linear least-squared cost function:
 \end{multicols}
 
 The matrices $\bm{V}_x$ and  $\bm{V}_u$ are used to refer to each element of the state in the state vector $\bm{x}$ and to each element of the inputs in the input vector $\bm{u}$ in the running cost, respectively. And, it should be noted that there are no algebraic variables $\bm{z}$ in the problem at hand. However, it is included in the cost function of equation (\ref{mpc_optimization_problem_planar_quadrotor}) for completeness. Furthermore, the matrix $\bm{V}_{x_e}$ is used to refer to each element of the state vector $\bm{x}$ in the terminal cost. And, it can be inferred that there are no control inputs at the terminal cost since the terminal cost represents the final position that the system is desired to reach.
-Moreover, the diagonal terms of the matrices $\bm{Q}$ and $\bm{R}$ represent the weights applied on each element of the state vector and the control inputs vector in the running cost, respectively. Finally, the diagonal terms in the matrix $\bm{Q}_e$ represent the weights applied on each element of the state vector in the terminal cost. Usually, the weights on the terminal cost are higher than the weights on the running cost, because, it will push the MPC controller to generate control inputs that will allow the system to reach the final desired position. However, in the case of tracking a desired trajectory, all the waypoints are equally important. For this reason, the weights on the elements of the state vector in both the running cost and the terminal cost, are equal ($\bm{Q}=\bm{Q}_e$). 
+Moreover, the diagonal terms of the matrices $\bm{Q}$ and $\bm{R}$ represent the weights applied on each element of the state vector and the control inputs vector in the running cost, respectively. Finally, the diagonal terms in the matrix $\bm{Q}_e$ represent the weights applied on each element of the state vector in the terminal cost. Usually, the weights on the terminal cost are higher than the weights on the running cost, because, it is usually more important that the final desired position is reached. So, this will push the MPC controller to generate control inputs that will allow the system to reach the final desired position. However, in the case of tracking a desired trajectory, all the waypoints are equally important. For this reason, the weights on the elements of the state vector in both the running cost and the terminal cost, are equal ($\bm{Q}=\bm{Q}_e$). 
 
-%So, the $y$ and $z$ elements of the state vector have the highest importance when following a given 
-%As for the weights on the inputs, even if the 
+The weights provided above used to follow a circular trajectory with references on $y,z,v_y$ and $v_z$. 
+More weights were set on the $y$ and $z$ elements of the state vector since it is more important to follow the trajectory coordinates instead of perfectly following the desired velocities.
 
 After the optimization problem is solved for the current time instant, the MPC controller will have the next $N$ control input solutions for the next $N$ states. However, the MPC will only output the first solution for the control inputs, and discard the other $N-1$ solutions. Then, the system will take 1 step forward using the control inputs that were provided by the MPC controller. Finally, the optimization problem is repeated until the final waypoint of the trajectory is reached.
 
@@ -2187,8 +2187,6 @@ And, by using the equations of motion of the 3D quadrotor in quaternion form as 
                 \dot{v}_z &= ( 1 - 2 q_x^2 - 2 q_y^2 )\frac{T}{m} - g
             \end{align}
 \end{multicols}
-
-\newpage
 
 As shown in \ref{equations_of_motion_quaternion_form}, the control inputs vector in this case is: 
 
