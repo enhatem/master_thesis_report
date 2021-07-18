@@ -1198,7 +1198,7 @@ In the subsequent works, a backstepping control approach \cite{Chen2017} has bee
 %  \caption{A triangle with letters} \label{triangle}
 %  \end{figure}
  
-\chapter{MPC Design and Simple Simulations}
+\chapter{MPC Design and Simple Simulations with acados}
 In this chapter, the equations of motions of the planar quadrotor and the 3D quadrotor will be presented. And, an extended Kalman filter (EKF) will be designed for the planar case to test the controller in the presence of disturbance. Then, the MPC controller design will be presented. Finally, the MPC controller will by making the quadrotor follow a circular trajectory.
 
 \section{System Modeling} 
@@ -2561,7 +2561,82 @@ In the case of the 3D quadrotor, simulations will only be done without noise sin
 
 As can be seen in figure \ref{fig:3D_sim_circular}, the 3D quadrotor is able to follow the 3D trajectory. By looking at subfigure \ref{fig:3D_sim_thrust_input}, similarly to the planar quadrotor case, the thrust dips at the beginning of the circular trajectory for a time instant, then it saturates until the desired velocity is reached, then it settles at around $0.345N$ for the remaining of the circular trajectory. And, by looking at subfigure \ref{fig:3D_sim_pose}, it is clear that the quadrotor is able to follow the circular trajectory perfectly with very minimal errors on $x,y$ and $z$. Finally, by looking at the errors plots in subfigures \ref{fig:3D_sim_errors_pose} and \ref{fig:3D_sim_errors_velocities}, it is evident that the largest amount of errors occur just when the 3D quadrotor switches from the hovering phase to tracking the circular trajectory. Then, the errors oscillate around zero after the thrust input saturates and settles at $0.345N$ throughout the trajectory.
 
+\newpage
 
+\chapter{Flip Trajectory Generation and Simulations with acados}
+In this chapter, the design of the flip trajectory will be presented. And, simulations with acados will be made in order to try to follow the flip trajectory.
+
+\section{Design of the Flip Trajectory}
+
+\subsection{Dynamic criterion for feasible trajectories}
+
+	It has been demonstrated in \cite{Orsingher2019} that a trajectory is dynamically feasible for a planar quadrotor if and only if it satisfies the following:
+	
+	\begin{equation}\label{free_dynamics_equation}
+	\ddot{y} \cos \phi + (\ddot{z} + g) \sin \phi = 0
+	\end{equation}
+
+So, equation \ref{free_dynamics_equation} represents the free dynamics of a planar quadrotor. In other words, it represents the dynamic constraints on the motion of the planar quadrotor, which must be satisfied in order to track a trajectory. This approach is similar to the case of parallel robots. Because, when a parallel robot that is tracking a predefined trajectory reaches a singularity configuration, it becomes locally under-actuated, which will result in free dynamics that must be satisfied in order for the motion of the parallel robot to be dynamically feasible. However, in the case of a quadrotor, the situation is more involved, because the free dynamics must be respected at each time instant. This is because a quadrotor is under-actuated by design, and not just locally. 
+
+\subsection{Trajectory planning}
+
+
+For the sake of simplicity, a trajectory will be designed for the planar quadrotor case, and the same trajectory will be tracked by the 3D quadrotor. 
+Using the same approach as demonstrated in \ref{Orsingher2019}, the trajectories along $z$ and $\phi$ will be designed. Then, the trajectory along $y$ will be the consequence of the other 2 trajectories. In other words, the trajectories along $z$ and $\phi$ will be planned independently, while the trajectory along $y$ will be computed from the dynamic criterion shown in equation (\ref{free_dynamics_equation}) as follows: 
+
+\begin{align}
+	\ddot{y}(t) &= - (\ddot{z} + g) \sin \phi\\
+	\dot{y}(t)  &= \dot{y}(0) + \int_0^t \ddot{y}(t) dt \\
+	y(t) &= y(0) + \int_0^t \dot{y}(t)
+\end{align}
+
+\newpage
+
+The main problem with the strategy is that $y(t)$ is smooth and bounded if and only if $\phi \in (-\frac{\phi}{2}, \frac{\phi}{2})$. Indeed, this by most of the trajectories that are tracked by a quadrotor, but not a flip trajectories, since they require a full rotation of $2 \pi$. In order satisfy the dynamic criterion during a flip trajectory, a simple way of doing so is to turn off the rotors, which will result in $u_1=u_2=0$. And, the dynamic equations of the planar quadotor in this case become:
+
+\begin{equation}\label{free_dynamics_planar_quadrotor}
+ \begin{cases} 
+       \ddot{y} = 0 \\
+       \ddot{z} = - g  \\
+       \ddot{\phi} = 0 \\
+   \end{cases}
+\end{equation}
+
+By substituting each term of equation (\ref{free_dynamics_planar_quadrotor}) in equation (\ref{free_dynamics_equation}), it is evident that the dynamic criterion is satisfied. However, it should be noted that this represents an ideal trajectory that cannot be implemented on the real quadrotor. Because, the motors of the quadrotor should never turn off in mid-flight so that the quadrotor can be controlled at all times. 
+And, it will be shown in the coming simulations that the MPC controller is able to overcome this issue and track the flip trajectory with high accuracy due to the robustness of the MPC controller. Another positive note for having $u_1=u_2=0$ while designing the trajectory, is that this will allow the trajectory along $y(t)$ to be much smaller, which will result in a flip trajectory that does not require a large area to be performed.
+Moreover, the trajectories for each coordinate during a free flight phase can be obtained by integrating equation (\ref{free_dynamics_planar_quadrotor}) twice as follows:
+
+\begin{equation}\label{free_flight_trajectories}
+ \begin{cases} 
+       y(t) = y(0) + \dot{y}(0)t \\
+       z(t) = z(0) +\dot{z}(0)t - \frac{g}{2}t^2  \\
+       \phi(t) = \phi(0) + \dot{\phi}(0)t \\
+   \end{cases}
+\end{equation}
+
+So, an ideal flip trajectory will be designed in which the flip phase will completely rely on equation (\ref{free_flight_trajectories}). So, the main idea is to divide the flip trajectory into three different phases: 
+
+\begin{itemize}
+	\item [] \textbf{Reaching phase:} The quadrotor starts from a given hovering position with $\phi=0$ and reaches a sufficient velocity along all the three coordinates ($y,z$ and $\phi$) in order to initialize correctly the flip phase, which makes use of equation (\ref{free_flight_trajectories}).
+	\item [] \textbf{Flip phase: } The motors are turned off (ideal case) and the quadrotor performs the flip by using the inertia that was provided from the final velocities reached at the end of the reaching phase.
+	\item [] \textbf{Recovery phase: } Once the flip is almost completed, the control of the quadrotor is taken back again in order to prevent it from crashing. And, the final desired waypoint is a hovering position.  
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
 
   \chapter{Experiments}
  

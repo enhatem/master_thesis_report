@@ -50,7 +50,7 @@
 \contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{38}{subsubsection.1.6.2.2}%
 \contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{39}{subsubsection.1.6.2.3}%
 \contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{41}{subsection.1.6.3}%
-\contentsline {chapter}{\numberline {2}MPC Design and Simple Simulations}{42}{chapter.2}%
+\contentsline {chapter}{\numberline {2}MPC Design and Simple Simulations with acados}{42}{chapter.2}%
 \contentsline {section}{\numberline {2.1}System Modeling}{42}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Notion of Position and Orientation}{42}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Inputs}{43}{subsection.2.1.2}%
@@ -76,7 +76,11 @@
 \contentsline {section}{\numberline {2.4}Simulations using acados}{63}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Planar Quadrotor Simulations}{63}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}3D Quadrotor Simulations}{65}{subsection.2.4.2}%
-\contentsline {chapter}{\numberline {3}Experiments}{68}{chapter.3}%
-\contentsline {chapter}{Conclusion}{69}{chapter*.40}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{70}{appendix.A}%
-\contentsline {chapter}{Bibliography}{70}{appendix.A}%
+\contentsline {chapter}{\numberline {3}Flip Trajectory Generation and Simulations with acados}{68}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design of the Flip Trajectory}{68}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Dynamic criterion for feasible trajectories}{68}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Trajectory planning}{68}{subsection.3.1.2}%
+\contentsline {chapter}{\numberline {4}Experiments}{70}{chapter.4}%
+\contentsline {chapter}{Conclusion}{71}{chapter*.40}%
+\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{72}{appendix.A}%
+\contentsline {chapter}{Bibliography}{72}{appendix.A}%
