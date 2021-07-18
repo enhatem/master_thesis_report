@@ -311,7 +311,7 @@
 \newlabel{rotational_model_quaternion}{{2.17}{49}{Equations of Motion with Quaternions}{equation.2.1.17}{}}
 \citation{AUVE2020}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{50}{figure.caption.29}\protected@file@percent }
-\newlabel{non_centralized_mpc_for_SIL}{{2.4}{50}{Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }{figure.caption.29}{}}
+\newlabel{fig:non_centralized_mpc_for_SIL}{{2.4}{50}{Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }{figure.caption.29}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Extended Kalman Filter for the Planar Quadrotor}{50}{section.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Evolution Model}{50}{subsection.2.2.1}\protected@file@percent }
 \newlabel{planar_drone_states}{{2.18}{50}{Evolution Model}{equation.2.2.18}{}}
@@ -339,19 +339,75 @@
 \newlabel{fig:computation_time_planar_quadrotor}{{2.8}{57}{Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }{figure.caption.33}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}3D Quadrotor MPC}{59}{subsection.2.3.3}\protected@file@percent }
 \newlabel{mpc_optimization_problem_3d_quadrotor}{{2.49}{59}{3D Quadrotor MPC}{equation.2.3.49}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Experiments}{60}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces Computation of the MPC for a 3D quadrotor tracking a 22s trajectory.\relax }}{60}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:computation_time_3D_quadrotor}{{2.9}{60}{Computation of the MPC for a 3D quadrotor tracking a 22s trajectory.\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Design of the Circular Trajectory}{62}{subsection.2.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4.1}For the Planar Quadrotor case}{62}{subsubsection.2.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4.2}For the 3D Quadrotor case}{62}{subsubsection.2.3.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Simulations using acados}{63}{section.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.10}{\ignorespaces Diagram of the MPC closed-loop control structure used in the acados simulations.\relax }}{63}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:diagram_acados_simulations}{{2.10}{63}{Diagram of the MPC closed-loop control structure used in the acados simulations.\relax }{figure.caption.35}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Planar Quadrotor Simulations}{63}{subsection.2.4.1}\protected@file@percent }
+\newlabel{fig:planar_sim_2d_noiseless}{{2.11a}{64}{Trajectory followed by the planar quadrotor\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:planar_sim_2d_noiseless}{{a}{64}{Trajectory followed by the planar quadrotor\relax }{figure.caption.36}{}}
+\newlabel{fig:planar_sim_pose_noiseless}{{2.11b}{64}{Position states of the planar quadrotor.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:planar_sim_pose_noiseless}{{b}{64}{Position states of the planar quadrotor.\relax }{figure.caption.36}{}}
+\newlabel{fig:planar_sim_velocities_noiseless}{{2.11c}{64}{Velocities states of the planar quadrotor.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:planar_sim_velocities_noiseless}{{c}{64}{Velocities states of the planar quadrotor.\relax }{figure.caption.36}{}}
+\newlabel{fig:planar_sim_control_inputs_noiseless}{{2.11d}{64}{Control inputs of the planar quadrotor\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:planar_sim_control_inputs_noiseless}{{d}{64}{Control inputs of the planar quadrotor\relax }{figure.caption.36}{}}
+\newlabel{fig:planar_sim_error_pose_noiseless}{{2.11e}{64}{Errors on $y$ and $z$.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:planar_sim_error_pose_noiseless}{{e}{64}{Errors on $y$ and $z$.\relax }{figure.caption.36}{}}
+\newlabel{fig:planar_sim_error_velocities_noiseless}{{2.11f}{64}{Errors on $v_y$ and $v_z$.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:planar_sim_error_velocities_noiseless}{{f}{64}{Errors on $v_y$ and $v_z$.\relax }{figure.caption.36}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.11}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory without noise.\relax }}{64}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:planar_sim_noiseless}{{2.11}{64}{Simulation of the planar quadrotor following a circular trajectory without noise.\relax }{figure.caption.36}{}}
+\newlabel{fig:planar_sim_2d_noisy}{{2.12a}{65}{Trajectory followed by the planar quadrotor\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:planar_sim_2d_noisy}{{a}{65}{Trajectory followed by the planar quadrotor\relax }{figure.caption.37}{}}
+\newlabel{fig:planar_sim_pose_noisy}{{2.12b}{65}{Position states of the planar quadrotor.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:planar_sim_pose_noisy}{{b}{65}{Position states of the planar quadrotor.\relax }{figure.caption.37}{}}
+\newlabel{fig:planar_sim_velocities_noisy}{{2.12c}{65}{Velocities states of the planar quadrotor.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:planar_sim_velocities_noisy}{{c}{65}{Velocities states of the planar quadrotor.\relax }{figure.caption.37}{}}
+\newlabel{fig:planar_sim_control_inputs_noisy}{{2.12d}{65}{Control inputs of the planar quadrotor\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:planar_sim_control_inputs_noisy}{{d}{65}{Control inputs of the planar quadrotor\relax }{figure.caption.37}{}}
+\newlabel{fig:planar_sim_error_pose_noisy}{{2.12e}{65}{Errors on $y$ and $z$.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:planar_sim_error_pose_noisy}{{e}{65}{Errors on $y$ and $z$.\relax }{figure.caption.37}{}}
+\newlabel{fig:planar_sim_error_velocities_noisy}{{2.12f}{65}{Errors on $v_y$ and $v_z$.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:planar_sim_error_velocities_noisy}{{f}{65}{Errors on $v_y$ and $v_z$.\relax }{figure.caption.37}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.12}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.\relax }}{65}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:planar_sim_noisy}{{2.12}{65}{Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.\relax }{figure.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}3D Quadrotor Simulations}{65}{subsection.2.4.2}\protected@file@percent }
+\newlabel{fig:3D_sim_3d}{{2.13a}{66}{Trajectory followed by the 3D quadrotor\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_3d}{{a}{66}{Trajectory followed by the 3D quadrotor\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_pose}{{2.13b}{66}{Position states.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_pose}{{b}{66}{Position states.\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_angles}{{2.13c}{66}{Angular states.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_angles}{{c}{66}{Angular states.\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_velocities}{{2.13d}{66}{Velocity states.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_velocities}{{d}{66}{Velocity states.\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_thrust_input}{{2.13e}{66}{Thrust input.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_thrust_input}{{e}{66}{Thrust input.\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_rates_input}{{2.13f}{66}{Angular rates inputs.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_rates_input}{{f}{66}{Angular rates inputs.\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_errors_pose}{{2.13g}{66}{Errors on $x,y$ and $z$.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_errors_pose}{{g}{66}{Errors on $x,y$ and $z$.\relax }{figure.caption.38}{}}
+\newlabel{fig:3D_sim_errors_velocities}{{2.13h}{66}{Errors on $v_x, v_y$ and $v_z$.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:3D_sim_errors_velocities}{{h}{66}{Errors on $v_x, v_y$ and $v_z$.\relax }{figure.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.13}{\ignorespaces Simulation of the 3D quadrotor following a circular trajectory without noise.\relax }}{66}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:3D_sim_circular}{{2.13}{66}{Simulation of the 3D quadrotor following a circular trajectory without noise.\relax }{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Experiments}{68}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{60}{figure.caption.34}\protected@file@percent }
-\newlabel{triangle2}{{3.1}{60}{Triangle drawn by my program. Note the 4th side.\relax }{figure.caption.34}{}}
-\@writefile{toc}{\contentsline {chapter}{Conclusion}{61}{chapter*.35}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{68}{figure.caption.39}\protected@file@percent }
+\newlabel{triangle2}{{3.1}{68}{Triangle drawn by my program. Note the 4th side.\relax }{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {chapter}{Conclusion}{69}{chapter*.40}\protected@file@percent }
 \citation{euclides300}
 \bibdata{../biblio}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Proof of theorem \ref  {theo}}{62}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Proof of theorem \ref  {theo}}{70}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:prooftheorem}{{A}{62}{Proof of theorem \ref {theo}}{appendix.A}{}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{62}{appendix.A}\protected@file@percent }
+\newlabel{sec:prooftheorem}{{A}{70}{Proof of theorem \ref {theo}}{appendix.A}{}}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{70}{appendix.A}\protected@file@percent }
 \bibcite{Fritzsche2019}{1}
 \bibcite{bitcraze}{2}
 \bibcite{How2008}{3}
@@ -423,4 +479,4 @@
 \bibcite{Forster2015}{69}
 \bibcite{crazyflie_datasheet}{70}
 \bibcite{euclides300}{71}
-\gdef \@abspage@last{68}
+\gdef \@abspage@last{76}

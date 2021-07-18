@@ -70,7 +70,13 @@
 \contentsline {subsection}{\numberline {2.3.1}Parameters of the Crazyflie 2.1}{54}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Planar Quadrotor MPC}{56}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}3D Quadrotor MPC}{59}{subsection.2.3.3}%
-\contentsline {chapter}{\numberline {3}Experiments}{60}{chapter.3}%
-\contentsline {chapter}{Conclusion}{61}{chapter*.35}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{62}{appendix.A}%
-\contentsline {chapter}{Bibliography}{62}{appendix.A}%
+\contentsline {subsection}{\numberline {2.3.4}Design of the Circular Trajectory}{62}{subsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.4.1}For the Planar Quadrotor case}{62}{subsubsection.2.3.4.1}%
+\contentsline {subsubsection}{\numberline {2.3.4.2}For the 3D Quadrotor case}{62}{subsubsection.2.3.4.2}%
+\contentsline {section}{\numberline {2.4}Simulations using acados}{63}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Planar Quadrotor Simulations}{63}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}3D Quadrotor Simulations}{65}{subsection.2.4.2}%
+\contentsline {chapter}{\numberline {3}Experiments}{68}{chapter.3}%
+\contentsline {chapter}{Conclusion}{69}{chapter*.40}%
+\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{70}{appendix.A}%
+\contentsline {chapter}{Bibliography}{70}{appendix.A}%

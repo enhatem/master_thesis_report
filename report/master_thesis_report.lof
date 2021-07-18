@@ -28,6 +28,11 @@
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 equiped with the battery and properllers.\relax }}{54}{figure.caption.31}%
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }}{55}{figure.caption.32}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }}{57}{figure.caption.33}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Computation of the MPC for a 3D quadrotor tracking a 22s trajectory.\relax }}{60}{figure.caption.34}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Diagram of the MPC closed-loop control structure used in the acados simulations.\relax }}{63}{figure.caption.35}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory without noise.\relax }}{64}{figure.caption.36}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.\relax }}{65}{figure.caption.37}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Simulation of the 3D quadrotor following a circular trajectory without noise.\relax }}{66}{figure.caption.38}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{60}{figure.caption.34}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Triangle drawn by my program. Note the 4th side.\relax }}{68}{figure.caption.39}%
 \addvspace {10\p@ }

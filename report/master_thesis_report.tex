@@ -13,6 +13,8 @@
 \usepackage{tabularx}
 \usepackage{optidef}
 \usepackage{mathtools}
+\usepackage{float}
+
 
 \setlength{\columnseprule}{1pt}
 \def\columnseprulecolor{\color{black}}
@@ -42,9 +44,11 @@ This project has allowed me to perform research on all of these topics and I am 
 
 Moreover, I would like to thank Julian Erskine, Damien Six and Shiyu Liu for their help throughout my master thesis. I have learned alot about quadrotors, ROS and coding in general from them. \\
 
-I would like to thank my patient and understanding girlfriend Glysa, who has been with me for more than 6 years. Thank you for all the love, support and comfort that you have given me during these stressful 2 years. \\
+My profound gratitude to my girlfriend Glysa, who has been with me for more than 6 years. Thank you for all the love, support and comfort that you have given me during these stressful 2 years, and thank you for choosing me everyday. \\
 
-I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle Fadi, his wife Lara and my aunt Bernadette. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be where I am today if it wasn't for them.
+I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle Fadi, his wife Lara and my aunt Bernadette. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be where I am today if it wasn't for them. \\
+
+Finally, I would like to thank everyone who will take the time to read my master thesis report and to the future researchers that may be reading it in order to improve my work. I hope that the report is clear enough to read and I will always be available if you have any questions on my work.
  
  \newpage
  
@@ -1686,10 +1690,10 @@ Moreover, the control inputs that will be outputted by the MPC controller are:
 	\centering
 	\includegraphics[width=\textwidth]{Images/diagrams/new_sim_diagram.png}
 	\caption{Diagram of the resulting non-centralized MPC closed-loop control structure.}
-	\label{non_centralized_mpc_for_SIL}
+	\label{fig:non_centralized_mpc_for_SIL}
 \end{figure}
 
-As shown in figure \ref{non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the low-level controller. Then, the low-level controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to follow a desired trajectory.
+As shown in figure \ref{fig:non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the low-level controller. Then, the low-level controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to follow a desired trajectory.
 
 \section{Extended Kalman Filter for the Planar Quadrotor}
 In order to perform simple simulations with acados in the planar case under the presence of disturbance, it is useful to design an Extended Kalman Filter (EKF) for the planar quadrotor in order to reduce the effects of the noise on the system and increase the tracking accuracy of a desired trajectory. The Extended Kalman Filter was chosen instead of the Kalman Filter (KF) because the Kalman Filter works well for linear systems. However, the quadrotor dynamics are highly  nonlinear as seen in (\ref{subsec:planar_quadrotor}), which the Extended Kalman Filter can handle well. The EKF works by linearizing the nonlinear equations of motion at each time step. This is done by using the current values of the state vector of the planar quadrotor, in addition to the Jacobian matrices of the state vector. However, it should be noted that the EKF will not provide proper measurements if the initial condition of the state vector is not properly defined. The equations used are from the following reference \cite{AUVE2020}.
@@ -1790,8 +1794,8 @@ In addition, the expression of $Q_{\alpha}$ was found using trial and error base
 
 \begin{equation}
         Q_{\alpha} = \begin{bmatrix}
-                10^{-7} & 0 & 0 & 0  & 0 & 0 \\
-                0 & 10^{-4} & 0 & 0  & 0 & 0 \\
+                5 \times 10^{-7} & 0 & 0 & 0  & 0 & 0 \\
+                0 & 10^{-6} & 0 & 0  & 0 & 0 \\
                 0 & 0 & 10^{-5} & 0 & 0 & 0 \\
                 0 & 0 & 0 & 10^{-7} & 0 & 0 \\
                 0 & 0 & 0 & 0 & 10^{-4} & 0 \\
@@ -2032,11 +2036,11 @@ Moreover, the MPC parameters are chosen to be:
 	\item $T_f = 1s$ : prediction horizon.
 \end{itemize}
 
-It should be noted that the number of discretization steps that was used is rather large, and will surely be reduced during the experimentation phase. However, it was still used in the simple acados simulations since the total computation time of the MPC while tracking a $22s$ trajectory as around $8.5s$ on an Inter Core i5-6300u 2.4GHz with 4 cores, which can be considered as a mid-range processor. An example of a MPC computation time for a planar quadrotor which is tracking a circular trajectory is shown in figure \ref{fig:computation_time_planar_quadrotor} below.
+It should be noted that the number of discretization steps that was used is rather large, and will surely be reduced during the experimentation phase. However, it was still used in the simple acados simulations since the total computation time of the MPC while tracking a $22s$ trajectory as around $8.5s$ on an Inter Core i5-6300u 2.4GHz with 4 cores, which can be considered as a mid-range processor. An example of a MPC computation time for a planar quadrotor which is tracking a $20s$ circular trajectory with $2s$ of initial hovering time is shown in figure \ref{fig:computation_time_3D_quadrotor} below.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{Images/acados_simulations/circular_trajectory/planar_drone/computation_time.png}
+	\includegraphics[width=0.7\textwidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/computation_time.png}
 	\caption{Computation of the MPC for a planar quadrotor tracking a 22s trajectory.}
 	\label{fig:computation_time_planar_quadrotor}
 \end{figure}
@@ -2092,19 +2096,19 @@ And, as for the components of the linear least-squared cost function:
             	\item $\bm{Q} = \begin{bmatrix}
                  30 & 0  & 0 & 0 & 0 & 0 \\
                  0 & 30  & 0 & 0 & 0 & 0 \\
-                 0 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 1 & 0 & 0 & 0 \\
                  0 & 0  & 0 & 5 & 0 & 0 \\
                  0 & 0  & 0 & 0 & 5 & 0 \\
-                 0 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 0 & 0 & 0 & 1 \\
                 \end{bmatrix}$
                 
                 \item $\bm{Q}_e = \begin{bmatrix}
                  30 & 0  & 0 & 0 & 0 & 0 \\
                  0 & 30  & 0 & 0 & 0 & 0 \\
-                 0 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 1 & 0 & 0 & 0 \\
                  0 & 0  & 0 & 5 & 0 & 0 \\
                  0 & 0  & 0 & 0 & 5 & 0 \\
-                 0 & 0  & 0 & 0 & 0 & 0 \\
+                 0 & 0  & 0 & 0 & 0 & 1 \\
                 \end{bmatrix}$
                 
                 \item $\bm{R} = \begin{bmatrix}
@@ -2115,13 +2119,16 @@ And, as for the components of the linear least-squared cost function:
             \end{itemize}
 \end{multicols}
 
-The matrices $\bm{V}_x$ and  $\bm{V}_u$ are used to refer to each element of the state in the state vector $\bm{x}$ and to each element of the inputs in the input vector $\bm{u}$ in the running cost, respectively. And, it should be noted that there are no algebraic variables $\bm{z}$ in the problem at hand. However, it is included in the cost function of equation (\ref{mpc_optimization_problem_planar_quadrotor}) for completeness. Furthermore, the matrix $\bm{V}_{x_e}$ is used to refer to each element of the state vector $\bm{x}$ in the terminal cost. And, it can be inferred that there are no control inputs at the terminal cost since the terminal cost represents the final position that the system is desired to reach.
-Moreover, the diagonal terms of the matrices $\bm{Q}$ and $\bm{R}$ represent the weights applied on each element of the state vector and the control inputs vector in the running cost, respectively. Finally, the diagonal terms in the matrix $\bm{Q}_e$ represent the weights applied on each element of the state vector in the terminal cost. Usually, the weights on the terminal cost are higher than the weights on the running cost, because, it is usually more important that the final desired position is reached. So, this will push the MPC controller to generate control inputs that will allow the system to reach the final desired position. However, in the case of tracking a desired trajectory, all the waypoints are equally important. For this reason, the weights on the elements of the state vector in both the running cost and the terminal cost, are equal ($\bm{Q}=\bm{Q}_e$). 
+The matrices $\bm{V}_x$ and  $\bm{V}_u$ are used to refer to each element of the state in the state vector $\bm{x}$ and to each element of the inputs in the input vector $\bm{u}$ in the running cost, respectively. And, it should be noted that there are no algebraic variables $\bm{z}$ in the problem at hand. However, it is included in the cost function of equation (\ref{mpc_optimization_problem_planar_quadrotor}) for completeness. Furthermore, the matrix $\bm{V}_{x_e}$ is used to refer to each element of the state vector $\bm{x}$ in the terminal cost. And, it can be inferred that there are no control inputs at the terminal cost since the terminal cost represents the final position that the system is desired to reach. \\
 
-The weights provided above used to follow a circular trajectory with references on $y,z,v_y$ and $v_z$. 
-More weights were set on the $y$ and $z$ elements of the state vector since it is more important to follow the trajectory coordinates instead of perfectly following the desired velocities.
+Moreover, the diagonal terms of the matrices $\bm{Q}$ and $\bm{R}$ represent the weights applied on each element of the state vector and the control inputs vector in the running cost, respectively. Finally, the diagonal terms in the matrix $\bm{Q}_e$ represent the weights applied on each element of the state vector in the terminal cost. Usually, the weights on the terminal cost are higher than the weights on the running cost, because, it is usually more important that the final desired position is reached. So, this will push the MPC controller to generate control inputs that will allow the system to reach the final desired position. However, in the case of tracking a desired trajectory, all the waypoints are equally important. For this reason, the weights on the elements of the state vector in both the running cost and the terminal cost, are equal ($\bm{Q}=\bm{Q}_e$). \\
 
-After the optimization problem is solved for the current time instant, the MPC controller will have the next $N$ control input solutions for the next $N$ states. However, the MPC will only output the first solution for the control inputs, and discard the other $N-1$ solutions. Then, the system will take 1 step forward using the control inputs that were provided by the MPC controller. Finally, the optimization problem is repeated until the final waypoint of the trajectory is reached.
+The weights provided above were used to follow a circular trajectory with references on $y,z,v_y$ and $v_z$. 
+More weights were set on the $y$ and $z$ elements of the state vector since it is more important to follow the trajectory coordinates instead of perfectly following the desired velocities. And, even though no references were given for $\phi$ and $\dot{\phi}$ (both had a reference of $0$ at each time instant), it is generally a good idea to have small weights on these states (rather than them having a weight of 0) so that the MPC controller will try to minimize $\phi$ and $\dot{\phi}$ as much as possible as long as the goals set on the other states ($y,z,v_y$ and $v_z$) are satisfied. If a weight of $0$ was set on $\phi$ and $\dot{\phi}$ instead, this means that that $\phi$ and $\dot{\phi}$ are free to have any value, so the MPC controller would not be controlling these states in that case.\\
+
+In addition a weight of $1$ was used on each of the 2 control inputs $u_1$ and $u_2$. And, since no reference was given to the torque control input $u_2$, the MPC will try to drive the torque $u_2$ to $0$ as long as the other goals with the higher weights are satisfied. As for the thrust $u_1$, a reference of $\frac{m.g}{2}$ (the mass is divided by 2 in the planar case) was given at each time instant. Of course, the thrust will be larger than $\frac{m.g}{2}$ when the quadrotor is following a trajectory, but having this reference will inform the MPC of what is the minimum thrust required to allow the quadrotor to hover, which will result in smoother control inputs. \\
+
+After the optimization problem is solved for the current time instant, the MPC controller will have the next $N$ control input solutions for the next $N$ time instants. However, the MPC will only output the first solution (which is the solution of the current time instant) for the control inputs and discard the other $N-1$ solutions. Then, the system will take 1 step forward using the control inputs that were provided by the MPC controller. Finally, the optimization problem is repeated until the final waypoint of the trajectory is reached.
 
 \newpage
 
@@ -2218,11 +2225,345 @@ And, similarly to the planar quadrotor case, the desired trajectory will be fed 
 
 
 
+Furthermore, the desired control inputs $\bm{u}_d$ can also be fed to the MPC controller:
+
+
+\begin{equation}
+	\bm{u}_d = \begin{bmatrix}
+		T_d & \omega_{x_d} & \omega_{y_d} & \omega_{z_d} \\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+ Similarly to the planar quadrotor case, the reference vector $\bm{y}_{ref}$ in the running cost can be constructed using the desired waypoints and the desired control inputs for the next $(N-1)$ time steps:
+
+\begin{equation}
+	\bm{y}_{ref} = \begin{bmatrix}
+		\bm{x}_d^{\intercal} & \bm{u}_d^{\intercal} \\
+	\end{bmatrix}^{\intercal}
+\end{equation}
+
+The reference vector $\bm{y}_{ref}^e$ in the terminal cost contains the desired waypoint at time step $N$:
+\begin{equation}
+	\bm{y}_{ref}^e = \bm{x}_d
+\end{equation}
 
 
 
 
- \chapter{Experiments}
+
+Moreover, the same MPC parameters as the planar quadrotor case were chosen:
+\begin{itemize}
+	\item $N = 100$ : number of discretization steps in the prediction horizon.
+	\item $T_f = 1s$ : prediction horizon.
+\end{itemize}
+
+In the 3D quadrotor case, the total number of ordinary differential equations (equations of motion) is larger than the planar quadrotor case. This will result in more computations implemented by the MPC controller at each time instant, which will increase the computation time of the MPC controller. An example of a MPC computation time for a 3D quadrotor which is tracking a 20s circular trajectory with 2s of initial hovering time is shown in figure \ref{fig:computation_time_3D_quadrotor} below.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/computation_time.png}
+	\caption{Computation of the MPC for a 3D quadrotor tracking a 22s trajectory.}
+	\label{fig:computation_time_3D_quadrotor}
+\end{figure}
+
+The maximum thrust of the 3D quadrotor is computed as explained in \ref{subsec:parameters_of_the_crazyflie}: 
+
+	\begin{equation}
+		T_{max} = 0.9 (T_{max}^{actual})=0.406134N
+	\end{equation}
+
+In order to properly control the angular rates, they also must be limited similar to the torque in the planar case. A general rule of thumb is that a quadrotor is able to perform aggressive maneuvers with a maximum angular rate of $720^{\circ}/s$. So, the limits that are set on the angular rates inputs in the MPC controller are expressed as follows:
+
+		\begin{align}
+			-4 \pi \text{ }rad/s \leq \omega_x \leq 4 \pi \text{ } rad/s \\
+			-4 \pi \text{ }rad/s \leq \omega_y \leq 4 \pi \text{ } rad/s \\
+			-4 \pi \text{ }rad/s \leq \omega_z \leq 4 \pi \text{ } rad/s
+		\end{align}
+
+\newpage
+
+And, as for the components of the linear least-squared cost function:
+\begin{multicols}{2}
+\begin{itemize}
+	\item $\bm{V}_x = \begin{bmatrix}
+	1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	\end{bmatrix}$
+	
+	\item $\bm{V}_{x_e} = \begin{bmatrix}
+	1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+	\end{bmatrix}$
+	
+	\item $\bm{V}_u = \begin{bmatrix}
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1 \\
+	\end{bmatrix}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{Q} = \begin{bmatrix}
+	50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	\end{bmatrix}$
+	
+	\item $\bm{Q}_e = \begin{bmatrix}
+	50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	\end{bmatrix}$
+	
+	\item $\bm{R} = \begin{bmatrix}
+	1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1 \\
+	\end{bmatrix}$
+\end{itemize}
+\end{multicols}
+
+In this case, references were provided for $x,y,z,v_x,v_y$ and $v_z$. Similar to the planar case, following $x,y$ and $z$ is more important than following $v_x,v_y$ and $v_z$ at each time instant. This is why $x,y$ and $z$ have larger weights. In addition, no control inputs were given for the quaternions, but setting weights of $5$'s on each element of the quaternion will drive the roll, pitch and yaw angles to 0 throughout the trajectory. As for the inputs, no references were given for the angular rates. So, having weights of $1$'s will drive the angular rates to 0, which will stabilize the quadrotor throughout the trajectory. Finally, a reference of $m.g$ was given for the thrust. This will give the MPC an idea of where the thrust control input should be when the quadrotor is at a hovering position, which will result in smoother control inputs throughout the trajectory.
+
+\newpage
+
+\subsection{Design of the Circular Trajectory}
+
+The following parameters of the circular trajectory are the same in the case of the planar quadrotor and the 3D quadrotor:
+
+\begin{align*}
+	r &= 1m \text{ : radius}  \\
+	f &= \frac{6 \pi}{10} \text{ : frequency (3 revolutions every 10 seconds)}
+\end{align*}
+
+\subsubsection{For the Planar Quadrotor case}
+
+The circular trajectory was designed using the following equations:
+
+\begin{align*}
+	c_y &= 4 \text{ : center coordinate on y}\\
+	c_z &= 5 \text{ : center coordinate on z}\\
+	y_d &= r.\cos(f.t) + c_y \\
+	z_d &= r.\sin(f.t) + c_z \\
+	v_{y_d} &= -r.f.\sin(f.t) \\ 
+	v_{z_d} &=  r.f.\cos(f.t)
+\end{align*}
+with $t$ being the time.
+
+\subsubsection{For the 3D Quadrotor case}
+The circular trajectory was designed using the following equations:
+
+\begin{align*}
+	c_x &= 0 \text{ : center coordinate on x}\\
+	c_y &= 0 \text{ : center coordinate on y}\\
+	x_d &= r.\cos(f.t) + c_y \\
+	y_d &= r.\sin(f.t) + c_z \\
+	z_d &= 1 \\
+	v_{x_d} &= -r.f.\sin(f.t) \\ 
+	v_{y_d} &=  r.f.\cos(f.t) \\
+	v_{z_d} &= 0
+\end{align*}
+with $t$ being the time.
+
+\newpage
+
+\section{Simulations using acados}
+In this section, simulations will be performed to follow a circular trajectory in the planar quadrotor case and the 3D quadrotor case. However, contrary to the closed-loop control structure shown in figure \ref{fig:non_centralized_mpc_for_SIL}, a low-level controller is not present in these simulations.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{Images/diagrams/old_sim_rev1.png}
+	\caption{Diagram of the MPC closed-loop control structure used in the acados simulations.}
+	\label{fig:diagram_acados_simulations}
+\end{figure}
+ 
+ So, even though these simulations will not provide an accurate representation of how the real system will behave, they will still provide a rough estimation of the behavior of the real system.
+ 
+\subsection{Planar Quadrotor Simulations}
+
+\subsubsection*{Noiseless measurements}
+
+As can be seen in figure \ref{fig:planar_sim_noiseless}, the MPC controller was able output control inputs that allowed the quadrotor to follow a circular trajectory. By looking at the control inputs in subfigure \ref{fig:planar_sim_control_inputs_noiseless}, the thrust control input dips for a time instant just before the circular trajectory starts, then the thrust control input saturates until the desired velocities of the trajectory is reached, and then the thrust oscillates throughout the circular trajectory. Furthermore, by looking at subfigure \ref{fig:planar_sim_pose_noiseless}, it is evident that the circular trajectory along $y$ and $z$ is being followed perfectly. And, by looking at the error plots in subfigure \ref{fig:planar_sim_error_pose_noiseless}, it is clear that the errors along $y$ and $z$ are very small. Finally, by looking at the velocity states and their errors in subfigures \ref{fig:planar_sim_velocities_noiseless} and \ref{fig:planar_sim_error_velocities_noiseless}, respectively, it is clear that the largest errors occur at the beginning of the trajectory when the thrust input is saturated. Then, the errors decrease significantly when the desired velocities are reached and the planar quadrotor starts to follow the circular trajectory.
+
+\subsubsection*{Noisy Measurements and Control Inputs}
+
+During this simulation, the MPC controller was working under the presence of white Gaussian noise on the state measurement and on the control inputs at each time instant. By looking at figure \ref{fig:planar_sim_noisy}, the extended Kalman filter was able to filter out most of noise. By looking at the error plots on $y$ and $z$ in subfigure \ref{fig:planar_sim_error_pose_noisy}, it is evident that the extended Kalman filter helped reduce the error greatly in the $y$ position, and it also managed to reduce the error slightly in the $z$ position.
+
+\newpage
+
+\begin{figure}[H]
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/sim.png}
+		\caption{Trajectory followed by the planar quadrotor} \label{fig:planar_sim_2d_noiseless}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/posStates.png}
+		\caption{Position states of the planar quadrotor.} \label{fig:planar_sim_pose_noiseless}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/rateStates.png}
+		\caption{Velocities states of the planar quadrotor.} \label{fig:planar_sim_velocities_noiseless}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/controlInputs.png}
+		\caption{Control inputs of the planar quadrotor} \label{fig:planar_sim_control_inputs_noiseless}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/Errors_position.png}
+		\caption{Errors on $y$ and $z$.} \label{fig:planar_sim_error_pose_noiseless}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/Errors_velocities.png}
+		\caption{Errors on $v_y$ and $v_z$.} \label{fig:planar_sim_error_velocities_noiseless}
+	\end{subfigure}
+
+	\caption{Simulation of the planar quadrotor following a circular trajectory without noise.} \label{fig:planar_sim_noiseless}
+\end{figure}
+
+\newpage
+
+\begin{figure}[H]
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/sim.png}
+		\caption{Trajectory followed by the planar quadrotor} \label{fig:planar_sim_2d_noisy}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/posStates.png}
+		\caption{Position states of the planar quadrotor.} \label{fig:planar_sim_pose_noisy}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/rateStates.png}
+		\caption{Velocities states of the planar quadrotor.} \label{fig:planar_sim_velocities_noisy}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/controlInputs.png}
+		\caption{Control inputs of the planar quadrotor} \label{fig:planar_sim_control_inputs_noisy}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/Errors_position.png}
+		\caption{Errors on $y$ and $z$.} \label{fig:planar_sim_error_pose_noisy}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/Errors_velocities.png}
+		\caption{Errors on $v_y$ and $v_z$.} \label{fig:planar_sim_error_velocities_noisy}
+	\end{subfigure}
+
+	\caption{Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.} \label{fig:planar_sim_noisy}
+\end{figure}
+
+
+
+\subsection{3D Quadrotor Simulations}
+
+In the case of the 3D quadrotor, simulations will only be done without noise since the quadrotor that will be used for experimentation already has an extended Kalman filter implementation.
+
+\newpage
+
+\begin{figure}[H]
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/sim3D.png}
+		\caption{Trajectory followed by the 3D quadrotor} \label{fig:3D_sim_3d}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/posStates.png}
+		\caption{Position states.} \label{fig:3D_sim_pose}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/angleStates.png}
+		\caption{Angular states.} \label{fig:3D_sim_angles}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/velStates.png}
+		\caption{Velocity states.} \label{fig:3D_sim_velocities}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/thrustInput.png}
+		\caption{Thrust input.} \label{fig:3D_sim_thrust_input}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/angulareRatesInputs.png}
+		\caption{Angular rates inputs.} \label{fig:3D_sim_rates_input}
+	\end{subfigure}
+	
+\medskip
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/Errors_position.png}
+		\caption{Errors on $x,y$ and $z$.} \label{fig:3D_sim_errors_pose}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/Errors_velocities.png}
+		\caption{Errors on $v_x, v_y$ and $v_z$.} \label{fig:3D_sim_errors_velocities}
+	\end{subfigure}
+
+	\caption{Simulation of the 3D quadrotor following a circular trajectory without noise.} \label{fig:3D_sim_circular}
+\end{figure}
+
+
+\newpage 
+
+As can be seen in figure \ref{fig:3D_sim_circular}, the 3D quadrotor is able to follow the 3D trajectory. By looking at subfigure \ref{fig:3D_sim_thrust_input}, similarly to the planar quadrotor case, the thrust dips at the beginning of the circular trajectory for a time instant, then it saturates until the desired velocity is reached, then it settles at around $0.345N$ for the remaining of the circular trajectory. And, by looking at subfigure \ref{fig:3D_sim_pose}, it is clear that the quadrotor is able to follow the circular trajectory perfectly with very minimal errors on $x,y$ and $z$. Finally, by looking at the errors plots in subfigures \ref{fig:3D_sim_errors_pose} and \ref{fig:3D_sim_errors_velocities}, it is evident that the largest amount of errors occur just when the 3D quadrotor switches from the hovering phase to tracking the circular trajectory. Then, the errors oscillate around zero after the thrust input saturates and settles at $0.345N$ throughout the trajectory.
+
+
+
+  \chapter{Experiments}
  
  When trying to draw a rectangled triangle, my program comes up with Figure \ref{triangle2} that is neither rectangled nor a triangle.
  
@@ -2232,13 +2573,12 @@ And, similarly to the planar quadrotor case, the desired trajectory will be fed 
  \end{figure}
  
 Unless there is a bug in my program, which is unlikely, this research indicates that the whole theory on triangles having 3 sides has been wrong for years, maybe decades.
+ 
 
+\newpage 
  
  \chapter*{Conclusion}
  \addcontentsline{toc}{chapter}{Conclusion}
- 
- 
- 
  
  
  % switch to A-B-C chaptering
