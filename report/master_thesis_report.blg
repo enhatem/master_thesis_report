@@ -30,45 +30,45 @@ Warning--missing school in Marino2020
 Warning--missing publisher in AUVE2020
 
 Done.
-You've used 71 entries,
+You've used 70 entries,
             4039 wiz_defined-function locations,
-            1242 strings with 20797 characters,
-and the built_in function-call counts, 45057 in all, are:
-= -- 3607
-> -- 1036
-< -- 322
-+ -- 588
-- -- 180
-* -- 1980
-:= -- 6853
-add.period$ -- 141
-call.type$ -- 71
-change.case$ -- 69
+            1237 strings with 20735 characters,
+and the built_in function-call counts, 44617 in all, are:
+= -- 3566
+> -- 1032
+< -- 320
++ -- 586
+- -- 179
+* -- 1959
+:= -- 6766
+add.period$ -- 139
+call.type$ -- 70
+change.case$ -- 68
 chr.to.int$ -- 807
-cite$ -- 77
-duplicate$ -- 3363
-empty$ -- 3767
-format.name$ -- 223
-if$ -- 10404
+cite$ -- 76
+duplicate$ -- 3323
+empty$ -- 3729
+format.name$ -- 222
+if$ -- 10309
 int.to.chr$ -- 0
-int.to.str$ -- 71
-missing$ -- 564
-newline$ -- 256
-num.names$ -- 67
-pop$ -- 1453
+int.to.str$ -- 70
+missing$ -- 557
+newline$ -- 253
+num.names$ -- 66
+pop$ -- 1443
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 3545
+skip$ -- 3509
 stack$ -- 0
-substring$ -- 2004
-swap$ -- 2571
-text.length$ -- 53
+substring$ -- 2003
+swap$ -- 2542
+text.length$ -- 51
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 71
+type$ -- 70
 warning$ -- 6
-while$ -- 174
-width$ -- 73
-write$ -- 653
+while$ -- 173
+width$ -- 72
+write$ -- 643
 (There were 12 warnings)

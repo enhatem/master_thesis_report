@@ -1,86 +1,93 @@
-\contentsline {chapter}{Introduction}{10}{chapter*.4}%
-\contentsline {chapter}{\numberline {1}State of the art}{14}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Differential Flatness}{14}{section.1.1}%
-\contentsline {section}{\numberline {1.2}General Control Architecture}{16}{section.1.2}%
-\contentsline {section}{\numberline {1.3}General Control Approaches}{17}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Method of Linearization}{17}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Nonlinear Control Methods}{17}{subsection.1.3.2}%
-\contentsline {section}{\numberline {1.4}Model Predictive Control}{19}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}General Idea}{19}{subsection.1.4.1}%
-\contentsline {paragraph}{Basic strategy}{19}{subsection.1.4.1}%
-\contentsline {paragraph}{Advantages and drawbacks of MPC}{19}{figure.caption.10}%
-\contentsline {subsection}{\numberline {1.4.2}Design Parameters}{20}{subsection.1.4.2}%
-\contentsline {paragraph}{Sample Time $T_s$}{21}{subsection.1.4.2}%
-\contentsline {paragraph}{Prediction horizon $N$}{21}{subsection.1.4.2}%
-\contentsline {paragraph}{Control horizon m}{21}{subsection.1.4.2}%
-\contentsline {paragraph}{Constraints}{21}{subsection.1.4.2}%
-\contentsline {paragraph}{Weights}{22}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Basic formulation of a MPC problem}{22}{subsection.1.4.3}%
-\contentsline {paragraph}{Typical problem statement}{23}{equation.1.4.8}%
-\contentsline {subsection}{\numberline {1.4.4}Different MPC Methods}{23}{subsection.1.4.4}%
-\contentsline {paragraph}{In case of linear systems}{23}{subsection.1.4.4}%
-\contentsline {paragraph}{In case of a nonlinear systems}{24}{figure.caption.12}%
-\contentsline {paragraph}{Adaptive MPC}{24}{figure.caption.13}%
-\contentsline {paragraph}{Gain-Scheduled MPC}{24}{figure.caption.13}%
-\contentsline {paragraph}{Nonlinear MPC}{24}{figure.caption.13}%
-\contentsline {subsubsection}{\numberline {1.4.4.1}Strategies to Improve Computational Time}{25}{subsubsection.1.4.4.1}%
-\contentsline {paragraph}{Order reduction techniques}{25}{subsubsection.1.4.4.1}%
-\contentsline {paragraph}{Explicit MPC}{25}{subsubsection.1.4.4.1}%
-\contentsline {paragraph}{Suboptimal Solution}{26}{figure.caption.16}%
-\contentsline {subsection}{\numberline {1.4.5}MPC applications on quadrotors}{27}{subsection.1.4.5}%
-\contentsline {subsubsection}{\numberline {1.4.5.1}Centralized MPC}{27}{subsubsection.1.4.5.1}%
-\contentsline {subsubsection}{\numberline {1.4.5.2}Non-centralized MPC}{28}{subsubsection.1.4.5.2}%
-\contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{29}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{29}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{30}{subsection.1.5.2}%
-\contentsline {subsubsection}{\numberline {1.5.2.1}Nonlinear Optimal Control}{30}{subsubsection.1.5.2.1}%
-\contentsline {subsubsection}{\numberline {1.5.2.2}Multiple Shooting Discretization}{30}{subsubsection.1.5.2.2}%
-\contentsline {subsubsection}{\numberline {1.5.2.3}General Form of the Resulting Nonlinear Program}{31}{subsubsection.1.5.2.3}%
-\contentsline {subsubsection}{\numberline {1.5.2.4}Sequential Quadratic Programming and Real-Time Iterations}{32}{subsubsection.1.5.2.4}%
-\contentsline {subsubsection}{\numberline {1.5.2.5}Numerical Integration and Sensitivities}{33}{subsubsection.1.5.2.5}%
-\contentsline {subsubsection}{\numberline {1.5.2.6}Convex Hessian Approximation Methods}{33}{subsubsection.1.5.2.6}%
-\contentsline {paragraph}{Gauss-Newton Hessian approximation}{33}{subsubsection.1.5.2.6}%
-\contentsline {subsubsection}{\numberline {1.5.2.7}Structure-exploiting embedded QP solvers}{34}{subsubsection.1.5.2.7}%
-\contentsline {subsubsection}{\numberline {1.5.2.8}Real-time iterations}{34}{subsubsection.1.5.2.8}%
-\contentsline {subsubsection}{\numberline {1.5.2.9}Python Interface Overview}{35}{subsubsection.1.5.2.9}%
-\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{36}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{36}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{36}{subsection.1.6.2}%
-\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{37}{subsubsection.1.6.2.1}%
-\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{38}{subsubsection.1.6.2.2}%
-\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{39}{subsubsection.1.6.2.3}%
-\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{41}{subsection.1.6.3}%
-\contentsline {chapter}{\numberline {2}MPC Design and Simple Simulations with acados}{42}{chapter.2}%
-\contentsline {section}{\numberline {2.1}System Modeling}{42}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Notion of Position and Orientation}{42}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Inputs}{43}{subsection.2.1.2}%
-\contentsline {paragraph}{The forces}{43}{subsection.2.1.2}%
-\contentsline {paragraph}{The torques}{44}{equation.2.1.7}%
-\contentsline {subsection}{\numberline {2.1.3}Dynamical equations}{45}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Planar Quadrotor}{46}{subsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.1.5}3D Quadrotor}{47}{subsection.2.1.5}%
-\contentsline {subsubsection}{\numberline {2.1.5.1}Equations of Motion with Euler Angles}{47}{subsubsection.2.1.5.1}%
-\contentsline {subsubsection}{\numberline {2.1.5.2}Equations of Motion with Quaternions}{49}{subsubsection.2.1.5.2}%
-\contentsline {section}{\numberline {2.2}Extended Kalman Filter for the Planar Quadrotor}{50}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Evolution Model}{50}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Measurement Model}{51}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Prediction Phase}{51}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Correction Phase}{53}{subsection.2.2.4}%
-\contentsline {section}{\numberline {2.3}Design of the MPC controller}{54}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Parameters of the Crazyflie 2.1}{54}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Planar Quadrotor MPC}{56}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}3D Quadrotor MPC}{59}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Design of the Circular Trajectory}{62}{subsection.2.3.4}%
-\contentsline {subsubsection}{\numberline {2.3.4.1}For the Planar Quadrotor case}{62}{subsubsection.2.3.4.1}%
-\contentsline {subsubsection}{\numberline {2.3.4.2}For the 3D Quadrotor case}{62}{subsubsection.2.3.4.2}%
-\contentsline {section}{\numberline {2.4}Simulations using acados}{63}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Planar Quadrotor Simulations}{63}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}3D Quadrotor Simulations}{65}{subsection.2.4.2}%
-\contentsline {chapter}{\numberline {3}Flip Trajectory Generation and Simulations with acados}{68}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Design of the Flip Trajectory}{68}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Dynamic criterion for feasible trajectories}{68}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Trajectory planning}{68}{subsection.3.1.2}%
-\contentsline {chapter}{\numberline {4}Experiments}{70}{chapter.4}%
-\contentsline {chapter}{Conclusion}{71}{chapter*.40}%
-\contentsline {chapter}{\numberline {A}Proof of theorem \ref {theo}}{72}{appendix.A}%
-\contentsline {chapter}{Bibliography}{72}{appendix.A}%
+\contentsline {chapter}{Introduction}{11}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}State of the art}{15}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Differential Flatness}{15}{section.1.1}%
+\contentsline {section}{\numberline {1.2}General Control Architecture}{17}{section.1.2}%
+\contentsline {section}{\numberline {1.3}General Control Approaches}{18}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Method of Linearization}{18}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Nonlinear Control Methods}{18}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Model Predictive Control}{20}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}General Idea}{20}{subsection.1.4.1}%
+\contentsline {paragraph}{Basic strategy}{20}{subsection.1.4.1}%
+\contentsline {paragraph}{Advantages and drawbacks of MPC}{20}{figure.caption.10}%
+\contentsline {subsection}{\numberline {1.4.2}Design Parameters}{21}{subsection.1.4.2}%
+\contentsline {paragraph}{Sample Time $T_s$}{22}{subsection.1.4.2}%
+\contentsline {paragraph}{Prediction horizon $N$}{22}{subsection.1.4.2}%
+\contentsline {paragraph}{Control horizon m}{22}{subsection.1.4.2}%
+\contentsline {paragraph}{Constraints}{22}{subsection.1.4.2}%
+\contentsline {paragraph}{Weights}{23}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Basic formulation of a MPC problem}{23}{subsection.1.4.3}%
+\contentsline {paragraph}{Typical problem statement}{24}{equation.1.4.8}%
+\contentsline {subsection}{\numberline {1.4.4}Different MPC Methods}{24}{subsection.1.4.4}%
+\contentsline {paragraph}{In case of linear systems}{24}{subsection.1.4.4}%
+\contentsline {paragraph}{In case of a nonlinear systems}{25}{figure.caption.12}%
+\contentsline {paragraph}{Adaptive MPC}{25}{figure.caption.13}%
+\contentsline {paragraph}{Gain-Scheduled MPC}{25}{figure.caption.13}%
+\contentsline {paragraph}{Nonlinear MPC}{25}{figure.caption.13}%
+\contentsline {subsubsection}{\numberline {1.4.4.1}Strategies to Improve Computational Time}{26}{subsubsection.1.4.4.1}%
+\contentsline {paragraph}{Order reduction techniques}{26}{subsubsection.1.4.4.1}%
+\contentsline {paragraph}{Explicit MPC}{26}{subsubsection.1.4.4.1}%
+\contentsline {paragraph}{Sub-optimal Solution}{27}{figure.caption.16}%
+\contentsline {subsection}{\numberline {1.4.5}MPC applications on quadrotors}{28}{subsection.1.4.5}%
+\contentsline {subsubsection}{\numberline {1.4.5.1}Centralized MPC}{28}{subsubsection.1.4.5.1}%
+\contentsline {subsubsection}{\numberline {1.4.5.2}Non-centralized MPC}{29}{subsubsection.1.4.5.2}%
+\contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{30}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{30}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{31}{subsection.1.5.2}%
+\contentsline {subsubsection}{\numberline {1.5.2.1}Nonlinear Optimal Control}{31}{subsubsection.1.5.2.1}%
+\contentsline {subsubsection}{\numberline {1.5.2.2}Multiple Shooting Discretization}{31}{subsubsection.1.5.2.2}%
+\contentsline {subsubsection}{\numberline {1.5.2.3}General Form of the Resulting Nonlinear Program}{32}{subsubsection.1.5.2.3}%
+\contentsline {subsubsection}{\numberline {1.5.2.4}Sequential Quadratic Programming and Real-Time Iterations}{33}{subsubsection.1.5.2.4}%
+\contentsline {subsubsection}{\numberline {1.5.2.5}Numerical Integration and Sensitivities}{34}{subsubsection.1.5.2.5}%
+\contentsline {subsubsection}{\numberline {1.5.2.6}Convex Hessian Approximation Methods}{34}{subsubsection.1.5.2.6}%
+\contentsline {paragraph}{Gauss-Newton Hessian approximation}{34}{subsubsection.1.5.2.6}%
+\contentsline {subsubsection}{\numberline {1.5.2.7}Structure-exploiting embedded QP solvers}{35}{subsubsection.1.5.2.7}%
+\contentsline {subsubsection}{\numberline {1.5.2.8}Real-time iterations}{35}{subsubsection.1.5.2.8}%
+\contentsline {subsubsection}{\numberline {1.5.2.9}Python Interface Overview}{36}{subsubsection.1.5.2.9}%
+\contentsline {section}{\numberline {1.6}Flip maneuvers with quadrotors}{37}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Physics of a quadrotor flip}{37}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Control Approaches for Multi-Flip Maneuvers}{37}{subsection.1.6.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.1}Hybrid Systems Theory}{38}{subsubsection.1.6.2.1}%
+\contentsline {subsubsection}{\numberline {1.6.2.2}Open-Loop Iterative Learning}{39}{subsubsection.1.6.2.2}%
+\contentsline {subsubsection}{\numberline {1.6.2.3}Closed-Loop Attitude Control}{40}{subsubsection.1.6.2.3}%
+\contentsline {subsection}{\numberline {1.6.3}Shortcomings of Current Strategies}{42}{subsection.1.6.3}%
+\contentsline {chapter}{\numberline {2}MPC Design and Simple Simulations with acados}{43}{chapter.2}%
+\contentsline {section}{\numberline {2.1}System Modeling}{43}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Notion of Position and Orientation}{43}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Inputs}{44}{subsection.2.1.2}%
+\contentsline {paragraph}{The forces}{44}{subsection.2.1.2}%
+\contentsline {paragraph}{The torques}{45}{equation.2.1.7}%
+\contentsline {subsection}{\numberline {2.1.3}Dynamical equations}{46}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Planar Quadrotor}{47}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}3D Quadrotor}{48}{subsection.2.1.5}%
+\contentsline {subsubsection}{\numberline {2.1.5.1}Equations of Motion with Euler Angles}{48}{subsubsection.2.1.5.1}%
+\contentsline {subsubsection}{\numberline {2.1.5.2}Equations of Motion with Quaternions}{50}{subsubsection.2.1.5.2}%
+\contentsline {section}{\numberline {2.2}Extended Kalman Filter for the Planar Quadrotor}{51}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Evolution Model}{51}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Measurement Model}{52}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Prediction Phase}{52}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Correction Phase}{54}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Design of the MPC controller}{55}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Parameters of the Crazyflie 2.1}{55}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Planar Quadrotor MPC}{57}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}3D Quadrotor MPC}{60}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Design of the Circular Trajectory}{63}{subsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.4.1}For the Planar Quadrotor case}{63}{subsubsection.2.3.4.1}%
+\contentsline {subsubsection}{\numberline {2.3.4.2}For the 3D Quadrotor case}{63}{subsubsection.2.3.4.2}%
+\contentsline {section}{\numberline {2.4}Simulations using acados}{64}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Planar Quadrotor Simulations}{64}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}3D Quadrotor Simulation}{66}{subsection.2.4.2}%
+\contentsline {chapter}{\numberline {3}Flip Trajectory Generation and Simulations with acados}{69}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design of the Flip Trajectory}{69}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Dynamic criterion for feasible trajectories}{69}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Trajectory planning}{69}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Trajectory generation using Polynomials of Order 9}{70}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Designing the Waypoints of the Flip Trajectory}{72}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Parameter Optimization and Trajectory Generation}{76}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}Simulations using acados}{79}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Planar Quadrotor Simulations}{79}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}3D Quadrotor Simulation}{81}{subsection.3.2.2}%
+\contentsline {chapter}{\numberline {4}Simulations in ROS2 and Experimentation}{84}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Software-in-the-Loop Simulations using ROS2 and Gazebo}{84}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Experimentation}{84}{section.4.2}%
+\contentsline {chapter}{Conclusion}{85}{chapter*.44}%
+\contentsline {chapter}{Bibliography}{85}{chapter*.44}%

@@ -394,8 +394,4 @@ Bitcraze, ``Crazyflie 2.1 datasheet.'' [Online]. Available:
   \url{https://www.bitcraze.io/documentation/hardware/crazyflie_2_1/crazyflie_2_1-datasheet.pdf}
 \BIBentrySTDinterwordspacing
 
-\bibitem{euclides300}
-O.~A. Euclides, ``{Elements},'' \emph{Self-published}, vol.~1, no.~1, Feb.
-  -300.
-
 \end{thebibliography}

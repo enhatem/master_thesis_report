@@ -32,7 +32,7 @@ Within the rapidly growing aerial robotics market, one of the most substantial c
 It can be shown, in particular, that making a flip with a quadrotor means crossing the parallel singularity of the dynamic model. The aim of the master thesis is to explore the possibility of defining aggressive trajectories for quadrotors on the basis of their dynamic model degeneracy analysis and to adapt various strategies to control the robot in a closed loop. In addition, the possibility of performing the aggressive maneuvers in constrained environments will also be investigated.
 Therefore, the analysis will be extended from the previous studies to create general feasible trajectories that will allow quadrotors to perform aggressive multi-flip maneuvers while passing through a constrained environment and while guaranteeing a satisfactory degree of robustness to the uncertainties of the dynamic model.\\
 
-\textbf{Keywords: quadrotors, parallel robots, aggressive maneuvers, multi-flips, constrained environmen. }
+\textbf{Keywords: quadrotors, parallel robots, aggressive maneuvers, multi-flips, constrained environment. }
  
  
  \newpage
@@ -118,7 +118,7 @@ In specific, in the sections below, quadrotors and parallel robots are briefly p
 
 A quadrotor is a type of unmanned aerial vehicle (UAV) with four rotors and six degrees of freedom. Typically, drones have a small size and low inertia which allows them to be controlled by simple flight control systems. It is typically designed in a cross-configuration such that the electronics are held in the center of the platform and the rotors are placed at the borders.
 An example of a real quadrotor, namely the DJI Phantom, is shown in figure \ref{fig:drone}. The quadrotor is typically built in a way such that a pair of opposite rotors rotates in a clockwise direction, whereas the other pair rotates in a counter-clockwise direction.
-The attitude and the position of the drone are controlled by changing the spinning speed of the rotors, as showin in figure \ref{fig:propeller_directions}.
+The attitude and the position of the drone are controlled by changing the spinning speed of the rotors, as shown in figure \ref{fig:propeller_directions}.
  
  \begin{figure}[h]
      \centering
@@ -191,7 +191,7 @@ A parallel manipulator is a mechanical system that consists of two connected pla
 
 \pagebreak
 
-However, parallel manipulators are subject to singularities which can lead to big problems in the robot workspace in case they were not handled correctly. Thus, the study of the singular configuartions of parallel manipulators is very important. Because, even just before reaching a singularity, the performance of the parallel manipulator will decrease dramatically. Moreover, the robot may loose the ability of moving in a certain direction, gain uncontrollable motions and the mechanism could even break. The main difference between serial and parallel manipulators is that singularity configurations may also appear inside the workspace of the robot (depending on the dimensions of the robot) and not just at the boundaries of the robot workspace, which can significantly decrease the area of the robot workspace.
+However, parallel manipulators are subject to singularities which can lead to big problems in the robot workspace in case they were not handled correctly. Thus, the study of the singular configurations of parallel manipulators is very important. Because, even just before reaching a singularity, the performance of the parallel manipulator will decrease dramatically. Moreover, the robot may loose the ability of moving in a certain direction, gain uncontrollable motions and the mechanism could even break. The main difference between serial and parallel manipulators is that singularity configurations may also appear inside the workspace of the robot (depending on the dimensions of the robot) and not just at the boundaries of the robot workspace, which can significantly decrease the area of the robot workspace.
 As a result, many works have been developed by robotics researchers in order to allow parallel manipulators to safely cross these singularities by using trajectory planning and specific control methods.
 
 \section*{The goal of this thesis}
@@ -245,7 +245,7 @@ The rest of the report is structured as follows:
 \setlength{\itemindent}{-.5in}
 	\item [] \textbf{Chapter 1} provides an overview of the state of the art in the control of quadrotors and will later on focus on the main control method that will be used, namely Model Predictive Control (MPC). Moreover, a literature review of MPC applications on quadrotors will be presented. Furthermore, an overview on the software used to design a MPC controller will be presented. Finally, the state of the art in flipping maneuvers will be presented.
 	
-	 \item [] \textbf{Chapter 2} provides a detailed explanation of the quadrotor dynamics for the planar (2D) and 3D quadrotors. Morever, an Extended Kalman Filter (EKF) is then designed for the planar quadrotor case to be used in the presence of noisy measurements (states) and noisy control inputs. Finally, simulation results using MPC to reach a single waypoint and to follow circular trajectories with and without noise are presented.
+	 \item [] \textbf{Chapter 2} provides a detailed explanation of the quadrotor dynamics for the planar (2D) and 3D quadrotors. Moreover, an Extended Kalman Filter (EKF) is then designed for the planar quadrotor case to be used in the presence of noisy measurements (states) and noisy control inputs. Finally, simulation results using MPC to reach a single waypoint and to follow circular trajectories with and without noise are presented.
 	 
 	 \item [] \textbf{Chapter 3} focuses on the trajectory generation of a flip trajectory where different optimization problems with different objective functions and initial conditions will be used in order to find the optimal flipping trajectory that satisfies the dynamic constraints of the quadrotor which will be used in the experimentation phase. Moreover, simulations with a MPC are then performed using the optimal flip trajectory.
 	 
@@ -276,7 +276,7 @@ The rest of the report is structured as follows:
  	\end{cases}
  \end{equation}
 
- As a result, the new set of variables is required to be a function of the state, the input and the derivatives of the input. Moreover, this set should also have the same dimensions as the control input. In this manner, it is possible to rewrite both the state and the input in function of the flat outputs and the derivatives of the flat outputs. This is a very useful property in underactuated systems where $m<n$, such as quadrotors, because, it will allow to generate trajectories in the lower dimensional space $m$, then this trajectory will be mapped into the full dimensional space $n$. An example of this is shown in figure \ref{fig:differential_flatness} below:
+ As a result, the new set of variables is required to be a function of the state, the input and the derivatives of the input. Moreover, this set should also have the same dimensions as the control input. In this manner, it is possible to rewrite both the state and the input in function of the flat outputs and the derivatives of the flat outputs. This is a very useful property in under-actuated systems where $m<n$, such as quadrotors, because, it will allow to generate trajectories in the lower dimensional space $m$, then this trajectory will be mapped into the full dimensional space $n$. An example of this is shown in figure \ref{fig:differential_flatness} below:
  
  \begin{figure}
  	\centering
@@ -287,7 +287,7 @@ The rest of the report is structured as follows:
  
  \newpage
  
- Another well known example of systems is a car, in which the underactuation is the result of the nonholonomic constraints that are imposed by the wheels. So, for a car, a generated trajectory for $(x,y)$ position of the rear-wheels is enough to specify all the viable trajectories of the system. Formal proofs that the quadrotor system is differentially flat can be found in \cite{Mellinger2011}, and \cite{Faessler2018} for the full model with first-order aerodynamics. The standard choice of flat outputs for the quadrotor is the coodinates of the center of mass and the yaw angle:
+ Another well known example of systems is a car, in which the under-actuation is the result of the non-holonomic constraints that are imposed by the wheels. So, for a car, a generated trajectory for $(x,y)$ position of the rear-wheels is enough to specify all the viable trajectories of the system. Formal proofs that the quadrotor system is differentially flat can be found in \cite{Mellinger2011}, and \cite{Faessler2018} for the full model with first-order aerodynamics. The standard choice of flat outputs for the quadrotor is the coordinates of the center of mass and the yaw angle:
 
 \begin{equation}\label{flat_outputs}
 \textbf{\textsc{y}} = \begin{bmatrix}
@@ -351,7 +351,7 @@ In this case, the position and velocity controller, attitude controller and atti
 	
 	\item [] \textbf{Attitude PID controller} directly controls the attitude of the drone. It takes the estimated attitude from the state estimator and uses the error between the desired attitude and the current attitude to output the desired attitude rate.
 	
-	\item [] \textbf{Position and Velocity PID controller} is the most outerloop of the cascaded PID controller. It receives the position or the velocity input from the high level commander which are then handled to output the desired attitude.
+	\item [] \textbf{Position and Velocity PID controller} is the most outer-loop of the cascaded PID controller. It receives the position or the velocity input from the high level commander which are then handled to output the desired attitude.
 	 
 \end{itemize}
 
@@ -640,7 +640,7 @@ It should also be noted that for this method, an algorithm must be designed to s
 
 \subsubsection{Strategies to Improve Computational Time}
 
-As demonstrated in (\ref{MPC_problem}), an MPC problem is formulated as a QP problem that tries to minimize a quadratic cost function in general. Moreover, MPC computations become more complex as the number of state elements, the number of constraints and the MPC parameters increase. Moreover, as stated in section \ref{MPC_General_Idea}, if the MPC controller is running on applications with slow dynamics, then computational complexity is not a concern. However, if MPC is running on applications with fast dynamics, then the computational complexity becomes crucial. In addition, it is important to note that the matrices that are stored in the processor of the system for MPC computations grows with the increasing number of optimization variables. Thus, this could cause a memory problem. So, to reduce the complexity and computational time of MPC, the following methods can be used:
+As demonstrated in (\ref{MPC_problem}), a MPC problem is formulated as a QP problem that tries to minimize a quadratic cost function in general. Moreover, MPC computations become more complex as the number of state elements, the number of constraints and the MPC parameters increase. Moreover, as stated in section \ref{MPC_General_Idea}, if the MPC controller is running on applications with slow dynamics, then computational complexity is not a concern. However, if MPC is running on applications with fast dynamics, then the computational complexity becomes crucial. In addition, it is important to note that the matrices that are stored in the processor of the system for MPC computations grows with the increasing number of optimization variables. Thus, this could cause a memory problem. So, to reduce the complexity and computational time of MPC, the following methods can be used:
 
 \paragraph{Order reduction techniques} They are used to discard states that do not contribute to the dynamics of the system \cite{4421358}. And, using order reduction techniques will also reduce the memory usage of the controller.
 
@@ -655,7 +655,7 @@ As demonstrated in (\ref{MPC_problem}), an MPC problem is formulated as a QP pro
 It should be noted that for applications with even smaller sample times, \textit{Explicit} MPC can be used.
 \end{comment}
 
-\paragraph{Explicit MPC} Instead of solving the optimization problem online for the current state, \textit{Explicit} MPC solves it offline for each value of the state \textbf{\textsc{x}} within a given range \cite{Bemporad2013}. Thus, for each state value within a given range, the Explicit MPC precomputes the optimal solution. And, this solution consists of linear functions that are piecewise affine and continuous is \textbf{\textsc{x}}. An example of Explicit MPC applied on a one-dimensional system is shown in figure \ref{Explicit_MPC_1D} below.
+\paragraph{Explicit MPC} Instead of solving the optimization problem online for the current state, \textit{Explicit} MPC solves it offline for each value of the state \textbf{\textsc{x}} within a given range \cite{Bemporad2013}. Thus, for each state value within a given range, the Explicit MPC pre-computes the optimal solution. And, this solution consists of linear functions that are piece-wise affine and continuous is \textbf{\textsc{x}}. An example of Explicit MPC applied on a one-dimensional system is shown in figure \ref{Explicit_MPC_1D} below.
 
 \begin{figure}[h]
 \centering
@@ -680,18 +680,18 @@ Another example of an Explicit MPC applied on a two-dimensional system is shown 
 
 \noindent Thus, it can be concluded that if the iterative optimization process is reduced to linear function evaluations, then this will greatly simplify the online computations. However, if there is a large number of regions that the state can lie in, then searching for the current state region could sometimes be time consuming. Also, having many regions could cause memory problems for the processor. Thus, the number of regions can be reduced by merging some regions together. However, thee computed solution in that case is not optimal anymore \cite{Hovland2008}.
 
-\paragraph{Suboptimal Solution}
+\paragraph{Sub-optimal Solution}
 It is another method to improve the computational time of the MPC controller. In a MPC problem, the optimal solution is very unpredictable and can drastically change between each time step. In addition, the computational time may exceed the sample time $T_s$. So, it is mandatory to make sure that a solution can be found within $T_s$ and that there still exists additional time for other tasks that need to be executed \cite{Gulez2014}. A simple example is provided in figure \ref{Suboptimal_solution_example} below where a maximum value for the iterations is determined, and it is taken as 5 for illustration purposes. 
 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{Images/Control/Suboptimal_Solution.png}
-\caption{Example showing how the suboptimal solution is found when the maximum number of iterations is set to 5.}
+\caption{Example showing how the sub-optimal solution is found when the maximum number of iterations is set to 5.}
 \label{Suboptimal_solution_example}
 \end{figure}
 
-\noindent As can be seen from figure \ref{Suboptimal_solution_example}, the optimal solution is reached in 10 iterations. However, the controller will stop at iteration 5 and take the suboptimal solution. Moreover, it is important to note that the suboptimal solution still satisfies all the constraints of the optimization problem. The only question that remain is how to determine the maximum number of iterations. This can be done by testing the algorithm on the hardware directly and identifying the execution time used by each iteration. Then, the maximum number of iterations is chosen such that the total execution time does not exceed the sample time of the controller.
+\noindent As can be seen from figure \ref{Suboptimal_solution_example}, the optimal solution is reached in 10 iterations. However, the controller will stop at iteration 5 and take the sub-optimal solution. Moreover, it is important to note that the sub-optimal solution still satisfies all the constraints of the optimization problem. The only question that remain is how to determine the maximum number of iterations. This can be done by testing the algorithm on the hardware directly and identifying the execution time used by each iteration. Then, the maximum number of iterations is chosen such that the total execution time does not exceed the sample time of the controller.
 
 \subsection{MPC applications on quadrotors}
 
@@ -699,7 +699,7 @@ It is another method to improve the computational time of the MPC controller. In
 
 \subsubsection{Centralized MPC}
  
-In this type of application, the MPC controller is a signle structure that encapsulates both the translational dynamics and the rotational dynamics. It takes the trajectory waypoints as inputs, and directly outputs the control inputs required to control the quadrotor. This type of implementation of the MPC controller produces the least amount of errors. However, this comes at a cost of a larger computational load.
+In this type of application, the MPC controller is a single structure that encapsulates both the translational dynamics and the rotational dynamics. It takes the trajectory waypoints as inputs, and directly outputs the control inputs required to control the quadrotor. This type of implementation of the MPC controller produces the least amount of errors. However, this comes at a cost of a larger computational load.
 
 \begin{figure}[h]
 	\centering
@@ -708,7 +708,7 @@ In this type of application, the MPC controller is a signle structure that encap
 	\label{fig:centralized_mpc}
 \end{figure}
 
-As can be seen in figure \ref{fig:centralized_mpc}, which represents a centralized control loop structure for a basic MPC, the right block is the plant which represents the quadrotor dynamics. The MPC bloc taks as input the desired trajectory, and outputs control inputs to allow the quadrotor to follow the trajectory.
+As can be seen in figure \ref{fig:centralized_mpc}, which represents a centralized control loop structure for a basic MPC, the right block is the plant which represents the quadrotor dynamics. The MPC block takes as input the desired trajectory, and outputs control inputs to allow the quadrotor to track the trajectory.
 
 It should be noted that different versions of the MPC controller shown in figure \ref{fig:centralized_mpc} can exist. For example, another version of the MPC could be that the state variables of roll and pitch angles can be added as outputs. This is mainly implemented in order to ensure that the quadrotor does not take extreme values in roll and pitch angles, which can potentially destabilize it, because no restrictions are being used for these angles otherwise.
 
@@ -756,9 +756,9 @@ One challenge in developing software for embedded optimal control lies in the tr
 
 For these reasons, \texttt{acados} does not rely on automatic code generation to perform linear algebra operations. Instead, the high-performance linear algebra package \texttt{BLASFEO} is used. 
 
-Furthermore, other embedded optimal control softwares use global data in order to not sacrifice execution speed and memory. The resulting codebase is difficult to understand, maintain and extend. However, \texttt{acados} organizes the code in a modular way, with formal interfaces between the different algorithmic components. This makes it easier to interchange solvers, routines and libraries needed for the embedded control algorithm.
+Furthermore, other embedded optimal control software use global data in order to not sacrifice execution speed and memory. The resulting code-base is difficult to understand, maintain and extend. However, \texttt{acados} organizes the code in a modular way, with formal interfaces between the different algorithmic components. This makes it easier to interchange solvers, routines and libraries needed for the embedded control algorithm.
 
-Finally, \texttt{acados} uses \texttt{CasADi} modeling language instead of \texttt{Mathematics}, \texttt{sympy} or \texttt{MATLAB Symbolic Toolbox}. Many of these softwares make use of expression trees to represent mathematical funcions, which could lead to a large code size, high memory usage and slow evaluation of high-order derivatives for non-trivial models. Whereas \texttt{CasADi} is based on expression graphs. This usually leads to smaller and faster code which make it more suitable for embedded applications. In addition, it is free and open-source software. In summary, \texttt{acados} offers the following:
+Finally, \texttt{acados} uses \texttt{CasADi} modeling language instead of \texttt{Mathematics}, \texttt{sympy} or \texttt{MATLAB Symbolic Toolbox}. Many of these software make use of expression trees to represent mathematical functions, which could lead to a large code size, high memory usage and slow evaluation of high-order derivatives for non-trivial models. Whereas \texttt{CasADi} is based on expression graphs. This usually leads to smaller and faster code which make it more suitable for embedded applications. In addition, it is free and open-source software. In summary, \texttt{acados} offers the following:
 
 \begin{itemize}
 	\item It contains efficient optimal control algorithms implemented in C.
@@ -801,7 +801,7 @@ In \texttt{acados}, the nonlinear OCP is discretized with a \textbf{multiple sho
         \item Time grid: $[t_0, t_1, \ldots, t_N]$ with $t_k < t_{k+1},\text{\space} k = 0, \ldots, N-1$
         \item Discretized state variables: $x_0, x_1, \ldots, x_N$
         \item Algebraic variables $z_0, z_1, \ldots, z_{N-1}$
-        \item Controls $u_0, u_1, \ldots, u_{N-1}$ $\Rightarrow$ piecewise constant parametrization is used.    
+        \item Controls $u_0, u_1, \ldots, u_{N-1}$ $\Rightarrow$ piece-wise constant parametrization is used.    
     \end{itemize}    
 
 The numerical simulation routine on each time interval $[t_k, t_{k+1})$ can be written as:
@@ -840,7 +840,7 @@ But, the slack variables $s_k$ cannot be included in the dynamics of the system.
 	\rho_k(s_k) = \sum_{i=1}^{n_{s_k}} \alpha_k^i s_k^i + \beta_k^i s_k^{i^2}
 \end{equation}
 
-with $\alpha_k^i \in \mathbb{R}, \beta_k^i > 0$. Slack variables $s_k$ can also be used to model piecewise quadratic, and possibly asymmetric cost functions.
+with $\alpha_k^i \in \mathbb{R}, \beta_k^i > 0$. Slack variables $s_k$ can also be used to model piece-wise quadratic, and possibly asymmetric cost functions.
     
 In addition, \texttt{acados} is capable of exploiting the structure of the widely used linear and nonlinear least-squares functions, and can also handle general nonlinear functions.
     
@@ -919,7 +919,7 @@ In the family of single step integration methods, there are:
     \end{itemize}
 
 
-When using numerical integration methods within direct multiple shooting, the first (and possibly second) order deriatives of the simulation
+When using numerical integration methods within direct multiple shooting, the first (and possibly second) order derivatives of the simulation
 results with respect to the state and control input values also need to be computed:
     $$ \frac{\partial \phi_k^x (x_k, u_k)}{\partial x_k}, \frac{\partial \phi_k^x (x_k, u_k)}{\partial u_k}, \sum_{i=1}^{n_x} \pi_{k,i} \frac{\partial^2 \phi_{k,i}^x (x_k, u_k)}{\partial^2 (x_k, u_k)} $$
     where $\pi_k \in \mathbb{R}^{n_x}$ is called the \textit{seed vector} \cite{acados2019}, for which the Lagrange multipliers are used to compute the exact Hessian of the Lagrangian.
@@ -990,7 +990,7 @@ An existing online method for this approach is the \textit{real-time iteration} 
  
  \subsubsection{Python Interface Overview}
  
- Before testing the mpc controller in ROS2 and Gazebo, the mpc controller was first designed using the acados Python interface. And, simulations were done by making use of a Runge-Kutta of order 4 integrator that is already implemented in acados. 
+ Before testing the MPC controller in ROS2 and Gazebo, the MPC controller was first designed using the acados Python interface. And, simulations were done by making use of a Runge-Kutta of order 4 integrator that is already implemented in acados. 
  
  
  \begin{figure}[h]
@@ -1051,7 +1051,7 @@ A convenient approach for dealing with complex systems is to divide them into a 
  \begin{figure}[h]
  \centering
  \includegraphics[width=\textwidth]{Images/Flip/Hybrid_Systems_Theory}
- \caption{Representation of the individual phases during a backlip (from right to left)\cite{Gillula2011}}
+ \caption{Representation of the individual phases during a back-flip (from right to left)\cite{Gillula2011}}
  \label{hybrid_systems_theory_figure}
  \end{figure}
 
@@ -1072,7 +1072,7 @@ with $\textbf{\textsc{x}}$ the state of the system, $\textbf{\textsc{u}} \in U$ 
 \end{enumerate}
 
 \noindent Generating quadrotor maneuvers using reachable sets is achievable by using a backward approach. The main idea consists of starting from the final desired set, the dynamics of the $n$-th mode can be run in reverse to build a capture set for that phase. This capture set becomes the target region for the $(n-1)$-th node and the procedure will be repeated between every 2 modes. By applying this procedure, feasible transitions between a chain of individual modes can be built. From a mathematical perspective, the problem is formulated as a differential battle between the control and the noise.
-In fact, the aim of the control input $\textbf{\textsc{u}}$ is to keep the state of the system away from the region of undesired sets which the noise $\textbf{\textsc{d}}$ is attempting to drive the state of system into (\textit{avoid set}) and also to reach a desired set. Whereas the noise attempts to drive the state of the system out of it (\textit{capture set}). This method has been proven to be successful with a 1.1 kg quadrotor which was able to perform a backflip outdoors. However, the main disadvantage of this method is that it necessitates a long procedure of generating such capture sets and avoid sets. 
+In fact, the aim of the control input $\textbf{\textsc{u}}$ is to keep the state of the system away from the region of undesired sets which the noise $\textbf{\textsc{d}}$ is attempting to drive the state of system into (\textit{avoid set}) and also to reach a desired set. Whereas the noise attempts to drive the state of the system out of it (\textit{capture set}). This method has been proven to be successful with a 1.1 kg quadrotor which was able to perform a back-flip outdoors. However, the main disadvantage of this method is that it necessitates a long procedure of generating such capture sets and avoid sets. 
  
  \subsubsection{Open-Loop Iterative Learning}
 
@@ -1086,14 +1086,14 @@ designed a simple open-loop iterative learning method to perform multi-flip mane
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Images/Flip/Open_Loop_iterative_learning_a}
-         \caption{The global workflow of the algorithm}
+         \caption{The global work-flow of the algorithm}
          \label{fig:Open_Loop_a}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Images/Flip/Open_Loop_iterative_learning_b}
-         \caption{The global workflow of the algorithm}
+         \caption{The global work-flow of the algorithm}
          \label{fig:Open_Loop_b}
      \end{subfigure}
         \caption{The open-loop iterative learning workflow for performing multi-flips with quadrotors\cite{Lupashin2012}.}
@@ -1178,7 +1178,7 @@ In the subsequent works, a backstepping control approach \cite{Chen2017} has bee
 
 \end{enumerate}
 
-\noindent Regardless, this series of papers are by far the most successfull and comprehensive work available in literature on performing multi-flip maneuvers with quadrotors.
+\noindent Regardless, this series of papers are by far the most successful and comprehensive work available in literature on performing multi-flip maneuvers with quadrotors.
  
  
  \subsection{Shortcomings of Current Strategies}
@@ -1399,7 +1399,7 @@ d(\Omega_1^2-\Omega_2^2+\Omega_3^2-\Omega_4^2)\\
 
 Thus, there exists two types of forces and torques that are acting on the quadrotor platform: the translation force $F_{\xi}$ which is called the thrust $u$, and the torque $\tau$ which represents all the torques about the distinct axes ($\tau_{\phi}, \tau_{\theta}, \tau_{\psi} $). \\
 
-Rather than controling the velocities of the motors, the control in torque and thrust is synthesized, from which motor velocities are effortlessly inferred. Thus, the quadrotor has four control inputs, which are the inputs of its motors:
+Rather than controlling the velocities of the motors, the control in torque and thrust is synthesized, from which motor velocities are effortlessly inferred. Thus, the quadrotor has four control inputs, which are the inputs of its motors:
 
 \begin{align*}
 u_1 &= u \text{ (thrust)} \\
@@ -1696,7 +1696,7 @@ Moreover, the control inputs that will be outputted by the MPC controller are:
 As shown in figure \ref{fig:non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the low-level controller. Then, the low-level controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to follow a desired trajectory.
 
 \section{Extended Kalman Filter for the Planar Quadrotor}
-In order to perform simple simulations with acados in the planar case under the presence of disturbance, it is useful to design an Extended Kalman Filter (EKF) for the planar quadrotor in order to reduce the effects of the noise on the system and increase the tracking accuracy of a desired trajectory. The Extended Kalman Filter was chosen instead of the Kalman Filter (KF) because the Kalman Filter works well for linear systems. However, the quadrotor dynamics are highly  nonlinear as seen in (\ref{subsec:planar_quadrotor}), which the Extended Kalman Filter can handle well. The EKF works by linearizing the nonlinear equations of motion at each time step. This is done by using the current values of the state vector of the planar quadrotor, in addition to the Jacobian matrices of the state vector. However, it should be noted that the EKF will not provide proper measurements if the initial condition of the state vector is not properly defined. The equations used are from the following reference \cite{AUVE2020}.
+In order to perform simple simulations with acados in the planar case under the presence of disturbance, it is useful to design an Extended Kalman Filter (EKF) for the planar quadrotor in order to reduce the effects of the noise on the system and increase the tracking accuracy of a desired trajectory. The Extended Kalman Filter was chosen instead of the Kalman Filter (KF) because the Kalman Filter works well for linear systems. However, the quadrotor dynamics are highly  nonlinear as seen in \ref{subsec:planar_quadrotor}, which the Extended Kalman Filter can handle well. The EKF works by linearizing the nonlinear equations of motion at each time step. This is done by using the current values of the state vector of the planar quadrotor, in addition to the Jacobian matrices of the state vector. However, it should be noted that the EKF will not provide proper measurements if the initial condition of the state vector is not properly defined. The equations used are from the following reference \cite{AUVE2020}.
 
 \subsection{Evolution Model}
 
@@ -1739,7 +1739,7 @@ A figure showing a representation of the EKF implemented on the real quadrotor w
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.5\textwidth]{Images/ekf/extended_kalman_filter.png}
-	\caption{Diagram of the EKF embedded in the crazyflie2.1 \cite{EKF_bitcraze}.}
+	\caption{Diagram of the EKF embedded in the crazyflie 2.1 \cite{EKF_bitcraze}.}
 	\label{ekf_diagram_crazyflie}
 \end{figure}
 
@@ -1891,12 +1891,12 @@ The diagonal terms in $Q_{\gamma}$ mean the following:
 
 \subsection{Parameters of the Crazyflie 2.1}\label{subsec:parameters_of_the_crazyflie}
 
-The parameters of crazyflie were identified in \cite{Forster2015}. However, to increase the accuracy of the simulations that will be performed, the drone was weighed using a small scale to determine its actual mass.
+The parameters of the crazyflie were identified in \cite{Forster2015}. However, to increase the accuracy of the simulations that will be performed, the drone was weighed using a small scale to determine its actual mass.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth, angle =-90]{Images/crazyflie/weight.jpg}
-	\caption{Mass of the crazyflie 2.1 equiped with the battery and properllers.}
+	\caption{Mass of the crazyflie 2.1 equipped with the battery and properllers.}
 	\label{fig:crazyflie_weight}
 \end{figure}
 
@@ -2257,12 +2257,12 @@ Moreover, the same MPC parameters as the planar quadrotor case were chosen:
 	\item $T_f = 1s$ : prediction horizon.
 \end{itemize}
 
-In the 3D quadrotor case, the total number of ordinary differential equations (equations of motion) is larger than the planar quadrotor case. This will result in more computations implemented by the MPC controller at each time instant, which will increase the computation time of the MPC controller. An example of a MPC computation time for a 3D quadrotor which is tracking a 20s circular trajectory with 2s of initial hovering time is shown in figure \ref{fig:computation_time_3D_quadrotor} below.
+In the 3D quadrotor case, the total number of ordinary differential equations (equations of motion) is larger than the planar quadrotor case. This will result in more computations implemented by the MPC controller at each time instant, which will increase the computation time of the MPC controller. An example of a MPC computation time for a 3D quadrotor which is tracking a $20s$ circular trajectory with $2s$ of initial hovering time is shown in figure \ref{fig:computation_time_3D_quadrotor} below.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Images/acados_simulations/circular_trajectory/3D_quadrotor/computation_time.png}
-	\caption{Computation of the MPC for a 3D quadrotor tracking a 22s trajectory.}
+	\caption{Computation of the MPC for a 3D quadrotor tracking a $22s$ trajectory.}
 	\label{fig:computation_time_3D_quadrotor}
 \end{figure}
 
@@ -2429,7 +2429,7 @@ In this section, simulations will be performed to follow a circular trajectory i
 
 \subsubsection*{Noiseless measurements}
 
-As can be seen in figure \ref{fig:planar_sim_noiseless}, the MPC controller was able output control inputs that allowed the quadrotor to follow a circular trajectory. By looking at the control inputs in subfigure \ref{fig:planar_sim_control_inputs_noiseless}, the thrust control input dips for a time instant just before the circular trajectory starts, then the thrust control input saturates until the desired velocities of the trajectory is reached, and then the thrust oscillates throughout the circular trajectory. Furthermore, by looking at subfigure \ref{fig:planar_sim_pose_noiseless}, it is evident that the circular trajectory along $y$ and $z$ is being followed perfectly. And, by looking at the error plots in subfigure \ref{fig:planar_sim_error_pose_noiseless}, it is clear that the errors along $y$ and $z$ are very small. Finally, by looking at the velocity states and their errors in subfigures \ref{fig:planar_sim_velocities_noiseless} and \ref{fig:planar_sim_error_velocities_noiseless}, respectively, it is clear that the largest errors occur at the beginning of the trajectory when the thrust input is saturated. Then, the errors decrease significantly when the desired velocities are reached and the planar quadrotor starts to follow the circular trajectory.
+As can be seen in figure \ref{fig:planar_sim_noiseless}, the MPC controller was able to output control inputs that allowed the quadrotor to follow a circular trajectory. By looking at the control inputs in subfigure \ref{fig:planar_sim_control_inputs_noiseless}, the thrust control input dips for a time instant just before the circular trajectory starts, then the thrust control input saturates until the desired velocities of the trajectory is reached, and then the thrust oscillates throughout the circular trajectory. Furthermore, by looking at subfigure \ref{fig:planar_sim_pose_noiseless}, it is evident that the circular trajectory along $y$ and $z$ is being followed perfectly. And, by looking at the error plots in subfigure \ref{fig:planar_sim_error_pose_noiseless}, it is clear that the errors along $y$ and $z$ are very small. Finally, by looking at the velocity states and their errors in subfigures \ref{fig:planar_sim_velocities_noiseless} and \ref{fig:planar_sim_error_velocities_noiseless}, respectively, it is clear that the largest errors occur at the beginning of the trajectory when the thrust input is saturated. Then, the errors decrease significantly when the desired velocities are reached and the planar quadrotor starts to follow the circular trajectory.
 
 \subsubsection*{Noisy Measurements and Control Inputs}
 
@@ -2450,7 +2450,7 @@ During this simulation, the MPC controller was working under the presence of whi
 \medskip
 	\begin{subfigure}{0.48\textwidth}
 		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/rateStates.png}
-		\caption{Velocities states of the planar quadrotor.} \label{fig:planar_sim_velocities_noiseless}
+		\caption{Velocity states of the planar quadrotor.} \label{fig:planar_sim_velocities_noiseless}
 	\end{subfigure}\hspace*{\fill}
 	\begin{subfigure}{0.48\textwidth}
 		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noiseless/controlInputs.png}
@@ -2485,7 +2485,7 @@ During this simulation, the MPC controller was working under the presence of whi
 \medskip
 	\begin{subfigure}{0.48\textwidth}
 		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/rateStates.png}
-		\caption{Velocities states of the planar quadrotor.} \label{fig:planar_sim_velocities_noisy}
+		\caption{Velocity states of the planar quadrotor.} \label{fig:planar_sim_velocities_noisy}
 	\end{subfigure}\hspace*{\fill}
 	\begin{subfigure}{0.48\textwidth}
 		\includegraphics[width=\linewidth]{Images/acados_simulations/circular_trajectory/planar_quadrotor/noisy/controlInputs.png}
@@ -2507,7 +2507,7 @@ During this simulation, the MPC controller was working under the presence of whi
 
 
 
-\subsection{3D Quadrotor Simulations}
+\subsection{3D Quadrotor Simulation}
 
 In the case of the 3D quadrotor, simulations will only be done without noise since the quadrotor that will be used for experimentation already has an extended Kalman filter implementation.
 
@@ -2584,11 +2584,13 @@ So, equation \ref{free_dynamics_equation} represents the free dynamics of a plan
 For the sake of simplicity, a trajectory will be designed for the planar quadrotor case, and the same trajectory will be tracked by the 3D quadrotor. 
 Using the same approach as demonstrated in \ref{Orsingher2019}, the trajectories along $z$ and $\phi$ will be designed. Then, the trajectory along $y$ will be the consequence of the other 2 trajectories. In other words, the trajectories along $z$ and $\phi$ will be planned independently, while the trajectory along $y$ will be computed from the dynamic criterion shown in equation (\ref{free_dynamics_equation}) as follows: 
 
-\begin{align}
-	\ddot{y}(t) &= - (\ddot{z} + g) \sin \phi\\
+\begin{equation}\label{double_integration_of_ydd}
+\begin{cases}
+	\ddot{y}(t) &= - (\ddot{z} + g) \sin \phi \\
 	\dot{y}(t)  &= \dot{y}(0) + \int_0^t \ddot{y}(t) dt \\
-	y(t) &= y(0) + \int_0^t \dot{y}(t)
-\end{align}
+	y(t) &= y(0) + \int_0^t \dot{y}(t) 
+\end{cases}
+\end{equation}
 
 \newpage
 
@@ -2603,7 +2605,7 @@ The main problem with the strategy is that $y(t)$ is smooth and bounded if and o
 \end{equation}
 
 By substituting each term of equation (\ref{free_dynamics_planar_quadrotor}) in equation (\ref{free_dynamics_equation}), it is evident that the dynamic criterion is satisfied. However, it should be noted that this represents an ideal trajectory that cannot be implemented on the real quadrotor. Because, the motors of the quadrotor should never turn off in mid-flight so that the quadrotor can be controlled at all times. 
-And, it will be shown in the coming simulations that the MPC controller is able to overcome this issue and track the flip trajectory with high accuracy due to the robustness of the MPC controller. Another positive note for having $u_1=u_2=0$ while designing the trajectory, is that this will allow the trajectory along $y(t)$ to be much smaller, which will result in a flip trajectory that does not require a large area to be performed.
+And, it will be shown in the coming simulations that the MPC controller is able to overcome this issue and track the flip trajectory due to the robustness of the MPC controller. Another positive note for having $u_1=u_2=0$ while designing the trajectory, is that this will allow the trajectory along $y(t)$ to be much smaller, which will result in a flip trajectory that does not require a large area to be performed.
 Moreover, the trajectories for each coordinate during a free flight phase can be obtained by integrating equation (\ref{free_dynamics_planar_quadrotor}) twice as follows:
 
 \begin{equation}\label{free_flight_trajectories}
@@ -2622,12 +2624,473 @@ So, an ideal flip trajectory will be designed in which the flip phase will compl
 	\item [] \textbf{Recovery phase: } Once the flip is almost completed, the control of the quadrotor is taken back again in order to prevent it from crashing. And, the final desired waypoint is a hovering position.  
 \end{itemize}
 
+\subsection{Trajectory generation using Polynomials of Order 9}\label{trajectory_generation_using_pol_of_order_9}
+
+One of the most used methods for generating trajectories is to use polynomials. The main idea is that the coefficients of a $n^{th}$-order polynomial can always be recovered if $n+1$ constraints are provided. In the case of trajectory planning for robotics, these constraints are the position and the successive derivatives of a given coordinate at the beginning and at the end of the considered time span of the trajectory. Moreover, polynomials of order $9$ ($n=9$) are normally used for aggressive maneuvers in robotics, since they provide smoothness up to the jerk (the derivative of the acceleration) and continuity up to the snap (the derivative of the jerk). 
+
+\newpage
+
+Furthermore, the corresponding polynomial trajectory fora general coordinate $h(t)$ is expressed as follows: 
+
+\begin{equation}\label{general_polynomial}
+	h(t) = \sum_{i=0}^{9} a_i t^i = a_0 + a_1 t + a_2 t^2 + a_3 t^3 + a_4 t^4 + a_5 t^5 + a_6 t^6 + a_7 t^7 + a_8 t^8 + a_9 t^9
+\end{equation}
+
+In order to compute to coefficients $a_i$ of the polynomial in equation (\ref{general_polynomial}), $n+1=10$ constraints need to be provided at at certain time instants throughout the trajectory. A common approach is to have half of the constraints at the initial time of the trajectory, and the other half of the constraints at the final time of the trajectory. Let $t_0$ be the initial time of the trajectory and $t_f$ the final time of the trajectory. In the case of polynomials of order 9, $/frac{(n+1)}{2}=5$ constraints will be provided at the start of the trajectory, and  $/frac{(n+1)}{2}=5$ constraints will be provided at the end of the trajectory. As an example, if a position constraint is to be imposed at the initial time of the trajectory $t_0$, the polynomial expression can be expressed as follows: 
+
+\begin{equation}\label{polynomial_initial_position}
+	h(t_0) = a_0 + a_1 t_0 + a_2 t_0^2 + a_3 t_0^3 + a_4 t_0^4 + a_5 t_0^5 + a_6 t_0^6 + a_7 t_0^7 + a_8 t_0^8 + a_9 t_0^9
+\end{equation} 
+with $h(t_0)$ being the position of the coordinate at $t_0$. In addition, equation (\ref{polynomial_initial_position}) is linear with respect to the set of coefficients. As a result, it can be rewritten as follows:
+
+\begin{equation}\label{abbreviated_general_form_of_polynomial}
+	\bm{a}^{\intercal} \bm{x} = b 
+\end{equation}
+
+where: 
+
+ \begin{equation}\label{vectors_in_avvreviated_general_form_of_polynomial}
+ 	\begin{cases}
+ 		\bm{a}^{\intercal} = \begin{bmatrix}
+ 		1 & t_0 & t_0^2 &  t_0^3 & t_0^4 & t_0^5 & t_0^6 & t_0^7 & t_0^8 & t_0^9 \\
+ 		\end{bmatrix} \\
+ 		\bm{x} = \begin{bmatrix}
+ 		a_0 & a_1 & a_2 &  a_3 & a_4 & a_5 & a_6 & a_7 & a_8 & a_9 \\
+ 		\end{bmatrix}^{\intercal} \\
+ 		b = h(t_0) 
+ 	\end{cases}
+ \end{equation}
+
+If this procedure is repeated $n+1$ times and the equations are stacked, then the resulting linear system can be written as follows:
+
+	\begin{equation}\label{matrix_form_of_general_form_of_polynomial}
+		\bm{A} \bm{x} = \bm{b}
+	\end{equation}
+	
+Assuming that $t_0=0$, matrix $\bm{A}  \in \mathbb{R}^{(n+1)\times(n+1)}$ in equation (\ref{matrix_form_of_general_form_of_polynomial}) can be expressed as follows:
+
+\begin{equation}\label{matrix_A_in_general_matrix_form_of_polynomial}
+        \bm{A} = \begin{bmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 6 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 24 & 0 & 0 & 0 & 0 & 0 \\
+            1 & t_f &  t_f^2 &  t_f^3 &    t_f^4 &    t_f^5 &    t_f^6 &    t_f^7 &     t_f^8 &     t_f^9 \\ 
+            0 & 1   & 2t_f   & 3t_f^2 &   4t_f^3 &   5t_f^4 &   6t_f^5 &  7 t_f^6 &    8t_f^7 &    9t_f^8 \\ 
+            0 & 0   & 2      & 6t_f   &  12t_f^2 &  20t_f^3 &  30t_f^4 &  42t_f^5 &   56t_f^6 &   72t_f^7 \\ 
+            0 & 0   & 0      & 6      &  24t_f   &  60t_f^2 & 120t_f^3 & 210t_f^4 &  336t_f^5 &  504t_f^6 \\
+            0 & 0   & 0      & 0      &  24      & 120t_f   & 360t_f^2 & 840t_f^3 & 1680t_f^4 & 3024t_f^5 \\
+        \end{bmatrix}
+    \end{equation} 
+
+The vector $\bm{x} \in \mathbb{R}^{n+1}$  which contains the unknown polynomial coefficients can be computed by inverting the matrix $\bm{A}$:
+
+\begin{equation}
+	\bm{x} = \bm{A}^{-1}\bm{b}
+\end{equation}
+
+The same procedure can be implemented for retrieving the coefficients of any arbitrary polynomial, given that a sufficient number of constraints is provided.
+
+\newpage
+
+\subsection{Designing the Waypoints of the Flip Trajectory}
+
+As described earlier, the trajectories along the $z$ and $\phi$ coordinates will be designed first. Then, the trajectory along the $y$ coordinate will be a consequence of the other two trajectories, and will be computed from equation (\ref{double_integration_of_ydd}). The reason for choosing to design the trajectories along $z$ and $\phi$ is:
+
+\begin{itemize}
+	\item For $z$: Designing the trajectory along the $z$ coordinate will ensure that the quadrotor will remain at a safe distance above the ground throughout the flip trajectory in order to prevent it from crashing.
+	\item For $\phi$: Designing the trajectory along the $\phi$ coordinate will ensure that the flip maneuver will be properly defined where the initial condition of the trajectory will be $\phi=0$, and the final condition of the trajectory will be $\phi=2\pi$. 
+\end{itemize}
+
+As for the trajectory along the $y$ coordinate, as mentioned earlier, having $u_1=u_2=0$ throughout the flip phase of the trajectory will result in a trajectory with smaller horizontal displacement while remaining dynamically feasible, even though the motors will never be turned off throughout the trajectory. And, the robustness of the MPC controller will be relied on to handle this problem and still track this trajectory.
+
+\subsubsection*{Flip Phase}
+
+The most important part of the flip trajectory is the flip phase, which consists (ideally) of free flight, during which most of the flip will be carried out. As shown in \ref{free_flight_trajectories}, the trajectories during the flip phase are low-order polynomials with a small number degrees of freedom, and the coefficients of the trajectories can be computed in closed form as follows. 
+
+\begin{itemize}
+	\item \underline{For the $z$ coordinate:}
+	
+	\begin{equation}
+		Z_4(t) = a_{z_4,0} + a_{z_4,1}t + a_{z_4,2}t^2 = z_4(0) + \dot{z}_4(0)t - \frac{g}{2}t^2
+	\end{equation}
+	
+The last coefficient must be $-\frac{g}{2}$ since the acceleration must be constant and equal $-g$ throughout the (ideal) flip phase of the trajectory. Moreover, the other coefficients can be computed given an initial position $z_4$ at $t=0$ and a final position $z_5$ when $t=t_4$:
+
+\begin{equation}
+	\begin{cases}
+		Z_4(0) = a_{z_4,0}=z_4 \\
+		Z_4(t_4) = z_4 + a_{z_4,1}t_4 - \frac{g}{2}t_2^2 = z_5 \Rightarrow a_{z_4,1} = \frac{z_5 - z_4}{t_4} + \frac{g t_4}{2}
+	\end{cases}
+\end{equation}
+	
+	Thus, the resulting trajectory on the $z$ coordinate ($z(t)$) for going from $z_4$ to $z_5$ in the time span of $t_4$, with an ideal acceleration of $-g$ throughout the trajectory, can be expressed as:
+	
+\begin{equation}
+	Z_4(t) = z_4 + \bigg( \frac{z_5 - z_4}{t_4} + \frac{g t_4}{2} \bigg)t - \frac{g}{2} t^2
+\end{equation}
+
+\newpage
+
+	\item \underline{For the $\phi$ coordinate:}
+
+A similar approach can be implemented for $\phi(t)$, which is easier to obtain since only two coefficients are required to be computed in this case:
+
+\begin{equation}\label{phi_4_general_form}
+	\Phi_4 (t) = a_{\phi_4,0} + a_{\phi_4,1}t = \phi_4 t (0) + \dot{\phi}_2 (0)t
+\end{equation}
 
 
+Assuming that the desired initial angle $\phi_4$ and desired final angle $\phi_5$ are known for the flip phase, the coefficients of equation (\ref{phi_4_general_form}) can be computed as follows:
+
+\begin{equation}
+	\begin{cases}
+		\Phi_4 (0) = a_{\phi_4,0}=\phi_4 \\
+		\Phi_4 (t_4) = \phi_4 + a_{\phi_4,1} t_4 = \phi_5 \Rightarrow a_{\phi_4,1}=\frac{\phi_5 - \phi_4}{t_4}
+	\end{cases}
+\end{equation}
+
+So, the trajectory of the $\phi$ coordinate throughout the flip phase can be expressed as follows:
+
+\begin{equation}
+	\Phi_4 (t) = \phi_4 + \bigg( \frac{\phi_5 - \phi_4}{t_4} \bigg) t
+\end{equation}
+
+Finally, for $Y_4(t)$, the resulting trajectory can be computed using equations (\ref{double_integration_of_ydd})
+ and (\ref{free_flight_trajectories}).
+
+\end{itemize}
 
 
+\subsubsection*{Reaching Phase}
+
+The first phase of the overall trajectory is called the reaching phase, since the goal of the reaching phase is to reach a set of final conditions, which will be the initial conditions for the $Z(t)$ and $\Phi (t)$ trajectories of the flip phase. Moreover, the structure of the trajectories chosen for $Z(t)$ and $\Phi(t)$ for the reaching phase and the recovery phase, is polynomials of order $9$, since they provide continuity up to the snap and smoothness for the lower derivatives such as the velocity and the acceleration. The general way for computing the coefficients for polynomials of order $n$, given $n+1$ boundary conditions has been presented in subsection \ref{trajectory_generation_using_pol_of_order_9}. For this reason, the focus now will be on choosing the initial and final conditions of the polynomials. In addition, the trajectories in the reaching phase and the recovery phase were separated into three different parts in order to give more freedom to the solver. This will make it easier to find a flip trajectory that satisfies the physical constraints of the used quadrotor. As a result, the overall flip trajectory will consist of 7 parts.
+
+\begin{itemize}
+	\item \underline{For the $z$ coordinate:}
+	
+The goal is to start from a hovering position and reach the initial conditions for the flip phase on the given time span $t_{reaching phase}=t_1+t_2+t_3$. When $t=0$, the boundary conditions are given by a hovering configuration at a certain height $z_1$, with all the derivatives set to zero:
+
+\begin{equation}\label{Z_1}
+	Z_1 = \begin{bmatrix}
+	z_1(0) & \dot{z}_1 (0) & \ddot{z}_1 (0) & z_1^{(3)} (0) & z_1^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_1 & 0 & 0 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+Then, the two intermediate waypoints in the reaching phase will be free to take on any value so that they can be properly computed by the solver:
+
+\begin{equation}\label{Z_2}
+	Z_2 = \begin{bmatrix}
+	z_2(0) & \dot{z}_2 (0) & \ddot{z}_2 (0) & z_2^{(3)} (0) & z_2^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_2 & \dot{z}_2 & \ddot{z}_2 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+\begin{equation}\label{Z_3}
+	Z_3 = \begin{bmatrix}
+	z_3(0) & \dot{z}_3 (0) & \ddot{z}_3 (0) & z_3^{(3)} (0) & z_3^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_3 & \dot{z}_3 & \ddot{z}_3 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+So, for now, the first trajectory in the reaching phase can be generated by using equation (\ref{Z_1}) as the initial condition, and equation (\ref{Z_2}) as the final condition. Moreover, the second trajectory in the reaching phase can be generated by using equation (\ref{Z_2}) as the initial condition, and equation (\ref{Z_3}) as the final condition.
+
+Finally, the final configuration that has to be attained at the end of the reaching phase must match the initial conditions of the flip phase, specifically:
+
+\begin{equation}\label{Z_4}
+	Z_4 = \begin{bmatrix}
+	z_4(0) & \dot{z}_4 (0) & \ddot{z}_4 (0) & z_4^{(3)} (0) & z_4^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_4 & \bigg(\frac{z_5 - z_4}{t_4} + \frac{g t_4}{2} \bigg) & -g & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+Thus, the third and final trajectory in the reaching phase can be generated using equation (\ref{Z_3}) as the initial condition, and equation (\ref{Z_4}) as the final condition.
+
+	\item \underline{For the $\phi$ coordinate:}
+
+Similarly, at the start of the reaching phase, the roll angle and all its successive derivatives must be zero. This is because the quadrotor is in a hovering position initially:
+
+\begin{equation}\label{Phi_1}
+	\Phi_1 = \begin{bmatrix}
+	\phi_1(0) & \dot{\phi}_1 (0) & \ddot{\phi}_1 (0) & \phi_1^{(3)} (0) & \phi_1^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	0 & 0 & 0 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+Then, the two intermediate waypoints in the reaching phase will be free to take on any value so that they can be properly computed by the solver:
 
 
+\begin{equation}\label{Phi_2}
+	\Phi_2 = \begin{bmatrix}
+	\phi_2(0) & \dot{\phi}_2 (0) & \ddot{\phi}_2 (0) & \phi_2^{(3)} (0) & \phi_2^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	\phi_2 & \dot{\phi}_2 & \ddot{\phi}_2 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+\begin{equation}\label{Phi_3}
+	\Phi_3 = \begin{bmatrix}
+	\phi_3(0) & \dot{\phi}_3 (0) & \ddot{\phi}_3 (0) & \phi_3^{(3)} (0) & \phi_3^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	\phi_3 & \dot{\phi}_3 & \ddot{\phi}_3 & 0 & 0
+	\end{bmatrix} \\
+\end{equation}
+
+Similarly, the first trajectory in the reaching phase can be generated by using equation (\ref{Phi_1}) as the initial condition, and equation (\ref{Phi_2}) as the final condition. Moreover, the second trajectory in the reaching phase can be generated by using equation (\ref{Phi_2}) as the initial condition, and equation (\ref{Phi_3}) as the final condition.
+
+Furthermore, the final configuration that has to be attained at the end of the reaching phase must match the initial conditions of the flip phase, specifically:
+
+\begin{equation}\label{Phi_4}
+	\Phi_4 = \begin{bmatrix}
+	\phi_4(0) & \dot{\phi}_4 (0) & \ddot{\phi}_4 (0) & \phi_4^{(3)} (0) & \phi_4^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	\phi_4 & \bigg( \frac{\phi_5 - \phi_4}{t_4} \bigg) & 0 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+Thus, the third and final trajectory in the reaching phase can be generated using equation (\ref{Phi_3}) as the initial condition, and equation (\ref{Phi_4}) as the final condition. 
+
+Finally, the trajectories along the $y$ coordinate are obtained from equation (\ref{double_integration_of_ydd}) in each case.
+
+\end{itemize}
+
+
+\newpage
+
+\subsubsection*{Recovery Phase}
+
+The objective of the final phase of the flip trajectory is to allow the quadrotor to recover from the flip phase and avoid it from crashing. The method used to compute this part of the trajectory is completely identical to the method used in the reaching phase.
+
+\begin{itemize}
+	\item \underline{For the $z$ coordinate:}
+
+The goal is to bring back the quadrotor from the configuration at the end of the flip phase to a safe hovering position. As a result, the initial condition for the recovery phase is just the final condition of the flip phase:
+
+\begin{equation}\label{Z_5}
+	Z_5 = \begin{bmatrix}
+	z_5(0) & \dot{z}_5 (0) & \ddot{z}_5 (0) & z_5^{(3)} (0) & z_5^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_5 & \bigg(\frac{z_5 - z_4}{t_4} - \frac{g t_4}{2} \bigg) & -g & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+Then, the two intermediate waypoints in the reaching phase will be free to take on any value so that they can be properly computed by the solver:
+
+\begin{equation}\label{Z_6}
+	Z_6 = \begin{bmatrix}
+	z_6(0) & \dot{z}_6 (0) & \ddot{z}_6 (0) & z_6^{(3)} (0) & z_6^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_6 & \dot{z}_6 & \ddot{z}_6 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+\begin{equation}\label{Z_7}
+	Z_7 = \begin{bmatrix}
+	z_7(0) & \dot{z}_7 (0) & \ddot{z}_7 (0) & z_7^{(3)} (0) & z_7^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_7 & \dot{z}_7 & \ddot{z}_7 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+
+So, for now, the first trajectory in the recovery phase can be generated by using equation (\ref{Z_5}) as the initial condition, and equation (\ref{Z_6}) as the final condition. Moreover, the second trajectory in the recovery phase can be generated by using equation (\ref{Z_6}) as the initial condition, and equation (\ref{Z_7}) as the final condition.
+
+Finally, the final configuration that has to be attained at the end of the recovery phase is just a hovering position:
+
+\begin{equation}\label{Z_8}
+	Z_8 = \begin{bmatrix}
+	z_8(0) & \dot{z}_8 (0) & \ddot{z}_8 (0) & z_8^{(3)} (0) & z_8^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	z_8 & 0 & 0 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+Thus, the third and final trajectory in the recovery phase can be generated using equation (\ref{Z_7}) as the initial condition, and equation (\ref{Z_8}) as the final condition.
+
+
+	\item \underline{For the $\phi$ coordinate:}
+
+The same approach can be carried out for the roll angle coordinate $\phi$ along the recovery phase. At the end of the flip phase, the quadrotor should have the following configuration:
+
+\begin{equation}\label{Phi_5}
+	\Phi_5 = \begin{bmatrix}
+	\phi_5(0) & \dot{\phi}_5 (0) & \ddot{\phi}_5 (0) & \phi_5^{(3)} (0) & \phi_5^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	\phi_5 & \bigg( \frac{\phi_5 - \phi_4}{t_4} \bigg) & 0 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+
+Then, the two intermediate waypoints in the reaching phase will be free to take on any value so that they can be properly computed by the solver:
+
+
+\begin{equation}\label{Phi_6}
+	\Phi_6 = \begin{bmatrix}
+	\phi_6(0) & \dot{\phi}_6 (0) & \ddot{\phi}_6 (0) & \phi_6^{(3)} (0) & \phi_6^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	\phi_6 & \dot{\phi}_6 & \ddot{\phi}_6 & 0 & 0
+	\end{bmatrix} 
+\end{equation}
+
+\begin{equation}\label{Phi_7}
+	\Phi_7 = \begin{bmatrix}
+	\phi_7(0) & \dot{\phi}_7 (0) & \ddot{\phi}_7 (0) & \phi_7^{(3)} (0) & \phi_7^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	\phi_7 & \dot{\phi}_7 & \ddot{\phi}_7 & 0 & 0
+	\end{bmatrix} \\
+\end{equation}
+
+So, for now, the first trajectory in the recovery phase can be generated by using equation (\ref{Phi_5}) as the initial condition, and equation (\ref{Phi_6}) as the final condition. Moreover, the second trajectory in the recovery phase can be generated by using equation (\ref{Phi_6}) as the initial condition, and equation (\ref{Phi_7}) as the final condition.
+
+At the end of the overall flip trajectory, the roll angle $\phi$ must be equal to $2 \pi$ at the final hovering position:
+
+\begin{equation}\label{Phi_8}
+	\Phi_8 = \begin{bmatrix}
+	\phi_8(0) & \dot{\phi}_8 (0) & \ddot{\phi}_8 (0) & \phi_8^{(3)} (0) & \phi_8^{(4)} (0) \\
+	\end{bmatrix} = \begin{bmatrix}
+	2 \pi & 0 & 0 & 0 & 0
+	\end{bmatrix} \\
+\end{equation}
+
+Thus, the third and final trajectory in the recovery phase can be generated using equation (\ref{Phi_7}) as the initial condition, and equation (\ref{Phi_8}) as the final condition.
+
+Theoretically, multi-flip trajectories can be generated using this methodology by simply replacing $2 \pi$ by $2 n \phi$, with $n$ being the number of flips to be performed during the trajectory. However, for the sake of simplicity, a feasible single flip trajectory will be generated.
+
+\end{itemize}
+
+
+\subsection{Parameter Optimization and Trajectory Generation}
+
+The main difficulty of the trajectory planning method described above is to properly define the set of parameters which will allow to completely determine the flip trajectory. In fact, there exist $37$ parameters in total that must be chosen in order to generate the flip trajectory. And, they are:
+
+\begin{itemize}
+	\item $z_1,z_2,z_3,z_4,z_5,z_6,z_7,z_8$
+	\item $\dot{z}_2, \dot{z}_3, \dot{z}_6, \dot{z}_7$
+	\item $\ddot{z}_2, \ddot{z}_3, \ddot{z}_6, \ddot{z}_7$
+	\item $\phi_2, \phi_3, \phi_4, \phi_5, \phi_6, \phi_7$
+	\item $\dot{\phi_2}, \dot{\phi}_3, \dot{\phi}_6, \dot{\phi}_7$
+	\item $\ddot{\phi_2}, \ddot{\phi}_3, \ddot{\phi}_6, \ddot{\phi}_7$
+	\item $t_1, t_2, t_3, t_4, t_5, t_6, t_7$
+\end{itemize}
+
+So, an optimization problem has to be defined in order to compute the proper value for each of the parameters above and generate a dynamically feasible flip trajectory. First, a parameter vector $\bm{p}$ containing all the parameters above must be created as follows: 
+
+\begin{equation}
+	\bm{p} = \begin{bmatrix}
+	z_1 & \ldots & t_7
+		\end{bmatrix}
+\end{equation}
+
+So, the variables of the optimization problem is the elements of vector $\bm{p}$. In addition, a widely used objective function that can be used is the integral of motor torques squared: 
+
+\begin{equation}\label{objective_function}
+	J (\bm{p}) = \int_0^t u_1^2
+\end{equation}
+
+with $t = t_1 + t_2 + t_3 + t_4 + t_5 + t_6 + t_7$.
+
+The objective function in equation (\ref{objective_function}) will try to minimize the applied thrust of the quadrotor throughout the trajectory.
+
+Naturally, most of the parameters will have lower and upper bound constraints on them. And, they will be taken into consideration in the optimization problem. For example, the $z_i$ parameters will have a minimum bound of $0.8m$ and an upper bound of $3m$. Having these bounds will allow the solver to generate trajectories with bounded heights that are relatively small. In general, the constraints on the vector of parameters $\bm{p}$ can be expressed as follows: 
+
+\begin{equation}
+	\bm{p}_{min} \leq \bm{p} \leq \bm{p}_{max}
+\end{equation}
+
+In addition, there exist a set of nonlinear inequality  constraints in order to specify bounds on the actuators. Inequality constraints can be expressed as follows:
+
+\begin{equation}
+	\bm{c}(\bm{p}) \leq \bm{0}
+\end{equation}
+
+It should be noted that trajectories will be generated at each iteration during the optimization problem. Then the set of $\ddot{\bm{z}}$ and $\bm{\phi}$ values will be extracted from the trajectory and used to compute the total thrust vector $\bm{u}_1$, which contains the value of the total thrust throughout the trajectory using the expression of $\ddot{z}$ in equation (\ref{dynamics_planar_quadrotor}), which can be rewritten as follows:  
+
+\begin{equation}
+	\bm{u}_1 = \frac{m(\ddot{\bm{z}} + \bm{g})}{\cos \bm{\phi}}
+\end{equation}
+
+However, it should be noted that the torque $u_2$ was not taken into consideration in the optimization problem, since no solution could be found when it was considered. As a result, a very small weight will be assigned to the torque reference when performing the flip trajectory in the planar case. As for the 3D quadrotor case, the torque is not a control input, since the angular rates are used as control inputs instead. So, the torque reference will not be used at all. And, it will be demonstrated that better results will be obtained in the 3D quadrotor case.
+Furthermore, the following set of inequality constraints were added to help the solver generate trajectories that are concave:
+
+\begin{align}
+	z_1 &< z_2 \\
+	z_2 &< z_3 \\
+	z_3 &< z_4 \\
+	z_5 &< z_4 \\
+	z_6 &< z_5 \\
+	z_7 &< z_6 \\
+	z_8 &< z_7
+\end{align}
+
+In conclusion, the overall parameter optimization problem can be expressed as follows: 
+
+\begin{equation}\label{parameter_optimization_problem}
+\begin{aligned}
+            \min_{\bm{p}} \quad & J(\bm{p}) = \int_0^t u_1^2 \\
+            \textrm{s.t.} \quad & \bm{p}_{min} \leq \bm{p} \leq \bm{p}_{max} \\
+            & \bm{c}(\bm{p}) \leq \bm{0} \\
+        \end{aligned}
+\end{equation}
+
+Different algorithms that are implemented in \texttt{MATLAB} were tested to find the best solution for this optimization problem, such as \texttt{fmincon}, \texttt{ga} (genetic algorithm) and \texttt{patternsearch}. However, the most promising solution was found using \texttt{fmincon}.
+
+\newpage
+
+At the the of the optimization process, \texttt{fmincon} outputs the following message:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{Images/optimization/fmincon.png}
+	\caption{Output of fmincon at the end of the optimization process}
+	\label{fmincon_output}
+\end{figure}
+
+As can be seen from figure \ref{fmincon_output}, \texttt{fmincon} has stopped because it has found a local minimum that satisfies the constraints to within the default constraint tolerance. Moreover, the solution found for the parameters in vector $\bm{p}$ result in the following trajectory:
+
+\begin{figure}[h]
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/optimization/trajectory.png}
+		\caption{Trajectory along the $y-z$ plane} \label{fig:y_z_fmincon}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/optimization/z.png}
+		\caption{Trajectory along z.} \label{fig:z_fmincon}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/optimization/phi.png}
+		\caption{Trajectory along $\phi$.} \label{fig:phi_fmincon}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/optimization/y}
+		\caption{Trajectory along $y$.} \label{fig:y_fmincon}
+	\end{subfigure}
+
+	\caption{Resulting trajectory from the solution of the optimization problem using \texttt{fmincon}.} \label{fig:trajectory_fmincon}
+\end{figure}
+
+\newpage
+
+\section{Simulations using acados}
+
+In this section, simulations in acados will be performed on the planar quadrotor and the 3D quadrotor in order to track the generated flip trajectory.
+
+\subsection{Planar Quadrotor Simulations}
+
+\subsubsection*{Noiseless Measurements}
+
+As can be seen in figure \ref{fig:flip_planar_sim_noiseless}, the MPC controller was able to output control inputs that allowed the quadrotor to track the flip trajectory with minimal errors. By looking at the control inputs in subfigure \ref{fig:flip_planar_sim_control_inputs_noiseless}, there are some dips in the thrust throughout the trajectory. However, it is clear that the thrust never reaches the value of 0. Whereas for the the torque, the desired torque is much larger than the torque that can be applied by the quadrotor, and it is not able to be tracked. Despite this issue, the MPC controller was still able to generate control inputs that allowed the quadrotor to track the flip trajectory with minimal errors, which is evident by looking at the plots of the position states in subfigure \ref{fig:flip_planar_sim_pose_noiseless}. Finally, by looking at the position error plots in subfigure \ref{fig:flip_planar_sim_error_pose_noiseless}, the largest errors appear to be on the $\phi$ coordinate. However, this error indicates the the roll angle reference was changing at a very fast rate during the flip phase. But, this error directly converges to 0 after the quadrotor performs the flip. In addition, the errors on the $y$ and $z$ coordinates are relatively small. 
+
+\subsubsection*{Noiseless Measurements and Control Inputs}
+As can be seen in figure \ref{fig:flip_planar_sim_noisy}, it is evident that despite the noise on the measurements and the control inputs, the MPC controller was still able to output control inputs that allowed the quadrotor to track the flip trajectory at the cost of larger errors, which were minimized by the use of the extended Kalman filter. By looking at the control inputs in subfigure \ref{fig:flip_planar_sim_control_inputs_noisy}, the thrust input oscillates throughout the trajectory, even at the initial hovering phase of 2 seconds. This is the result of the added noise on both the state measurement vector and the control inputs. Finally, by looking at the position error plots in subfigure \ref{fig:flip_planar_sim_error_pose_noisy}, it is clear that there are more errors on $y$ and $z$ when compared to the noiseless simulation. However, the extended Kalman filter was able to reduce this error along the $y$ coordinate of the trajectory.
 
 
 
@@ -2638,17 +3101,146 @@ So, an ideal flip trajectory will be designed in which the flip phase will compl
 
 \newpage
 
-  \chapter{Experiments}
+\begin{figure}[H]
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/sim.png}
+		\caption{Trajectory followed by the planar quadrotor} \label{fig:flip_planar_sim_2d_noiseless}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/posStates.png}
+		\caption{Position states of the planar quadrotor.} \label{fig:flip_planar_sim_pose_noiseless}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/rateStates.png}
+		\caption{Velocity states of the planar quadrotor.} \label{fig:flip_planar_sim_velocities_noiseless}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/controlInputs.png}
+		\caption{Control inputs of the planar quadrotor} \label{fig:flip_planar_sim_control_inputs_noiseless}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Errors_position.png}
+		\caption{Errors on $y,z$ and $\phi$.} \label{fig:flip_planar_sim_error_pose_noiseless}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Errors_velocities.png}
+		\caption{Errors on $v_y,v_z$ and $\dot{\phi}$.} \label{fig:flip_planar_sim_error_velocities_noiseless}
+	\end{subfigure}
+
+	\caption{Simulation of the planar quadrotor tracking a flip trajectory without noise.} \label{fig:flip_planar_sim_noiseless}
+\end{figure}
+
+
+\begin{figure}[H]
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/sim.png}
+		\caption{Trajectory followed by the planar quadrotor} \label{fig:flip_planar_sim_2d_noisy}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/posStates.png}
+		\caption{Position states of the planar quadrotor.} \label{fig:flip_planar_sim_pose_noisy}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/rateStates.png}
+		\caption{Velocity states of the planar quadrotor.} \label{fig:flip_planar_sim_velocities_noisy}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/controlInputs.png}
+		\caption{Control inputs of the planar quadrotor} \label{fig:flip_planar_sim_control_inputs_noisy}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_position.png}
+		\caption{Errors on $y,z$ and $\phi$.} \label{fig:flip_planar_sim_error_pose_noisy}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.48\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_velocities.png}
+		\caption{Errors on $v_y,v_z$ and $\dot{\phi}$.} \label{fig:flip_planar_sim_error_velocities_noisy}
+	\end{subfigure}
+
+	\caption{Simulation of the planar quadrotor tracking a flip trajectory with noise.} \label{fig:flip_planar_sim_noisy}
+\end{figure}
+
+\subsection{3D Quadrotor Simulation}
+
+In the case of the 3D quadrotor, simulations will only be performed without noise since the quadrotor that will be used for the experimentation already has an extended Kalman filter implementation.
+
+\newpage
+
+\begin{figure}[H]
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/sim3D.png}
+		\caption{Trajectory followed by the 3D quadrotor} \label{fig:3D_flip_sim_3d}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/posStates.png}
+		\caption{Position states.} \label{fig:3D_flip_sim_pose}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/angleStates.png}
+		\caption{Angular states.} \label{fig:3D_flip_sim_angles}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/velStates.png}
+		\caption{Velocity states.} \label{fig:3D_flip_sim_velocities}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/thrustInput.png}
+		\caption{Thrust input.} \label{fig:3D_flip_sim_thrust_input}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/angulareRatesInputs.png}
+		\caption{Angular rates inputs.} \label{fig:3D_flip_sim_rates_input}
+	\end{subfigure}
+	
+\medskip
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_position.png}
+		\caption{Errors on $x,y$ and $z$.} \label{fig:3D_flip_sim_errors_pose}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_velocities.png}
+		\caption{Errors on $v_x, v_y$ and $v_z$.} \label{fig:3D_flip_sim_errors_velocities}
+	\end{subfigure}
+
+	\caption{Simulation of the 3D quadrotor tracking a flip trajectory without noise.} \label{fig:3D_sim_flip}
+\end{figure}
+
+\newpage
+
+As can be seen from figure \ref{fig:3D_sim_flip}, the 3D quadrotor was able to follow the flip trajectory almost perfectly with very minimal errors on the states. By looking at subfigure \ref{fig:3D_flip_sim_thrust_input}, the MPC controller tried to follow the open-loop control input reference of the thrust as much as possible, and made the required adjustments when it was needed. In addition, the thrust never reached the value of 0 which was the thrust reference during the flip phase. However, the quadrotor was still able to track the flip trajectory with very minimal errors due to the robustness of the MPC controller. Furthermore, by looking at subfigure \ref{fig:3D_flip_sim_rates_input}, the MPC controller was not provided references for the angular rates. And, in order to perform the flip, the angular rate along $x$ ($\omega_x$) was assigned a weight of $10^{-3}$, which made the goal of minimizing $\omega_x$ much less important than the goal of following the flip trajectory for the MPC controller. As a result, the MPC controller was free to assign $\omega_x$ any value within the limits of $[-4 \pi, 4 \pi]$, which allowed the quadrotor to follow the flip trajectory with very minimal errors. Finally, by looking at subfigure \ref{fig:3D_flip_sim_errors_pose}, it is evident that the errors along the $y$ and $z$ coordinates are very small. In conclusion, the flip trajectory was much easier to follow in the 3D quadrotor case when compared to the planar quadrotor case. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  \chapter{Simulations in ROS2 and Experimentation}
  
- When trying to draw a rectangled triangle, my program comes up with Figure \ref{triangle2} that is neither rectangled nor a triangle.
+	\section{Software-in-the-Loop Simulations using ROS2 and Gazebo}
  
-  \begin{figure}[h]\centering
-  \includegraphics[width=.5\linewidth]{triangle2}
-  \caption{Triangle drawn by my program. Note the 4th side.} \label{triangle2}
- \end{figure}
- 
-Unless there is a bug in my program, which is unlikely, this research indicates that the whole theory on triangles having 3 sides has been wrong for years, maybe decades.
- 
+ 	\section{Experimentation}
 
 \newpage 
  
@@ -2657,15 +3249,15 @@ Unless there is a bug in my program, which is unlikely, this research indicates 
  
  
  % switch to A-B-C chaptering
- \appendix	
+ %\appendix	
  
- \chapter{Proof of theorem \ref{theo}}
- \label{sec:prooftheorem}
+ %\chapter{Proof of theorem \ref{theo}}
+ %\label{sec:prooftheorem}
  
  
- \begin{proof}
-\eqref{theo} was already demonstrated in \cite{euclides300}.
-\end{proof}
+ %\begin{proof}
+%\eqref{theo} was already demonstrated in \cite{euclides300}.
+%\end{proof}
  
  \addcontentsline{toc}{chapter}{Bibliography}
  
