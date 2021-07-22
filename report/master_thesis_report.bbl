@@ -21,17 +21,17 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Fritzsche2019}
-K.~R. Klemens~Fritzsche, Yuhang~Guo, ``Some remarks concerning differential
-  flatness and tangent systems.'' \emph{23rd International Conference on System
-  Theory, Control and Computing (ICSTCC),10.1109/ICSTCC.2019.8886157}, pp.
-  173--179, 2019.
-
 \bibitem{bitcraze}
 \BIBentryALTinterwordspacing
 ``Controllers in the crazyflie.'' [Online]. Available:
   \url{https://www.bitcraze.io/documentation/repository/crazyflie-firmware/master/functional-areas/sensor-to-control/controllers/}
 \BIBentrySTDinterwordspacing
+
+\bibitem{Fritzsche2019}
+K.~R. Klemens~Fritzsche, Yuhang~Guo, ``Some remarks concerning differential
+  flatness and tangent systems.'' \emph{23rd International Conference on System
+  Theory, Control and Computing (ICSTCC),10.1109/ICSTCC.2019.8886157}, pp.
+  173--179, 2019.
 
 \bibitem{How2008}
 {Jonathan How}, \emph{Principles of Optimal Control}.\hskip 1em plus 0.5em
@@ -44,6 +44,11 @@ R.~W. Erickson and D.~Maksimovi{\'{c}}, \emph{AC Equivalent Circuit
   International Publishing, 2020, pp. 215--275. [Online]. Available:
   \url{https://doi.org/10.1007/978-3-030-43881-4_7}
 \BIBentrySTDinterwordspacing
+
+\bibitem{MathWorks2018_new}
+MathWorks, ``How to run mpc faster,''
+  \url{https://www.mathworks.com/videos/understanding-model-predictive-control-part-5-how-to-run-mpc-faster-1533108818950.html},
+  2018, from the Model Predictive Control Toolbox.
 
 \bibitem{Alvarez-Valle2019}
 R.~S. Alvarez-Valle and P.~S. Rivadeneira, ``Design of predictive control
@@ -112,15 +117,15 @@ S.~Lupashin and R.~D’Andrea, \emph{Adaptive fast open-loop maneuvers for
   quadrocopters}.\hskip 1em plus 0.5em minus 0.4em\relax Manhattan, NY:
   Springer, 2012.
 
-\bibitem{Mellinger2011}
-D.~Mellinger and V.~Kumar, ``Minimum snap trajectory generation and control for
-  quadrotors,'' in \emph{2011 IEEE International Conference on Robotics and
-  Automation}, 2011, pp. 2520--2525.
-
 \bibitem{Faessler2018}
 M.~Faessler, A.~Franchi, and D.~Scaramuzza, ``Differential flatness of
   quadrotor dynamics subject to rotor drag for accurate tracking of high-speed
   trajectories.'' \emph{IEEE Robot. Autom. Lett}, pp. 620--626, 2018.
+
+\bibitem{Mellinger2011}
+D.~Mellinger and V.~Kumar, ``Minimum snap trajectory generation and control for
+  quadrotors,'' in \emph{2011 IEEE International Conference on Robotics and
+  Automation}, 2011, pp. 2520--2525.
 
 \bibitem{Sabatino2015}
 F.~Sabatino, ``Quadrotor control: modeling, nonlinear control design, and
@@ -245,6 +250,24 @@ L.~{Cui}, L.~{Chen}, and D.~{Duan}, ``Gain-scheduling model predictive control
   for unmanned airship with lpv system description,'' \emph{Journal of Systems
   Engineering and Electronics}, vol.~26, no.~5, pp. 1043--1051, 2015.
 
+\bibitem{4421358}
+{Naoyuki Hara} and {Akira Kojima}, ``Reduced order model predictive control -
+  an approach based on system decomposition -,'' in \emph{SICE Annual
+  Conference 2007}, 2007, pp. 2226--2229.
+
+\bibitem{Bemporad2013}
+P.~Bemporad, \emph{Explicit Model Predictive Control}.\hskip 1em plus 0.5em
+  minus 0.4em\relax London: Springer London, 2013, pp. 1--9.
+
+\bibitem{Hovland2008}
+S.~Hovland and J.~Gravdahl, ``Complexity reduction in explicit mpc through
+  model reduction,'' vol.~17, 07 2008.
+
+\bibitem{Gulez2014}
+T.~Mumcu and K.~Gulez, ``Suboptimal solutions for time varying time delayed mpc
+  controllers,'' \emph{Electronics and Electrical Engineering}, vol.~20, 02
+  2014.
+
 \bibitem{Bingfang2004}
 K.~Ling, W.~Bingfang, H.~Minghua, and Z.~Yu, ``A model predictive controller
   for multirate cascade systems,'' in \emph{Proceedings of the 2004 American
@@ -278,32 +301,6 @@ A.~Domahidi, A.~U. Zgraggen, M.~N. Zeilinger, M.~Morari, and C.~N. Jones,
 ``Ipopt documentation.'' [Online]. Available:
   \url{https://coin-or.github.io/Ipopt/}
 \BIBentrySTDinterwordspacing
-
-\bibitem{acados2019}
-R.~Verschueren, G.~Frison, D.~Kouzoupis, N.~van Duijkeren, A.~Zanelli,
-  B.~Novoselnik, J.~Frey, T.~Albin, R.~Quirynen, and M.~Diehl, ``acados: a
-  modular open-source framework for fast embedded optimal control,'' 10 2019.
-
-\bibitem{Diehl2002}
-\BIBentryALTinterwordspacing
-M.~Diehl, H.~Bock, J.~P. Schlöder, R.~Findeisen, Z.~Nagy, and F.~Allgöwer,
-  ``Real-time optimization and nonlinear model predictive control of processes
-  governed by differential-algebraic equations,'' \emph{Journal of Process
-  Control}, vol.~12, no.~4, pp. 577--585, 2002. [Online]. Available:
-  \url{https://www.sciencedirect.com/science/article/pii/S0959152401000233}
-\BIBentrySTDinterwordspacing
-
-\bibitem{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
-B.~B. Carlos, T.~Sartor, A.~Zanelli, G.~Frison, W.~Burgard, M.~Diehl, and
-  G.~Oriolo, ``An efficient real-time nmpc for quadrotor position control under
-  communication time-delay,'' \emph{2020 16th International Conference on
-  Control, Automation, Robotics and Vision (ICARCV)}, 2020.
-
-\bibitem{kloeser_schoels_sartor_zanelli_prison_diehl_2020}
-D.~Kloeser, T.~Schoels, T.~Sartor, A.~Zanelli, G.~Prison, and M.~Diehl, ``Nmpc
-  for racing using a singularity-free path-parametric model with obstacle
-  avoidance,'' \emph{IFAC-PapersOnLine}, vol.~53, no.~2, p. 14324–14329,
-  2020.
 
 \bibitem{Orsingher2019}
 M.~Orsingher, ``Making aggressive maneuvers with drones thanks to parallel
@@ -393,5 +390,31 @@ J.~Förster, ``System identification of the crazyflie 2.0 nano quadrocopter,''
 Bitcraze, ``Crazyflie 2.1 datasheet.'' [Online]. Available:
   \url{https://www.bitcraze.io/documentation/hardware/crazyflie_2_1/crazyflie_2_1-datasheet.pdf}
 \BIBentrySTDinterwordspacing
+
+\bibitem{acados2019}
+R.~Verschueren, G.~Frison, D.~Kouzoupis, N.~van Duijkeren, A.~Zanelli,
+  B.~Novoselnik, J.~Frey, T.~Albin, R.~Quirynen, and M.~Diehl, ``acados: a
+  modular open-source framework for fast embedded optimal control,'' 10 2019.
+
+\bibitem{Diehl2002}
+\BIBentryALTinterwordspacing
+M.~Diehl, H.~Bock, J.~P. Schlöder, R.~Findeisen, Z.~Nagy, and F.~Allgöwer,
+  ``Real-time optimization and nonlinear model predictive control of processes
+  governed by differential-algebraic equations,'' \emph{Journal of Process
+  Control}, vol.~12, no.~4, pp. 577--585, 2002. [Online]. Available:
+  \url{https://www.sciencedirect.com/science/article/pii/S0959152401000233}
+\BIBentrySTDinterwordspacing
+
+\bibitem{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
+B.~B. Carlos, T.~Sartor, A.~Zanelli, G.~Frison, W.~Burgard, M.~Diehl, and
+  G.~Oriolo, ``An efficient real-time nmpc for quadrotor position control under
+  communication time-delay,'' \emph{2020 16th International Conference on
+  Control, Automation, Robotics and Vision (ICARCV)}, 2020.
+
+\bibitem{kloeser_schoels_sartor_zanelli_prison_diehl_2020}
+D.~Kloeser, T.~Schoels, T.~Sartor, A.~Zanelli, G.~Prison, and M.~Diehl, ``Nmpc
+  for racing using a singularity-free path-parametric model with obstacle
+  avoidance,'' \emph{IFAC-PapersOnLine}, vol.~53, no.~2, p. 14324–14329,
+  2020.
 
 \end{thebibliography}

@@ -255,51 +255,10 @@ The rest of the report is structured as follows:
 
 \newpage
  
- \chapter{State of the art}
+ \chapter{State of the Art}
  
- In the following sections of this chapter, differential flatness,  the general control architecture of a quadrotor, different potential control approaches (linear and nonlinear), and the main control method that will be used to control a quadrotor, namely Model Predictive Control (MPC) will be explained. 
- \section{Differential Flatness}\label{Differential_flatness}  
+ In the following sections of this chapter,  the general control architecture of a quadrotor, differential flatness, different potential control approaches (linear and nonlinear), and the main control method that will be used to control a quadrotor, namely Model Predictive Control (MPC) will be explained. 
  
- In the quadrotor community, a well-established finding is that the dynamic model of a quadrotor is differentially flat. Moreover, the control design problem in nonlinear systems will be considerably simplified. Precisely, a system with state $\textbf{\textsc{x}} \in \mathbb{R}^n$ and input $\textbf{\textsc{u}} \in \mathbb{R}^m$ is considered to be \textit{differentially flat} if there exists a set of \textit{flat outputs} $\textbf{\textsc{y}} \in \mathbb{R}^m$ which have the following form:
- 
- \begin{equation}
- \textbf{\textsc{y}} = \textbf{\textsc{y}}(\textbf{\textsc{x}}, \textbf{\textsc{u}}, \dot{\textbf{\textsc{u}}},...,\textbf{\textsc{u}}^{(p)})
- \end{equation}
-
- With, 
- 
- \begin{equation}
- 	\begin{cases}
- 		\textbf{\textsc{x}} = \textbf{\textsc{x}}(\textbf{\textsc{y}}, \dot{\textbf{\textsc{y}}},...,\textbf{\textsc{y}}^{(q)}) \\
- 	\\
- 		\textbf{\textsc{u}} = \textbf{\textsc{u}}(\textbf{\textsc{y}}, \dot{\textbf{\textsc{y}}},...,\textbf{\textsc{y}}^{(r)}) \\
- 	\end{cases}
- \end{equation}
-
- As a result, the new set of variables is required to be a function of the state, the input and the derivatives of the input. Moreover, this set should also have the same dimensions as the control input. In this manner, it is possible to rewrite both the state and the input in function of the flat outputs and the derivatives of the flat outputs. This is a very useful property in under-actuated systems where $m<n$, such as quadrotors, because, it will allow to generate trajectories in the lower dimensional space $m$, then this trajectory will be mapped into the full dimensional space $n$. An example of this is shown in figure \ref{fig:differential_flatness} below:
- 
- \begin{figure}
- 	\centering
- 	\includegraphics[width=0.7\textwidth]{Images/Control/differential_flatness.png}
- 	\caption{Mapping between different dimensional spaces as a result of differential flatness. \cite{Fritzsche2019}}
- 	\label{fig:differential_flatness}
- \end{figure}
- 
- \newpage
- 
- Another well known example of systems is a car, in which the under-actuation is the result of the non-holonomic constraints that are imposed by the wheels. So, for a car, a generated trajectory for $(x,y)$ position of the rear-wheels is enough to specify all the viable trajectories of the system. Formal proofs that the quadrotor system is differentially flat can be found in \cite{Mellinger2011}, and \cite{Faessler2018} for the full model with first-order aerodynamics. The standard choice of flat outputs for the quadrotor is the coordinates of the center of mass and the yaw angle:
-
-\begin{equation}\label{flat_outputs}
-\textbf{\textsc{y}} = \begin{bmatrix}
-x && y && z && \psi \\
-\end{bmatrix}^{\intercal}
-\end{equation}
-
-Consequently, the problem of generating a feasible trajectory for a quadrotor then tracking it can be dimensionally decreased from a 6-dimensional space to a 4-dimensional space. By reason of the tight coupling between the rotational and translational dynamics, then defining a trajectory in function of the flat outputs $\textbf{\textsc{y}}$ is sufficient to properly define the full dynamics $\textbf{\textsc{x}}$.
-
-
-\newpage
-
 \section{General Control Architecture}
  Recently, many researchers have developed interest in the control of quadrotors. As a result, various control approaches have been proposed. The most known control architecture \cite{Faessler2018} consists of three nested control loops, as shown in figure \ref{fig:cascaded_pid_controller}, in order to generate the suitable motor commands to follow the desired signal. This controller is known as the cascaded controller. This strategy assumes that the attitude dynamics of a quadrotor are much faster than the translational dynamics. 
 \begin{comment} 
@@ -343,19 +302,68 @@ There also exists different implementations of the cascaded controller that was 
 	\label{fig:cascaded_pid_controller}
 \end{figure}
 
-In this case, the position and velocity controller, attitude controller and attitude rate controller are all PID controllers. And, it is evident that the attitude dynamics (who's attitude and attitude rate controllers operate at a frequency of 500Hz) are considered to be much faster than the translational dynamics (who's position and velocity controllers operate at a frequency of 100Hz). Moreover, 
+In this case, the position and velocity controller, attitude controller and attitude rate controller are all PID controllers. And, it is evident that the attitude dynamics (who's attitude and attitude rate controllers operate at a frequency of 500Hz) are considered to be much faster than the translational dynamics (who's position and velocity controllers operate at a frequency of 100Hz). 
+
+\newpage
+
+Moreover, 
 
 \begin{itemize}
 	\setlength{\itemindent}{-.5in}
-	\item [] \textbf{Attitude Rate PID controller} directly controls the attitude rate. It receives the gyroscope rates after they have been filtered and uses the error between the desired attitude rate and current attitude rate, and outputs the motor commands which are then directly sent to the power distribution.
+	\item [] \textbf{Attitude Rate controller} directly controls the attitude rate. It receives the gyroscope rates after they have been filtered and uses the error between the desired attitude rate and current attitude rate, and outputs the motor commands which are then directly sent to the power distribution.
 	
-	\item [] \textbf{Attitude PID controller} directly controls the attitude of the drone. It takes the estimated attitude from the state estimator and uses the error between the desired attitude and the current attitude to output the desired attitude rate.
+	\item [] \textbf{Attitude controller} directly controls the attitude of the drone. It takes the estimated attitude from the state estimator and uses the error between the desired attitude and the current attitude to output the desired attitude rate.
 	
-	\item [] \textbf{Position and Velocity PID controller} is the most outer-loop of the cascaded PID controller. It receives the position or the velocity input from the high level commander which are then handled to output the desired attitude.
+	\item [] \textbf{Position and Velocity controller} is the most outer-loop of the cascaded PID controller. It receives the position or the velocity input from the high level commander which are then handled to output the desired attitude.
 	 
 \end{itemize}
 
- \newpage 
+Furthemore, it should be noted that the controllers above can be of any type. However, in the case of the crazyflie 2.1, PID controllers were used.
+
+ \newpage  
+ 
+ \section{Differential Flatness}\label{Differential_flatness}  
+ 
+ In the quadrotor community, a well-established finding is that the dynamic model of a quadrotor is differentially flat. Moreover, the control design problem in nonlinear systems will be considerably simplified. Precisely, a system with state $\textbf{\textsc{x}} \in \mathbb{R}^n$ and input $\textbf{\textsc{u}} \in \mathbb{R}^m$ is considered to be \textit{differentially flat} if there exists a set of \textit{flat outputs} $\textbf{\textsc{y}} \in \mathbb{R}^m$ which have the following form:
+ 
+ \begin{equation}
+ \textbf{\textsc{y}} = \textbf{\textsc{y}}(\textbf{\textsc{x}}, \textbf{\textsc{u}}, \dot{\textbf{\textsc{u}}},...,\textbf{\textsc{u}}^{(p)})
+ \end{equation}
+
+ With, 
+ 
+ \begin{equation}
+ 	\begin{cases}
+ 		\textbf{\textsc{x}} = \textbf{\textsc{x}}(\textbf{\textsc{y}}, \dot{\textbf{\textsc{y}}},...,\textbf{\textsc{y}}^{(q)}) \\
+ 	\\
+ 		\textbf{\textsc{u}} = \textbf{\textsc{u}}(\textbf{\textsc{y}}, \dot{\textbf{\textsc{y}}},...,\textbf{\textsc{y}}^{(r)}) \\
+ 	\end{cases}
+ \end{equation}
+
+ As a result, the new set of variables is required to be a function of the state, the input and the derivatives of the input. Moreover, this set should also have the same dimensions as the control input. In this manner, it is possible to rewrite both the state and the input in function of the flat outputs and the derivatives of the flat outputs. This is a very useful property in under-actuated systems where $m<n$, such as quadrotors, because, it will allow to generate trajectories in the lower dimensional space $m$, then this trajectory will be mapped into the full dimensional space $n$. An example of this is shown in figure \ref{fig:differential_flatness} below:
+ 
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[width=0.7\textwidth]{Images/Control/differential_flatness.png}
+ 	\caption{Mapping between different dimensional spaces as a result of differential flatness. \cite{Fritzsche2019}}
+ 	\label{fig:differential_flatness}
+ \end{figure}
+ 
+ 
+ Another well known example of systems is a car, in which the under-actuation is the result of the non-holonomic constraints that are imposed by the wheels. So, for a car, a generated trajectory for $(x,y)$ position of the rear-wheels is enough to specify all the viable trajectories of the system. Formal proofs that the quadrotor system is differentially flat can be found in \cite{Mellinger2011}, and \cite{Faessler2018} for the full model with first-order aerodynamics. The standard choice of flat outputs for the quadrotor is the coordinates of the center of mass and the yaw angle:
+
+\begin{equation}\label{flat_outputs}
+\textbf{\textsc{y}} = \begin{bmatrix}
+x && y && z && \psi \\
+\end{bmatrix}^{\intercal}
+\end{equation}
+
+Consequently, the problem of generating a feasible trajectory for a quadrotor then tracking it can be dimensionally decreased from a 6-dimensional space to a 4-dimensional space. By reason of the tight coupling between the rotational and translational dynamics, then defining a trajectory in function of the flat outputs $\textbf{\textsc{y}}$ is sufficient to properly define the full dynamics $\textbf{\textsc{x}}$.
+
+
+\newpage
+
+
 \section{General Control Approaches}\label{control_approaches_for_multi_flip_maneuvers}
 
 \subsection{Method of Linearization}
@@ -541,14 +549,13 @@ For a given set of plant dynamics which is first assumed to be linear:
 \end{cases}
 \end{equation}
 
-\noindent and a cost function as follows: 
+And a cost function as follows: 
 
 \begin{equation}
 J = \sum_{j=0}^{N} \{ \|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}} + \|\textbf{\textsc{u}}(k+j|k)\|_{R_{uu}} \} + F \textbf{\textsc{x}}(k+N|k))
 \end{equation}
 
- 
-\noindent With: 
+With: 
  
  \begin{itemize}
  	\item $\|\textbf{\textsc{z}}(k+j|k)\|_{R_{zz}}$ is the weighted $L^2$-norm of the state, so it is expressed as follows:
@@ -587,7 +594,8 @@ Furthermore, solving for a very long sequence of control inputs is irrelevant if
 \label{optim_problem}
 \end{mini}
 
-
+Interested readers can refer to appendix \ref{appendix_MPC} where it is demonstrated how equation (\ref{optim_problem}) can be converted to the form of a quadratic program.
+  
 \subsection{Different MPC Methods}\label{different_mpc_methods}
 The MPC methods that are mainly used are the following:
 
@@ -740,7 +748,7 @@ In the next section, the software used to implement the MPC controller is presen
 	 
 
  
- \section{acados – fast embedded optimal control solvers}
+ \section{acados – Fast Embedded Optimal Control Solvers}
  
  \subsection{The difference between acados and other embedded optimal control solvers}
  A big role in bringing MPC to real-time applications is played by the implementation of efficient embedded optimal control methods. This gave rise to software
@@ -864,133 +872,15 @@ So, $g_k$ could be formulated as follows:
     \end{equation}
     where $J_{bx,k}$ and $J_{bu,k}$ are selection matrices that determine which components of $x_k$ and $u_k$ have simple bounds.
 
-The NLP in (\ref{NLP}) can be solved by any general-purpose NLP solver, like \texttt{IPOPT} \cite{IPOPT}. But, \texttt{acados} will use embedded optimal control methods to solve the NLP which are better suited in a real-time setting.
+The NLP in (\ref{NLP}) can be solved by any general-purpose NLP solver, like \texttt{IPOPT} \cite{IPOPT}. But, \texttt{acados} will use embedded optimal control methods to solve the NLP which are better suited in a real-time setting. 
+
+Interested readers can refer to appendix \ref{appendix_acados} for a more detailed explanation on sequential quadratic programming (SQP) and real-time iterations using \texttt{acados}.
 
 \newpage
-
-\subsubsection{Sequential Quadratic Programming and Real-Time Iterations}
-
-    An embedded SQP algorithm must feature: 
-    \begin{itemize}
-        \item Numerical integration of the continuous-time dynamics.
-        \item Generation of first-order and possibly second-order sensitivities of objective and constraints.
-        \item A procedure for approximating the Hessian matrix.
-        \item An efficient QP solver.
-        \item Initialization strategies for warm-starting the algorithm for the next iteration.
-    \end{itemize}
-
-Moreover, the SQP algorithm in acados has the following form:
-
-\begin{align}
-	 w^{[i+1]} &=w^{[i]} + \Delta w^{QP}\\
-     \pi^{[i+1]} &= \pi^{QP} \\
-     \lambda^{[i+1]} &= \lambda^{QP}
-\end{align}
-
-
-Where:
-\begin{itemize}
-    \item $ w^{[i]} = [x_0^{[i] \intercal}, \ldots, u_0^{[i] \intercal}, \ldots, x_N^{[i] \intercal}]^{\intercal}$ is the primal iterate at SQP iteration $i$.
-    \item $\pi^i$ and $\lambda^i$ are the dual iterates, readily available from the QP solution.
-\end{itemize}
-
-It should be noted that the algebraic variables are eliminated from the OCP, but numerical approximations of these values are accessible from the numerical integration routine.
-
-Furthermore, the step $\Delta w^{QP}$ is computed by solving the following QP: 
-    \begin{equation}\label{step_QP}
-        \begin{aligned}
-        \min_{\substack{\Delta x_0,\ldots,\Delta x_N\\ \Delta u_0,\ldots, \Delta u_{N-1} \\ \Delta s_o,\ldots, \Delta s_N }} \quad & \sum_{k=0}^{N-1}{  \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix}^{\intercal} \overbrace{\begin{bmatrix} Q_k & S_k^{\intercal} \\ S_k & R_k \end{bmatrix}}^{H_k} \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix} + \begin{bmatrix} q_k \\ r_k \end{bmatrix}^{\intercal} \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix}} \\ & + \Delta x_N^{\intercal} Q_N \Delta x_N + q_N^{\intercal} \Delta x_n \\ & + \sum_{k=0}^N s_k^{\intercal} P_k s_k + p_k^{\intercal} s_k \\
-        \textrm{s.t.} \quad & \Delta x_{k+1} = A_k \Delta x_k + B_k \Delta u_k + \phi_k^x - x_{k+1},  k=0,1, \ldots, N-1,\\
-            & \Delta x_0 = \bar{x}_0 - x_0 \\
-            & -g_k \geq G_k^x \Delta x_k + G_k^u \Delta u_k + s_k, \text{\space \space \space} k=0,1, \ldots, N-1, \\
-            & -g_N \geq g_N^x \Delta x_N + s_N, \\
-            & 0 \leq s_k, \text{\space \space \space} k=0,1, \ldots, N.
-        \end{aligned}
-    \end{equation}
-
-\newpage
-
-\subsubsection{Numerical Integration and Sensitivities}
-
-In the family of single step integration methods, there are: 
-    \begin{itemize}
-        \item \textbf{Explicit} methods: Easy to implement, they rely on a direct combination of explicit evaluations of the right-hand side of the system dynamics. Example: Runge-Kutta method of order 4.
-        \item \textbf{Implicit} methods: More complex, it results in a nonlinear system which generally needs to be solved numerically using an iterative procedure such as a Newton-type method. And, when compared to explicit methods, implicit methods have improved numerical stability properties and higher order accuracy.
-    \end{itemize}
-
-
-When using numerical integration methods within direct multiple shooting, the first (and possibly second) order derivatives of the simulation
-results with respect to the state and control input values also need to be computed:
-    $$ \frac{\partial \phi_k^x (x_k, u_k)}{\partial x_k}, \frac{\partial \phi_k^x (x_k, u_k)}{\partial u_k}, \sum_{i=1}^{n_x} \pi_{k,i} \frac{\partial^2 \phi_{k,i}^x (x_k, u_k)}{\partial^2 (x_k, u_k)} $$
-    where $\pi_k \in \mathbb{R}^{n_x}$ is called the \textit{seed vector} \cite{acados2019}, for which the Lagrange multipliers are used to compute the exact Hessian of the Lagrangian.
-
-\subsubsection{Convex Hessian Approximation Methods}
-
-    \paragraph{Gauss-Newton Hessian approximation} In the case of a least-squares objective in (\ref{NLP}):
-    \begin{itemize}
-        \item $l(x_k, u_k) = \|r(x_k, u_k) \|_2^2, \text{\space \space \space} k=0, \ldots, N-1$
-        \item $M(x_N) = \|r_N (x_N)\|_2^2$,
-    \end{itemize}
-    with $r$: $\mathbb{R}^{n_x} \times \mathbb{R}^{n_u} \Rightarrow \mathbb{R}^{n_r}$, $r_N$: $\mathbb{R}^{n_x} \Rightarrow \mathbb{R}^{n_{r_N}}$
-
-This kind of residual function is a common case in embedded optimization.
-
-The Gauss-Newton Hessian approximation amounts to \cite{acados2019}:
-	\begin{equation}
-		H^{GN} = blkdiag(H_0^{GN}, \ldots, H_N^{GN})
-	\end{equation}	    
-    at the linearization point $w^{[i]\intercal} = [x_0^{[i]\intercal}, \ldots, u_0^{[i] \intercal}, \ldots, x_N^{[i] \intercal}]^{\intercal}$, where the Hessian blocks are defined as:
-    \begin{align}
-    	H_k^{GN} &= \bigg( \frac{\partial r}{\partial (x,u)} (x_k^i, u_k^i) \bigg)^{\intercal} \bigg( \frac{\partial r}{\partial (x,u)} (x_k^i, u_k^i) \bigg), \text{\space \space \space} k=0,\ldots,N-1 \\
-    	H_N^{GN} &= \bigg( \frac{\partial r_N}{\partial x} (x_N^i) \bigg)^{\intercal} \bigg( \frac{\partial r_N}{\partial x} (x_N^i) \bigg)
-    \end{align}
-    
-Moreover, the Gauss-Newton Hessian approximation offers a competitive alternative to SQP with exact Hessians, but it only converges linearly. And, for a quadratic objective function in (\ref{NLP}), the same quadratic objective arises in (\ref{step_QP}), and no additional computations are needed.
-
-There exist other Hessian approximation methods in \texttt{acados} and interested readers are referred to \cite{acados2019} for the full description of the other methods.
-
-\subsubsection{Structure-exploiting embedded QP solvers}
-
-There exist different strategies to solve for QP (\ref{step_QP}) in \texttt{acados} \cite{acados2019}:
-
-	\begin{itemize}
-        \item \textbf{Sparse approach}: OCP (\ref{step_QP}) can be solved directly by using a general-purpose sparse QP solver. 
-        \begin{itemize}
-            \item Example: OOQP(primal-dual interior point solver), OSQP(first order method).
-        \end{itemize}
-        \item \textbf{Structured approach}: OCP (\ref{step_QP}) can be solved by exploiting its multi-stage structure, but dense linear algebra is used. 
-        \begin{itemize}
-            \item Example: HPMPC, HPIPM (interior-point solvers).
-        \end{itemize}
-        \item \textbf{Condensing approach}: It uses the dynamics to eliminate the states from the decision variables.
-        \begin{itemize}
-            \item The state variables are expressed as an explicit function of the current state and future control inputs.
-            \item A smaller QP is then obtained with only the control inputs and (possibly) the initial state as optimization variables.
-        \end{itemize}
-        \item \textbf{Partial condensing approach}: It is a mix between structured and condensing, but only per blocks of $N/N_2$ (with $N$ an integer multiple of $N_2$), and $N_2$ the new horizon length of the partially condensed problem.
-        \begin{itemize}
-            \item This approach allows finding a better trade-off between horizon length and number of optimization variables for a given problem.
-        \end{itemize}
-    \end{itemize}
-
-\subsubsection{Real-time iterations}
-
-A downside of \texttt{acados} is that the length of control horizon $m$ cannot be set. In other words, after setting the length the prediction horizon $N$, the control horizon $m$ will directly take the same length as $N$ and it cannot be set to have a different length than $N$. As mention earlier in subsection (\ref{design_parameters}), this could result in significant computational loads.
-
-However, in a real-time control setting, the environment is continuously changing, and it is often sufficient to solve NLP (\ref{NLP}) approximately. In other words, it is useless to have a solution with high accuracy if the computation time deadline has passed.
-
-An existing online method for this approach is the \textit{real-time iteration} (RTI) scheme \cite{Diehl2002}. It allows to solve an inequality-constrained QP in each iteration. The resulting generalized predictor is better suited for predictions across active-set changes, than for example a tangential predictor  acquired from an interior-point method \cite{acados2019}.
-
- In each RTI, one full iteration of an SQP-type scheme is performed, including generation of the sensitivities with respect to all variables. 
  
- This approach made it possible to implement \texttt{acados} in real-time experiments as shown in \cite{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
- and \cite{kloeser_schoels_sartor_zanelli_prison_diehl_2020}.
+\subsubsection{Python Interface Overview}
  
- \newpage
- 
- \subsubsection{Python Interface Overview}
- 
- Before testing the MPC controller in ROS2 and Gazebo, the MPC controller was first designed using the acados Python interface. And, simulations were done by making use of a Runge-Kutta of order 4 integrator that is already implemented in acados. 
+ Before testing the MPC controller in ROS2 and Gazebo, the MPC controller was first designed using the acados Python interface. And, simple simulations were performed by making use of a Runge-Kutta of order 4 integrator that is already implemented in acados. 
  
  
  \begin{figure}[h]
@@ -1004,11 +894,6 @@ An existing online method for this approach is the \textit{real-time iteration} 
  
  In order to create the optimal control problem solver class (\texttt{AcadosOcpSolver}), the dynamic model of the system, along with the dimensions of the OCP, the cost function, the constraints and the solver options must be clearly defined. Then, the OCP is solved, which results in the control inputs.
  Then, a simulator class can be used in order to apply the resulting control inputs on the dynamics and compute the new state of the system. So, in order to create the \texttt{AcadosSimSolver} class, the dynamic model of the system must also be used, along with the dimensions and the solver options.
- 
- 
- 
- 
- 
  
  
 \newpage
@@ -1695,6 +1580,8 @@ Moreover, the control inputs that will be outputted by the MPC controller are:
 
 As shown in figure \ref{fig:non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the low-level controller. Then, the low-level controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to follow a desired trajectory.
 
+\newpage
+
 \section{Extended Kalman Filter for the Planar Quadrotor}
 In order to perform simple simulations with acados in the planar case under the presence of disturbance, it is useful to design an Extended Kalman Filter (EKF) for the planar quadrotor in order to reduce the effects of the noise on the system and increase the tracking accuracy of a desired trajectory. The Extended Kalman Filter was chosen instead of the Kalman Filter (KF) because the Kalman Filter works well for linear systems. However, the quadrotor dynamics are highly  nonlinear as seen in \ref{subsec:planar_quadrotor}, which the Extended Kalman Filter can handle well. The EKF works by linearizing the nonlinear equations of motion at each time step. This is done by using the current values of the state vector of the planar quadrotor, in addition to the Jacobian matrices of the state vector. However, it should be noted that the EKF will not provide proper measurements if the initial condition of the state vector is not properly defined. The equations used are from the following reference \cite{AUVE2020}.
 
@@ -1721,8 +1608,6 @@ So, the evolution model can be expressed as follows:
         \end{bmatrix}
     \end{equation}
 With $\Delta t$ being the sample time.
-
-\newpage    
     
 	\subsection{Measurement Model}
 	
@@ -1742,6 +1627,8 @@ A figure showing a representation of the EKF implemented on the real quadrotor w
 	\caption{Diagram of the EKF embedded in the crazyflie 2.1 \cite{EKF_bitcraze}.}
 	\label{ekf_diagram_crazyflie}
 \end{figure}
+
+\newpage
 
 	\subsection{Prediction Phase}
 	In the prediction phase, no measurement is taken. The state is predicted using the evolution model and Jacobian matrices of the state vector.
@@ -1815,7 +1702,6 @@ As for the covariance matrix of the input noise $Q_{\beta}$:
 
 Where the first diagonal term represents the variance of the noise on the thrust input $u_1$. This variance represents an input noise between $-0.001N$ and $0.001N$. As for the second diagonal term, it represent the variance of the noise on the torque input $u_2$. This variance represents  an input noise between $-0.0001N.m$ and $0.0001N.m$. The variance values were chosen to be small because the quadrotor used will have a maximum thrust of $0.45N$, as will be shown in future sections, which is already very small. 
 
-\newpage
 
 In addition, the covariance matrix of the initial state is chosen to be:
 
@@ -1872,9 +1758,7 @@ The diagonal terms in $Q_{\gamma}$ mean the following:
 	\item The added noise on $v_z$ is between $-0.01m/s$ and $0.01m/s$.
 	\item The added noise on $\dot{\phi}$ is between $-1^{\circ}/s$ and $1^{\circ}/s$.
 \end{itemize}
-    
-    \newpage
-    
+        
     In addition, the state vector is updated as follows:
     
     \begin{equation}
@@ -1886,6 +1770,8 @@ The diagonal terms in $Q_{\gamma}$ mean the following:
     \begin{equation}
         P_k = ( I - K C) P_k ( I - K C)^{\intercal} + K Q_{\gamma} K^{\intercal}
     \end{equation}
+
+\newpage
 
 \section{Design of the MPC controller}
 
@@ -2325,18 +2211,7 @@ And, as for the components of the linear least-squared cost function:
 	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 	\end{bmatrix}$
 	
-	\item $\bm{V}_{x_e} = \begin{bmatrix}
-	1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-	\end{bmatrix}$
+	
 	
 	
 \end{itemize}
@@ -2359,6 +2234,29 @@ And, as for the components of the linear least-squared cost function:
 	0 & 0 & 1 & 0 \\
 	0 & 0 & 0 & 1 \\
 	\end{bmatrix}$
+	
+	
+\end{itemize}
+\end{multicols}
+
+\begin{itemize}
+	\item $\bm{V}_{x_e} = diag(
+	\begin{bmatrix}
+			1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+	\end{bmatrix})
+	$
+	% \begin{bmatrix}
+	% 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+	% \end{bmatrix}$
 	
 	\item $\bm{Q} = diag(
 	\begin{bmatrix}
@@ -2404,8 +2302,9 @@ And, as for the components of the linear least-squared cost function:
 	%0 & 0 & 1 & 0 \\
 	%0 & 0 & 0 & 1 \\
 	%\end{bmatrix}$
+	
+	
 \end{itemize}
-\end{multicols}
 
 In this case, references were provided for $x,y,z,v_x,v_y$ and $v_z$. Similar to the planar case, following $x,y$ and $z$ is more important than following $v_x,v_y$ and $v_z$ at each time instant. This is why $x,y$ and $z$ have larger weights. In addition, no control inputs were given for the quaternions, but setting weights of $5$'s on each element of the quaternion will drive the roll, pitch and yaw angles to 0 throughout the trajectory. As for the inputs, no references were given for the angular rates. So, having weights of $1$'s will drive the angular rates to 0, which will stabilize the quadrotor throughout the trajectory. Finally, a reference of $m.g$ was given for the thrust. This will give the MPC an idea of where the thrust control input should be when the quadrotor is at a hovering position, which will result in smoother control inputs throughout the trajectory.
 
@@ -2620,7 +2519,7 @@ So, equation \ref{free_dynamics_equation} represents the free dynamics of a plan
 
 
 For the sake of simplicity, a trajectory will be designed for the planar quadrotor case, and the same trajectory will be tracked by the 3D quadrotor. 
-Using the same approach as demonstrated in \ref{Orsingher2019}, the trajectories along $z$ and $\phi$ will be designed. Then, the trajectory along $y$ will be the consequence of the other 2 trajectories. In other words, the trajectories along $z$ and $\phi$ will be planned independently, while the trajectory along $y$ will be computed from the dynamic criterion shown in equation (\ref{free_dynamics_equation}) as follows: 
+Using the same approach as demonstrated in \cite{Orsingher2019}, the trajectories along $z$ and $\phi$ will be designed. Then, the trajectory along $y$ will be the consequence of the other 2 trajectories. In other words, the trajectories along $z$ and $\phi$ will be planned independently, while the trajectory along $y$ will be computed from the dynamic criterion shown in equation (\ref{free_dynamics_equation}) as follows: 
 
 \begin{equation}\label{double_integration_of_ydd}
 \begin{cases}
@@ -3287,15 +3186,244 @@ As can be seen from figure \ref{fig:3D_sim_flip}, the 3D quadrotor was able to f
  
  
  % switch to A-B-C chaptering
- %\appendix	
+ \appendix	
  
- %\chapter{Proof of theorem \ref{theo}}
- %\label{sec:prooftheorem}
+ \chapter{Transformation of the MPC Problem to a Quadratic Program}\label{appendix_MPC}
+ \label{sec:proof_MPC_to_QP}
+
+ \begin{proof} 
+ 
+ The problem statement in (\ref{optim_problem}) can be converted into a more standard optimization problem as follows:
+  
+
+  
+
+  \begin{align*}
+    	\textbf{\textsc{z}}(k|k) &= C \textbf{\textsc{x}}(k|k)\\
+    	\vspace{1cm}\\
+  	\textbf{\textsc{z}}(k+1|k) &= C \textbf{\textsc{x}}(k+1|k) = C (A\textbf{\textsc{x}}(k|k) + B\textbf{\textsc{u}}(k|k))\\
+  	&=  C A\textbf{\textsc{x}}(k|k) + CB\textbf{\textsc{u}}(k|k)\\
+  	\vspace{1cm}\\
+  	\textbf{\textsc{z}}(k+2|k) &= C \textbf{\textsc{x}}(k+2|k) \\
+  	&= C(A\textbf{\textsc{x}}(k+1|k) + B \textbf{\textsc{u}}(k+1|k)) \\
+  	&= C A(A \textbf{\textsc{x}}(k|k) + B   	\textbf{\textsc{u}}(k|k)) + C B \textbf{\textsc{u}}(k+1|k)\\
+  	&= C A^2 \textbf{\textsc{x}}(k|k) + CAB \textbf{\textsc{u}}(k|k) + CB \textbf{\textsc{u}}(k+1|k) \\
+  	&\text{\hspace{0.2cm}}\vdots \\
+  	 \textbf{\textsc{z}}(k+N|k) &=  C A^N \textbf{\textsc{x}}(k|k) + CA^{N-1}B\textbf{\textsc{u}}(k|k) + \ldots\\
+  	 &\text{\hspace{0.5cm}} + CB\textbf{\textsc{u}}(k+(N-1)|k)\\	
+  \end{align*}
+
+ \noindent The equations above can then be grouped as follows:
+ 
+ \begin{multline*}
+ \begin{bmatrix}
+ \textbf{\textsc{z}}(k|k) \\
+ \textbf{\textsc{z}}(k+1|k)\\
+ \textbf{\textsc{z}}(k+2|k)\\
+ \vdots \\
+ \textbf{\textsc{z}}(k+N|k)\\
+ \end{bmatrix} = 
+ \begin{bmatrix}
+ C\\
+ CA\\
+ CA^2\\
+ \vdots\\
+ CA^N \\
+ \end{bmatrix} \textbf{\textsc{x}}(k|k) \\
+ + \begin{bmatrix}
+ 0 && 0 && 0 && \ldots && 0\\
+ CB && 0 && 0 && && 0 \\
+ CAB && CB && 0 && && 0 \\
+ \vdots\\ 
+ CA^{N-1}B && CA^{N-2}B && CA^{N-3}B && \ldots && CB \\
+ \end{bmatrix}
+ \begin{bmatrix}
+ \textbf{\textsc{u}}(k|k)\\
+ \textbf{\textsc{u}}(k+1|k)\\
+ \vdots\\
+ \textbf{\textsc{u}}(k+N-1|k)\\
+ \end{bmatrix}
+ \end{multline*}
+
+Now $Z(k)$ and $U(k)$ can be defined as follows:
+
+\begin{equation*}
+Z(k) \equiv \begin{bmatrix}
+\textbf{\textsc{z}}(k|k)\\
+\vdots \\
+\textbf{\textsc{z}}(k+N|k)\\
+\end{bmatrix} 
+\text{\hspace{1cm} , \hspace{1cm}}
+U(k) \equiv \begin{bmatrix}
+\textbf{\textsc{u}}(k|k)\\
+\vdots \\
+\textbf{\textsc{u}}(k+N-1|k)\\
+\end{bmatrix} 
+\end{equation*}  
+  
+
+It should be noted that:
+
+\begin{equation*}
+	\sum_{j=0}^{N}\textbf{\textsc{z}}(k+j|k)^{\intercal} R_{zz}\textbf{\textsc{z}}(k+j|k) = Z(k)^{\intercal}W_1Z(k)
+\end{equation*}  
+with $W_1$ denoting the weighting matrix.
+
+Thus, the elements of the cost function in (\ref{optim_problem}) can now be expressed as follows:
+  
+
+  \begin{align}\label{cost_function_of_MPC_opt}
+  	Z(k)^{\intercal}W_1Z(k) + U(k)^{\intercal}W_2U(k) &=(G\textbf{\textsc{x}}(k) + HU(k))^{\intercal}W_1(G\textbf{\textsc{x}}(k) +HU(k)) + U(k)^{\intercal}W_2U(k) \nonumber \\
+  &= \textbf{\textsc{x}}(k)^{\intercal}H_1\textbf{\textsc{x}}(k) + H_2^{\intercal} U(k) + \frac{1}{2}U(k)^{\intercal}H_3U(k)
+  \end{align}
+  
+  With
+  
+  \begin{equation*}
+  H_1 = G^{\intercal} W_1 G, \text{\hspace{0.5cm}} H_2 = 2(\textbf{\textsc{x}}(k)^{\intercal}G^{\intercal}W_1H), \text{\hspace{0.5cm}} H_3 = 2(H^{\intercal} W_1 H + W_2)
+  \end{equation*}
+
+\noindent Since the term $\textbf{\textsc{x}}(k)^{\intercal} H_1 \textbf{\textsc{x}}(k)$ in (\ref{cost_function_of_MPC_opt}) does not contain the component to be minimized $U(k)$, this means that it will be constant throughout the optimization process. As a result, it can be omitted.
+Finally, the MPC problem can be re-written as:
+
+ \begin{mini}|s|
+{\textsc{U}(k)}{ \tilde{J} = H_2^{\intercal} U(k) + \frac{1}{2}U(k) H_3 U(k) }
+{}{}
+\addConstraint{\begin{bmatrix}
+I_N\\
+-I_N\\
+\end{bmatrix}U(k) \leq u_m}
+{}
+\label{MPC_problem}
+\end{mini}
+  
+Thus, the MPC problem has been transformed to the form of a quadratic program for which there exists various efficient tools to solve the problem. 
+ \end{proof}
+ 
+
+\chapter{Sequential Quadratic Programming and Real-Time Iterations in acados}\label{appendix_acados}
+
+\section{Components of an Embedded SQP Algorithm}
+
+    An embedded SQP algorithm must feature: 
+    \begin{itemize}
+        \item Numerical integration of the continuous-time dynamics.
+        \item Generation of first-order and possibly second-order sensitivities of objective and constraints.
+        \item A procedure for approximating the Hessian matrix.
+        \item An efficient QP solver.
+        \item Initialization strategies for warm-starting the algorithm for the next iteration.
+    \end{itemize}
+
+Moreover, the SQP algorithm in acados has the following form:
+
+\begin{align}
+	 w^{[i+1]} &=w^{[i]} + \Delta w^{QP}\\
+     \pi^{[i+1]} &= \pi^{QP} \\
+     \lambda^{[i+1]} &= \lambda^{QP}
+\end{align}
+
+
+Where:
+\begin{itemize}
+    \item $ w^{[i]} = [x_0^{[i] \intercal}, \ldots, u_0^{[i] \intercal}, \ldots, x_N^{[i] \intercal}]^{\intercal}$ is the primal iterate at SQP iteration $i$.
+    \item $\pi^i$ and $\lambda^i$ are the dual iterates, readily available from the QP solution.
+\end{itemize}
+
+It should be noted that the algebraic variables are eliminated from the OCP, but numerical approximations of these values are accessible from the numerical integration routine.
+
+Furthermore, the step $\Delta w^{QP}$ is computed by solving the following QP: 
+    \begin{equation}\label{step_QP}
+        \begin{aligned}
+        \min_{\substack{\Delta x_0,\ldots,\Delta x_N\\ \Delta u_0,\ldots, \Delta u_{N-1} \\ \Delta s_o,\ldots, \Delta s_N }} \quad & \sum_{k=0}^{N-1}{  \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix}^{\intercal} \overbrace{\begin{bmatrix} Q_k & S_k^{\intercal} \\ S_k & R_k \end{bmatrix}}^{H_k} \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix} + \begin{bmatrix} q_k \\ r_k \end{bmatrix}^{\intercal} \begin{bmatrix} \Delta x_k \\ \Delta u_k \end{bmatrix}} \\ & + \Delta x_N^{\intercal} Q_N \Delta x_N + q_N^{\intercal} \Delta x_n \\ & + \sum_{k=0}^N s_k^{\intercal} P_k s_k + p_k^{\intercal} s_k \\
+        \textrm{s.t.} \quad & \Delta x_{k+1} = A_k \Delta x_k + B_k \Delta u_k + \phi_k^x - x_{k+1},  k=0,1, \ldots, N-1,\\
+            & \Delta x_0 = \bar{x}_0 - x_0 \\
+            & -g_k \geq G_k^x \Delta x_k + G_k^u \Delta u_k + s_k, \text{\space \space \space} k=0,1, \ldots, N-1, \\
+            & -g_N \geq g_N^x \Delta x_N + s_N, \\
+            & 0 \leq s_k, \text{\space \space \space} k=0,1, \ldots, N.
+        \end{aligned}
+    \end{equation}
+
+
+\section{Numerical Integration and Sensitivities}
+
+In the family of single step integration methods, there are: 
+    \begin{itemize}
+        \item \textbf{Explicit} methods: Easy to implement, they rely on a direct combination of explicit evaluations of the right-hand side of the system dynamics. Example: Runge-Kutta method of order 4.
+        \item \textbf{Implicit} methods: More complex, it results in a nonlinear system which generally needs to be solved numerically using an iterative procedure such as a Newton-type method. And, when compared to explicit methods, implicit methods have improved numerical stability properties and higher order accuracy.
+    \end{itemize}
+
+
+When using numerical integration methods within direct multiple shooting, the first (and possibly second) order derivatives of the simulation
+results with respect to the state and control input values also need to be computed:
+    $$ \frac{\partial \phi_k^x (x_k, u_k)}{\partial x_k}, \frac{\partial \phi_k^x (x_k, u_k)}{\partial u_k}, \sum_{i=1}^{n_x} \pi_{k,i} \frac{\partial^2 \phi_{k,i}^x (x_k, u_k)}{\partial^2 (x_k, u_k)} $$
+    where $\pi_k \in \mathbb{R}^{n_x}$ is called the \textit{seed vector} \cite{acados2019}, for which the Lagrange multipliers are used to compute the exact Hessian of the Lagrangian.
+
+\newpage
+
+\section{Convex Hessian Approximation Methods}
+
+    \paragraph{Gauss-Newton Hessian approximation} In the case of a least-squares objective in (\ref{NLP}):
+    \begin{itemize}
+        \item $l(x_k, u_k) = \|r(x_k, u_k) \|_2^2, \text{\space \space \space} k=0, \ldots, N-1$
+        \item $M(x_N) = \|r_N (x_N)\|_2^2$,
+    \end{itemize}
+    with $r$: $\mathbb{R}^{n_x} \times \mathbb{R}^{n_u} \Rightarrow \mathbb{R}^{n_r}$, $r_N$: $\mathbb{R}^{n_x} \Rightarrow \mathbb{R}^{n_{r_N}}$
+
+This kind of residual function is a common case in embedded optimization.
+
+The Gauss-Newton Hessian approximation amounts to \cite{acados2019}:
+	\begin{equation}
+		H^{GN} = blkdiag(H_0^{GN}, \ldots, H_N^{GN})
+	\end{equation}	    
+    at the linearization point $w^{[i]\intercal} = [x_0^{[i]\intercal}, \ldots, u_0^{[i] \intercal}, \ldots, x_N^{[i] \intercal}]^{\intercal}$, where the Hessian blocks are defined as:
+    \begin{align}
+    	H_k^{GN} &= \bigg( \frac{\partial r}{\partial (x,u)} (x_k^i, u_k^i) \bigg)^{\intercal} \bigg( \frac{\partial r}{\partial (x,u)} (x_k^i, u_k^i) \bigg), \text{\space \space \space} k=0,\ldots,N-1 \\
+    	H_N^{GN} &= \bigg( \frac{\partial r_N}{\partial x} (x_N^i) \bigg)^{\intercal} \bigg( \frac{\partial r_N}{\partial x} (x_N^i) \bigg)
+    \end{align}
+    
+Moreover, the Gauss-Newton Hessian approximation offers a competitive alternative to SQP with exact Hessians, but it only converges linearly. And, for a quadratic objective function in (\ref{NLP}), the same quadratic objective arises in (\ref{step_QP}), and no additional computations are needed.
+
+There exist other Hessian approximation methods in \texttt{acados} and interested readers are referred to \cite{acados2019} for the full description of the other methods.
+
+\section{Structure-exploiting embedded QP solvers}
+
+There exist different strategies to solve for QP (\ref{step_QP}) in \texttt{acados} \cite{acados2019}:
+
+	\begin{itemize}
+        \item \textbf{Sparse approach}: OCP (\ref{step_QP}) can be solved directly by using a general-purpose sparse QP solver. 
+        \begin{itemize}
+            \item Example: OOQP(primal-dual interior point solver), OSQP(first order method).
+        \end{itemize}
+        \item \textbf{Structured approach}: OCP (\ref{step_QP}) can be solved by exploiting its multi-stage structure, but dense linear algebra is used. 
+        \begin{itemize}
+            \item Example: HPMPC, HPIPM (interior-point solvers).
+        \end{itemize}
+        \item \textbf{Condensing approach}: It uses the dynamics to eliminate the states from the decision variables.
+        \begin{itemize}
+            \item The state variables are expressed as an explicit function of the current state and future control inputs.
+            \item A smaller QP is then obtained with only the control inputs and (possibly) the initial state as optimization variables.
+        \end{itemize}
+        \item \textbf{Partial condensing approach}: It is a mix between structured and condensing, but only per blocks of $N/N_2$ (with $N$ an integer multiple of $N_2$), and $N_2$ the new horizon length of the partially condensed problem.
+        \begin{itemize}
+            \item This approach allows finding a better trade-off between horizon length and number of optimization variables for a given problem.
+        \end{itemize}
+    \end{itemize}
+
+\section{Real-time iterations}
+
+A downside of \texttt{acados} is that the length of control horizon $m$ cannot be set. In other words, after setting the length the prediction horizon $N$, the control horizon $m$ will directly take the same length as $N$ and it cannot be set to have a different length than $N$. As mention earlier in subsection (\ref{design_parameters}), this could result in significant computational loads.
+
+However, in a real-time control setting, the environment is continuously changing, and it is often sufficient to solve NLP (\ref{NLP}) approximately. In other words, it is useless to have a solution with high accuracy if the computation time deadline has passed.
+
+An existing online method for this approach is the \textit{real-time iteration} (RTI) scheme \cite{Diehl2002}. It allows to solve an inequality-constrained QP in each iteration. The resulting generalized predictor is better suited for predictions across active-set changes, than for example a tangential predictor  acquired from an interior-point method \cite{acados2019}.
+
+ In each RTI, one full iteration of an SQP-type scheme is performed, including generation of the sensitivities with respect to all variables. 
+ 
+ This approach made it possible to implement \texttt{acados} in real-time experiments as shown in \cite{carlos_sartor_zanelli_frison_burgard_diehl_oriolo_2020}
+ and \cite{kloeser_schoels_sartor_zanelli_prison_diehl_2020}.
+  
  
  
- %\begin{proof}
-%\eqref{theo} was already demonstrated in \cite{euclides300}.
-%\end{proof}
  
  \addcontentsline{toc}{chapter}{Bibliography}
  
