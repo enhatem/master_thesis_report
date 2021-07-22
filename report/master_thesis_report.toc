@@ -23,13 +23,13 @@
 \contentsline {paragraph}{Adaptive MPC}{25}{figure.caption.13}%
 \contentsline {paragraph}{Gain-Scheduled MPC}{25}{figure.caption.13}%
 \contentsline {paragraph}{Nonlinear MPC}{25}{figure.caption.13}%
-\contentsline {subsubsection}{\numberline {1.4.4.1}Strategies to Improve Computational Time}{26}{subsubsection.1.4.4.1}%
-\contentsline {paragraph}{Order reduction techniques}{26}{subsubsection.1.4.4.1}%
-\contentsline {paragraph}{Explicit MPC}{26}{subsubsection.1.4.4.1}%
+\contentsline {subsection}{\numberline {1.4.5}Strategies to Improve Computational Time}{26}{subsection.1.4.5}%
+\contentsline {paragraph}{Order reduction techniques}{26}{subsection.1.4.5}%
+\contentsline {paragraph}{Explicit MPC}{26}{subsection.1.4.5}%
 \contentsline {paragraph}{Sub-optimal Solution}{27}{figure.caption.16}%
-\contentsline {subsection}{\numberline {1.4.5}MPC applications on quadrotors}{28}{subsection.1.4.5}%
-\contentsline {subsubsection}{\numberline {1.4.5.1}Centralized MPC}{28}{subsubsection.1.4.5.1}%
-\contentsline {subsubsection}{\numberline {1.4.5.2}Non-centralized MPC}{29}{subsubsection.1.4.5.2}%
+\contentsline {subsection}{\numberline {1.4.6}MPC applications on quadrotors}{28}{subsection.1.4.6}%
+\contentsline {subsubsection}{\numberline {1.4.6.1}Centralized MPC}{28}{subsubsection.1.4.6.1}%
+\contentsline {subsubsection}{\numberline {1.4.6.2}Non-centralized MPC}{29}{subsubsection.1.4.6.2}%
 \contentsline {section}{\numberline {1.5}acados – fast embedded optimal control solvers}{30}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}The difference between acados and other embedded optimal control solvers}{30}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Algorithm components for embedded nonlinear optimal control}{31}{subsection.1.5.2}%

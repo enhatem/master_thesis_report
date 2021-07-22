@@ -638,7 +638,7 @@ It should also be noted that for this method, an algorithm must be designed to s
 \label{nonconvex_function}
 \end{figure}
 
-\subsubsection{Strategies to Improve Computational Time}
+\subsection{Strategies to Improve Computational Time}
 
 As demonstrated in (\ref{MPC_problem}), a MPC problem is formulated as a QP problem that tries to minimize a quadratic cost function in general. Moreover, MPC computations become more complex as the number of state elements, the number of constraints and the MPC parameters increase. Moreover, as stated in section \ref{MPC_General_Idea}, if the MPC controller is running on applications with slow dynamics, then computational complexity is not a concern. However, if MPC is running on applications with fast dynamics, then the computational complexity becomes crucial. In addition, it is important to note that the matrices that are stored in the processor of the system for MPC computations grows with the increasing number of optimization variables. Thus, this could cause a memory problem. So, to reduce the complexity and computational time of MPC, the following methods can be used:
 
@@ -2070,54 +2070,77 @@ And, as for the components of the linear least-squared cost function:
                 0 & 0 & 0 & 0 & 0 & 0 \\
                 \end{bmatrix}$
                 
-                \item $\bm{V}_{x_e} = \begin{bmatrix}
-                1 & 0 & 0 & 0 & 0 & 0 \\
-                0 & 1 & 0 & 0 & 0 & 0 \\
-                0 & 0 & 1 & 0 & 0 & 0 \\
-                0 & 0 & 0 & 1 & 0 & 0 \\
-                0 & 0 & 0 & 0 & 1 & 0 \\
-                0 & 0 & 0 & 0 & 0 & 1 \\
-                \end{bmatrix}$
                 
-                \item $\bm{V}_u = \begin{bmatrix}
-                0 & 0 \\
-                0 & 0 \\
-                0 & 0 \\
-                0 & 0 \\
-                0 & 0 \\
-                0 & 0 \\
-                1 & 0 \\
-                0 & 1 \\
-                \end{bmatrix}$
                 
             \end{itemize}
 			\columnbreak
             \begin{itemize}
-            	\item $\bm{Q} = \begin{bmatrix}
-                 30 & 0  & 0 & 0 & 0 & 0 \\
-                 0 & 30  & 0 & 0 & 0 & 0 \\
-                 0 & 0  & 1 & 0 & 0 & 0 \\
-                 0 & 0  & 0 & 5 & 0 & 0 \\
-                 0 & 0  & 0 & 0 & 5 & 0 \\
-                 0 & 0  & 0 & 0 & 0 & 1 \\
-                \end{bmatrix}$
-                
-                \item $\bm{Q}_e = \begin{bmatrix}
-                 30 & 0  & 0 & 0 & 0 & 0 \\
-                 0 & 30  & 0 & 0 & 0 & 0 \\
-                 0 & 0  & 1 & 0 & 0 & 0 \\
-                 0 & 0  & 0 & 5 & 0 & 0 \\
-                 0 & 0  & 0 & 0 & 5 & 0 \\
-                 0 & 0  & 0 & 0 & 0 & 1 \\
-                \end{bmatrix}$
-                
-                \item $\bm{R} = \begin{bmatrix}
+            
+            	\item $\bm{V}_u = \begin{bmatrix}
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
+                0 & 0 \\
                 1 & 0 \\
                 0 & 1 \\
                 \end{bmatrix}$
+            	\end{itemize}
+                \end{multicols}
                 
+                \begin{itemize}
+                
+				\item $\bm{V}_{x_e} =
+                diag(\begin{bmatrix}
+            	1 & 1 & 1 & 1 & 1 & 1 \\
+            	\end{bmatrix}) $
+                % \begin{bmatrix}
+                % 1 & 0 & 0 & 0 & 0 & 0 \\
+                % 0 & 1 & 0 & 0 & 0 & 0 \\
+                % 0 & 0 & 1 & 0 & 0 & 0 \\
+                % 0 & 0 & 0 & 1 & 0 & 0 \\
+                % 0 & 0 & 0 & 0 & 1 & 0 \\
+                % 0 & 0 & 0 & 0 & 0 & 1 \\
+                % \end{bmatrix}$  
+                
+                \item $\bm{Q} =
+            	diag(\begin{bmatrix}
+            	30 & 30 & 1 & 5 & 5 & 1 \\
+            	\end{bmatrix}) $
+            	%\begin{bmatrix}
+                % 30 & 0  & 0 & 0 & 0 & 0 \\
+                % 0 & 30  & 0 & 0 & 0 & 0 \\
+                % 0 & 0  & 1 & 0 & 0 & 0 \\
+                % 0 & 0  & 0 & 5 & 0 & 0 \\
+                % 0 & 0  & 0 & 0 & 5 & 0 \\
+                % 0 & 0  & 0 & 0 & 0 & 1 \\
+                %\end{bmatrix}$
+                
+                \item $\bm{Q}_e =
+                diag(\begin{bmatrix}
+            	30 & 30 & 1 & 5 & 5 & 1 \\
+            	\end{bmatrix}) $
+                %\begin{bmatrix}
+                % 30 & 0  & 0 & 0 & 0 & 0 \\
+                % 0 & 30  & 0 & 0 & 0 & 0 \\
+                % 0 & 0  & 1 & 0 & 0 & 0 \\
+                % 0 & 0  & 0 & 5 & 0 & 0 \\
+                % 0 & 0  & 0 & 0 & 5 & 0 \\
+                % 0 & 0  & 0 & 0 & 0 & 1 \\
+                %\end{bmatrix}$
+                
+                \item $\bm{R}= 
+                diag(\begin{bmatrix}
+            	1 & 1 \\
+            	\end{bmatrix}) $
+                %\begin{bmatrix}
+                %1 & 0 \\
+                %0 & 1 \\
+                %\end{bmatrix}$
             \end{itemize}
-\end{multicols}
+
+\newpage
 
 The matrices $\bm{V}_x$ and  $\bm{V}_u$ are used to refer to each element of the state in the state vector $\bm{x}$ and to each element of the inputs in the input vector $\bm{u}$ in the running cost, respectively. And, it should be noted that there are no algebraic variables $\bm{z}$ in the problem at hand. However, it is included in the cost function of equation (\ref{mpc_optimization_problem_planar_quadrotor}) for completeness. Furthermore, the matrix $\bm{V}_{x_e}$ is used to refer to each element of the state vector $\bm{x}$ in the terminal cost. And, it can be inferred that there are no control inputs at the terminal cost since the terminal cost represents the final position that the system is desired to reach. \\
 
@@ -2315,6 +2338,11 @@ And, as for the components of the linear least-squared cost function:
 	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
 	\end{bmatrix}$
 	
+	
+\end{itemize}
+\columnbreak
+\begin{itemize}
+
 	\item $\bm{V}_u = \begin{bmatrix}
 	0 & 0 & 0 & 0 \\
 	0 & 0 & 0 & 0 \\
@@ -2331,41 +2359,51 @@ And, as for the components of the linear least-squared cost function:
 	0 & 0 & 1 & 0 \\
 	0 & 0 & 0 & 1 \\
 	\end{bmatrix}$
-\end{itemize}
-\columnbreak
-\begin{itemize}
-	\item $\bm{Q} = \begin{bmatrix}
-	50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
-	\end{bmatrix}$
 	
-	\item $\bm{Q}_e = \begin{bmatrix}
-	50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
-	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
-	\end{bmatrix}$
+	\item $\bm{Q} = diag(
+	\begin{bmatrix}
+			50 & 50 & 50 & 5 & 5 & 5 & 5 & 10 & 10 & 10\\
+	\end{bmatrix})$
+	% \begin{bmatrix}
+	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	% \end{bmatrix}$
 	
-	\item $\bm{R} = \begin{bmatrix}
-	1 & 0 & 0 & 0 \\
-	0 & 1 & 0 & 0 \\
-	0 & 0 & 1 & 0 \\
-	0 & 0 & 0 & 1 \\
-	\end{bmatrix}$
+	\item $\bm{Q}_e = diag(
+	\begin{bmatrix}
+			50 & 50 & 50 & 5 & 5 & 5 & 5 & 10 & 10 & 10\\
+	\end{bmatrix})$
+	% \begin{bmatrix}
+	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	% \end{bmatrix}$
+	
+	\item $\bm{R} =diag(
+	\begin{bmatrix}
+			1 & 1 & 1 & 1\\
+	\end{bmatrix}) $
+	%\begin{bmatrix}
+	%1 & 0 & 0 & 0 \\
+	%0 & 1 & 0 & 0 \\
+	%0 & 0 & 1 & 0 \\
+	%0 & 0 & 0 & 1 \\
+	%\end{bmatrix}$
 \end{itemize}
 \end{multicols}
 
