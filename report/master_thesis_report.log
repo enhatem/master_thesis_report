@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  23 JUL 2021 19:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  23 JUL 2021 20:59
 entering extended mode
 **./master_thesis_report.tex
 (master_thesis_report.tex
@@ -1697,6 +1697,13 @@ n/12 is subscribed
  []
 
 
+Overfull \hbox (5.95557pt too wide) in paragraph at lines 3258--3259
+\OT1/cmr/m/n/12 to. So, the \OT1/cmtt/m/n/12 quadrotor[]node \OT1/cmr/m/n/12 re
+ceives the control inputs message from the \OT1/cmtt/m/n/12 /RatesThrustSetPoin
+t
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 3258--3259
 
  []
@@ -1707,12 +1714,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 3260--3261
  []
 
 [82 <./Images/sil_simulations/ros2_node_diagram.png>]
-Overfull \hbox (1.1894pt too wide) in paragraph at lines 3269--3270
-[]\OT1/cmr/m/n/12 This is to ensure that the MPC controller will still be publi
-shing at a rate of $100$Hz. Furthermore,
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 3269--3270
 
  []
@@ -1784,7 +1785,7 @@ Appendix A.
 ] [88]
 Appendix B.
 
-Overfull \hbox (6.87582pt too wide) in paragraph at lines 3519--3520
+Overfull \hbox (6.87582pt too wide) in paragraph at lines 3524--3525
 []\OT1/cmr/m/n/12 Generation of first-order and possibly second-order sensitivi
 ties of objective and constraints. 
  []
@@ -1847,7 +1848,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `master_thesis_report.out' has not changed.
-(rerunfilecheck)             Checksum: A4C71F6A0B27371EAE76F791358E5BCB;17281.
+(rerunfilecheck)             Checksum: 7DF6D9EBCB7A0A494058627B79A20CAB;17296.
  ) 
 Here is how much of TeX's memory you used:
  15227 strings out of 481266
@@ -1856,7 +1857,7 @@ Here is how much of TeX's memory you used:
  31641 multiletter control sequences out of 15000+600000
  421512 words of font info for 93 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 86i,21n,89p,2376b,648s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,21n,89p,2386b,648s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1900,7 +1901,7 @@ ts/type1/public/amsfonts/cm/cmti12.pfb></home/elie/.miktex/texmfs/install/fonts
 ype1/public/amsfonts/cm/cmtt12.pfb></home/elie/.miktex/texmfs/install/fonts/typ
 e1/public/amsfonts/symbols/msam10.pfb></home/elie/.miktex/texmfs/install/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on master_thesis_report.pdf (99 pages, 14810268 bytes).
+Output written on master_thesis_report.pdf (99 pages, 14812274 bytes).
 PDF statistics:
  1879 PDF objects out of 2073 (max. 8388607)
  458 named destinations out of 1000 (max. 500000)

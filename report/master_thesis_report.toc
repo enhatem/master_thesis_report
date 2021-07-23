@@ -80,7 +80,7 @@
 \contentsline {section}{\numberline {3.2}Simulations using acados}{76}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Planar Quadrotor Simulations}{76}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}3D Quadrotor Simulation}{78}{subsection.3.2.2}%
-\contentsline {chapter}{\numberline {4}Software-in-the-Loop Simulations in ROS2/Gazebo and Experimentation}{81}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Software-in-the-Loop Simulations using ROS2/Gazebo and Experimentation}{81}{chapter.4}%
 \contentsline {section}{\numberline {4.1}SIL Simulations using ROS2/Gazebo}{81}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Closed-Loop Control Structure of the Software-in-the-Loop}{81}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.1.2}Design of the ROS2 MPC Controller Node}{82}{subsection.4.1.2}%
