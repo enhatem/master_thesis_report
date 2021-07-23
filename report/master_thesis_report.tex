@@ -46,7 +46,7 @@ Moreover, I would like to thank Julian Erskine, Damien Six and Shiyu Liu for the
 
 My profound gratitude to my girlfriend Glysa, who has been with me for more than 6 years. Thank you for all the love, support and comfort that you have given me during these stressful 2 years, and thank you for choosing me everyday. \\
 
-I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle Fadi, his wife Lara and my aunt Bernadette. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be where I am today if it wasn't for them. \\
+I would like to thank my family as well: my parents Naji and Yolla, my sister Rebecca, my uncle Fadi, his wife Lara and my aunt Bernadette. And, my aunts Nada and Hoda. They have provided me with the emotional and economical support from the very beginning and they gave me the opportunity to travel and study for this Master's degree. They have always been proud and encouraging. \\I would not be where I am today if it wasn't for them. \\
 
 Finally, I would like to thank everyone who will take the time to read my master thesis report and to the future researchers that may be reading it in order to improve my work. I hope that the report is clear enough to read and I will always be available if you have any questions on my work.
  
@@ -95,8 +95,9 @@ Finally, I would like to thank everyone who will take the time to read my master
   \textbf{RTI} & real-time iteration \\
   \textbf{API} & application programming interface \\
   \textbf{ODE} & ordinary differential equations \\
-  \textbf{EKF} & extended Kalman filter \\
   \textbf{KF} & Kalman filter \\
+  \textbf{EKF} & extended Kalman filter \\
+  \textbf{SIL} & software-in-the-loop \\
   
   
  \end{tabular}\\
@@ -249,7 +250,7 @@ The rest of the report is structured as follows:
 	 
 	 \item [] \textbf{Chapter 3} focuses on the trajectory generation of a flip trajectory where different optimization problems with different objective functions and initial conditions will be used in order to find the optimal flipping trajectory that satisfies the dynamic constraints of the quadrotor which will be used in the experimentation phase. Moreover, simulations with a MPC are then performed using the optimal flip trajectory.
 	 
-	 \item [] \textbf{Chapter 4} focuses on the simulations that were performed using ROS2 and Gazebo, in addition to the experimentation results.
+	 \item [] \textbf{Chapter 4} focuses on Software-in-the-Loop simulations that were performed using ROS2 and Gazebo, in addition to the experimentation results.
 \end{itemize}
 
 
@@ -750,7 +751,7 @@ In the next section, the software used to implement the MPC controller is presen
  
  \section{acados – Fast Embedded Optimal Control Solvers}
  
- \subsection{The difference between acados and other embedded optimal control solvers}
+ \subsection{Difference between acados and other Embdedded OCP Solvers}
  A big role in bringing MPC to real-time applications is played by the implementation of efficient embedded optimal control methods. This gave rise to software
 packages such as:
     \begin{itemize}
@@ -778,7 +779,9 @@ Finally, \texttt{acados} uses \texttt{CasADi} modeling language instead of \text
 	\item It is a free and open-source software.
 \end{itemize}
 
-\subsection{Algorithm components for embedded nonlinear optimal control}
+\newpage
+
+\subsection{Algorithm Components for Embedded Nonlinear Optimal Control}
 
 \subsubsection{Nonlinear Optimal Control}
 
@@ -898,7 +901,7 @@ Interested readers can refer to appendix \ref{appendix_acados} for a more detail
  
 \newpage
 
-\section{Flip maneuvers with quadrotors}
+\section{Flip Maneuvers with Quadrotors}
 
 
 The aim of this section is to explain the physics of the flip maneuver, in addition to the major difficulties that relate to the implementation of flipping maneuvers with quadrotors. Furthermore, a review of the existing limitations that the current approaches have are shown and the existing scientific literature is presented. The content of this chapter were thoroughly covered by the previous master students Marco Orsingher \cite{Orsingher2019} and Antonio Marino \cite{Marino2020} for which their papers were used as references for this section.  
@@ -1569,16 +1572,8 @@ Moreover, the control inputs that will be outputted by the MPC controller are:
 	\item $\omega_x, \omega_y, \omega_z$: The angular rates. 
 \end{itemize} 
 
-\newpage
+The Software-in-the-Loop simulations that make use of the Low-Level Controller will be presented in section \ref{sec:SIL_simulations}.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{Images/diagrams/new_sim_diagram.png}
-	\caption{Diagram of the resulting non-centralized MPC closed-loop control structure.}
-	\label{fig:non_centralized_mpc_for_SIL}
-\end{figure}
-
-As shown in figure \ref{fig:non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the low-level controller. Then, the low-level controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to follow a desired trajectory.
 
 \newpage
 
@@ -2041,7 +2036,7 @@ After the optimization problem is solved for the current time instant, the MPC c
 
 \newpage
 
-\subsection{3D Quadrotor MPC}
+\subsection{3D Quadrotor MPC}\label{subsec:3D_Quadrotor_MPC}
 
 In the 3D quadrotor case, the MPC optimization problem has the same formulation as in (\ref{mpc_optimization_problem_planar_quadrotor})
 but with different constraints on the dynamics.
@@ -2306,7 +2301,53 @@ And, as for the components of the linear least-squared cost function:
 	
 \end{itemize}
 
-In this case, references were provided for $x,y,z,v_x,v_y$ and $v_z$. Similar to the planar case, following $x,y$ and $z$ is more important than following $v_x,v_y$ and $v_z$ at each time instant. This is why $x,y$ and $z$ have larger weights. In addition, no control inputs were given for the quaternions, but setting weights of $5$'s on each element of the quaternion will drive the roll, pitch and yaw angles to 0 throughout the trajectory. As for the inputs, no references were given for the angular rates. So, having weights of $1$'s will drive the angular rates to 0, which will stabilize the quadrotor throughout the trajectory. Finally, a reference of $m.g$ was given for the thrust. This will give the MPC an idea of where the thrust control input should be when the quadrotor is at a hovering position, which will result in smoother control inputs throughout the trajectory.
+In this case, references were provided for $x,y,z,v_x,v_y$ and $v_z$. Similar to the planar case, following $x,y$ and $z$ is more important than following $v_x,v_y$ and $v_z$ at each time instant. This is why $x,y$ and $z$ have larger weights. In addition, no control inputs were given for the quaternions, but setting weights of $5$'s on each element of the quaternion will drive the roll, pitch and yaw angles to 0 throughout the trajectory. And, if the desired trajectory is a flip trajectry, then having weights of $5$'s on each element of the quaternion will ensure that the flip trajectory is being followed properly.
+As for the inputs, no references were given for the angular rates. So, having weights of $1$'s will drive the angular rates to 0, which will stabilize the quadrotor throughout the trajectory. Finally, a reference of $m.g$ was given for the thrust. This will give the MPC an idea of where the thrust control input should be when the quadrotor is at a hovering position, which will result in smoother control inputs throughout the trajectory. However, when the desired trajectory is a flip trajectory, it should be noted that the weight on the $\omega_x$ input will be set to a value close to $0$ (such as $10^{-3}$). This way, the MPC controller will be allowed to compute larger values for $\omega_x$ that will allow to track the flip trajectory.
+
+Thus, in order to track a flip trajectory in the acados simulator, the weight matrices will have the following form:
+
+\begin{itemize}
+	\item $\bm{Q} = diag(
+	\begin{bmatrix}
+			50 & 50 & 50 & 5 & 5 & 5 & 5 & 10 & 10 & 10\\
+	\end{bmatrix})$
+	% \begin{bmatrix}
+	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	% \end{bmatrix}$
+	
+	\item $\bm{Q}_e = diag(
+	\begin{bmatrix}
+			50 & 50 & 50 & 5 & 5 & 5 & 5 & 10 & 10 & 10\\
+	\end{bmatrix})$
+	% \begin{bmatrix}
+	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	% \end{bmatrix}$
+	
+	\item $\bm{R} =diag(
+	\begin{bmatrix}
+			1 & 10^{-3} & 1 & 1\\
+	\end{bmatrix})$
+\end{itemize}
+	
+
 
 \newpage
 
@@ -3105,7 +3146,7 @@ As can be seen in figure \ref{fig:flip_planar_sim_noisy}, it is evident that des
 	\caption{Simulation of the planar quadrotor tracking a flip trajectory with noise.} \label{fig:flip_planar_sim_noisy}
 \end{figure}
 
-\subsection{3D Quadrotor Simulation}
+\subsection{3D Quadrotor Simulation}\label{subsec:acados_simulation_3D_quadrotor_flip}
 
 In the case of the 3D quadrotor, simulations will only be performed without noise since the quadrotor that will be used for the experimentation already has an extended Kalman filter implementation.
 
@@ -3173,9 +3214,176 @@ As can be seen from figure \ref{fig:3D_sim_flip}, the 3D quadrotor was able to f
 
 
 
-  \chapter{Simulations in ROS2 and Experimentation}
+  \chapter{Software-in-the-Loop Simulations in ROS2/Gazebo and Experimentation}
+ 	In this chapter, the Software-in-the-Loop control structure will be presented along with the ROS2 MPC controller node and the simulation results. Finally, the ROS2 MPC controller node  that is used in the  experimentation phase will be presented and the experimentation results will be shown.
+	\section{SIL Simulations using ROS2/Gazebo}\label{sec:SIL_simulations}
+
+The Software-in-the-Loop simulator package \texttt{ls2n\_drone\_ros2}\protect\footnotemark  
+ was provided by the LS2N lab engineer Dr. Damien Six\protect\footnotemark. Moreover, the MPC controller package was created on a separate branch.
+Interested readers are referred to the \texttt{ls2n\_crazyflie\_nmpc} package\protect\footnotemark on the \texttt{elie-dev} branch in order to have a look at the implemention of the MPC controller in the ROS2 node.	
+
+\footnotetext[1]{\url{https://gitlab.univ-nantes.fr/ls2n-drones/ls2n_drone_ros2}, accessed on 23/08/2021.}
+
+\footnotetext[2]{\url{https://scholar.google.fr/citations?user=3-YYgFAAAAAJ&hl=en}, accessed on 23/08/2021.}
+
+\footnotetext[3]{\url{https://gitlab.univ-nantes.fr/ls2n-drones/ls2n_drone_ros2/-/tree/elie_dev/ls2n_crazyflie_nmpc}, accessed on 23/08/2021.}
+	
+	\subsection{Closed-Loop Control Structure of the Software-in-the-Loop}
+
+In order to have a better representation of how the system will behave, a Software-in-the-Loop simulation must be performed. Software-in-the-Loop (SIL) represents the incorporation of compiled production source code into a mathematical model simulation. As a result, it will provide a practical, virtual simulation environment for the development and evaluation of detailed control strategies for large and complex systems \cite{SIL2021}. So, the closed-loop control structure in this case becomes:
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/diagrams/new_sim_diagram.png}
+	\caption{Diagram of the resulting non-centralized MPC closed-loop control structure.}
+	\label{fig:non_centralized_mpc_for_SIL}
+\end{figure}
+
+As shown in figure \ref{fig:non_centralized_mpc_for_SIL}, the MPC controller will solve an optimization problem at each iteration, and will output the total thrust $T$, and the angular rates $\omega_x, \omega_y$ and $\omega_z$, which will be fed to the Low-Level Controller. Then, the Low-Level Controller will map the angular rates to the body torques. Afterwards, the total thrust $T$ and the body torques $\bm{\tau}$ will then be converted to motor speeds, which will be outputted to the quadrotor in order to track the desired trajectory.
+
+However, it should be noted that the Low-Level Controller that is used in the Software-in-the-Loop simulations is the PX4 Autopilot Low-Level Controller. The PX4 Autopilot \cite{px4_autopilot_2021} is an open-source system which is aimed towards inexpensive autonomous aircraft. Subsequently, the results will still not be totally accurate since the Low-Level Controller that is used in the crazyflie 2.1 is different than the PX4 Low-Level Controller.
+
+\subsection{Design of the ROS2 MPC Controller Node}
  
-	\section{Software-in-the-Loop Simulations using ROS2 and Gazebo}
+ In order to send the MPC control inputs to the Low-Level Controller and control the quadrotor, a ROS2 node has been created.
+ 
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{Images/sil_simulations/ros2_node_diagram.png}
+ 	\caption{Diagram showing how the MPC node and the quadrotor node communicate with each other.}
+ 	\label{fig:ROS2_MPC_node}
+ \end{figure}
+
+As can be seen from figure \ref{fig:ROS2_MPC_node}, the \texttt{mpc\_controller} node is subscribed to the \texttt{/trajectory\_tracking} topic which transfers Boolean messages to the \texttt{mpc\_controller}. And, initially the Boolean variable inside the \texttt{mpc\_controller} node is set to \texttt{False}. The \texttt{mpc\_controller} node is also subscribed to the \texttt{/EKF/odom} topic which receives the odometry messages published by the \texttt{quadrotor\_node} at a rate of $100$Hz. In addition, the \texttt{mpc\_controller} publishes its control inputs messages to the \texttt{/RatesThrustSetPoint} topic, for which the \texttt{quadrotor\_node} is subscribed to. So, \texttt{quadrotor\_node} receives the control inputs message from the \texttt{/RatesThrustSetPoint} topic and the PX4 Low-Level Controller will output the desired motor speeds to control the behavior of the quadrotor. \\
+
+The \texttt{mpc\_controller} node will first read and store the desired trajectory. Then, it will take the first waypoint of the desired trajectory and it will use it as a reference position. Afterwards, it will wait until an odometry message is received from the \texttt{/EKF/odom} topic. As soon as an odometry message is received, it will take the current pose of the quadrotor from the odometry message, and it will use it to compute the desired control inputs to reach the desired initial waypoint of the trajectory. Subsequently, it will publish the control inputs via a custom message to the \texttt{/RatesThrustSetPoint} topic. Finally, in order to track the desired trajectory, a Boolean message with a value set to \texttt{True} will be manually published to the \texttt{/trajectory\_tracking} topic via the terminal.This will allow the MPC controller to take the next $N$ waypoints of the stored desired trajectory and calculate the control inputs at each iteration in order to properly track the trajectory. \\ 
+
+Morever, the MPC controller is the same as the one designed in subsection \ref{subsec:3D_Quadrotor_MPC}. However, in order to ensure that the computations of the MPC controller can keep up with the odometry messages which are published at $100$Hz, the  MPC parameters were changed to the following:
+
+\begin{itemize}
+	\item $N = 50$ : number of discretization steps in the prediction horizon.
+	\item $T_f = 0.5s$ : prediction horizon.
+\end{itemize}
+
+This is to ensure that the MPC controller will still be publishing at a rate of $100$Hz. Furthermore, it should be noted that the desired trajectory must be synchronized with the MPC controller. In other words it must also be discretized at a rate of $100$Hz (the time instant between each waypoint in the trajectory should be $0.01s$).\\
+
+Furthermore, the running, terminal and input weights were retuned:
+
+\begin{itemize}
+	\item $\bm{Q} = diag(
+	\begin{bmatrix}
+			50 & 50 & 50 & 10 & 10 & 10 & 10 & 1 & 1 & 1\\
+	\end{bmatrix})$
+	% \begin{bmatrix}
+	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	% \end{bmatrix}$
+	
+	\item $\bm{Q}_e = diag(
+	\begin{bmatrix}
+			50 & 50 & 50 & 10 & 10 & 10 & 10 & 1 & 1 & 1\\
+	\end{bmatrix})$
+	% \begin{bmatrix}
+	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 \\
+	% 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+	% \end{bmatrix}$
+	
+	\item $\bm{R} =diag(
+	\begin{bmatrix}
+			1 & 10^{-1} & 1 & 1\\
+	\end{bmatrix}) $
+	%\begin{bmatrix}
+	%1 & 0 & 0 & 0 \\
+	%0 & 1 & 0 & 0 \\
+	%0 & 0 & 1 & 0 \\
+	%0 & 0 & 0 & 1 \\
+	%\end{bmatrix}$
+\end{itemize}
+
+
+\subsection{SIL Simulation Results}
+
+In order to analyze the data of the Software-in-the-Loop simulation, ROS2 bags were used to record the data during the simulation. Then, the relevant parts of the data were extracted and plotted. The results obtained from the SIL simulation are presented in figure \ref{fig:SIL_flip} in which it is evident that the quadrotor was able to track the flip trajectory with small errors along the $y$ and $z$ coordinates. Moreover, by looking at subfigure \ref{fig:SIL_3D_flip_thrust_input}, similarly to the acados simulations, the MPC controller tried to track the open-loop control input reference of the thrust as much as possible, and made the required adjustments when it was needed. Furthermore, the thrust never reached the value of 0 which was the thrust reference during the flip phase. However, the quadrotor was still able to track the flip trajectory with small errors due to the robustness of the MPC controller. In addition, by looking at subfigure \ref{fig:3D_flip_sim_rates_input}, the MPC controller was not provided references for the angular rates. And, in order to perform the flip, the angular rate along $x$ ($\omega_x$) was assigned a weight of $10^{-1}$, which made the goal of minimizing $\omega_x$ less important than the goal of following the flip trajectory for the MPC controller. However, it should be noted that the weight assigned to $\omega_x$ was slightly higher than the weight assigned to it during the acados simulation in subsection \ref{subsec:acados_simulation_3D_quadrotor_flip}. This is because during the SIL simulation, having a very small weight on $\omega_x$ resulted in a very unstable flight even while just hovering. This is the case because minimizing $\omega_x$ was not important enough for the MPC controller, which resulted in higher values of $\omega_x$ even at a hovering position, which destabilized the quadrotor. For this reason, the weight on $\omega_x$ was slightly increased in order to provide stability during flight, while the MPC is still free to give it high values in order to properly track the flip trajectory. Finally, by looking at subfigure \ref{fig:SIL_3D_flip_errors_pose}, it is evident that the largest errors along the $y$ and $z$ coordinates occur during the flip phase. Then, the errors are driven back to zero during the recovery phase.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\begin{figure}[H]
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/performedTraj.png}
+		\caption{Trajectory followed by the 3D quadrotor} \label{fig:SIL_3D_flip_3d}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/posStates.png}
+		\caption{Position states.} \label{fig:SIL_3D_flip_pose}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/angleStates.png}
+		\caption{Angular states.} \label{fig:SIL_3D_flip_angles}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/velStates.png}
+		\caption{Velocity states.} \label{fig:SIL_3D_flip_velocities}
+	\end{subfigure}
+
+\medskip
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/thrustInput.png}
+		\caption{Thrust input.} \label{fig:SIL_3D_flip_thrust_input}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/angulareRatesInputs.png}
+		\caption{Angular rates inputs.} \label{fig:SIL_3D_flip_rates_input}
+	\end{subfigure}
+	
+\medskip
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/Errors_position.png}
+		\caption{Errors on $x,y$ and $z$.} \label{fig:SIL_3D_flip_errors_pose}
+	\end{subfigure}\hspace*{\fill}
+	\begin{subfigure}{0.43\textwidth}
+		\includegraphics[width=\linewidth]{Images/sil_simulations/Errors_velocities.png}
+		\caption{Errors on $v_x, v_y$ and $v_z$.} \label{fig:SIL_3D_flip_errors_velocities}
+	\end{subfigure}
+
+	\caption{Software-in-the-Loop simulation of a 3D quadrotor tracking a flip trajectory.} \label{fig:SIL_flip}
+\end{figure}
+
+
+
+\newpage 
  
  	\section{Experimentation}
 

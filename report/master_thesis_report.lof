@@ -23,22 +23,24 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Representation of the Euler Transformations \cite {Fantoni2016} \relax }}{41}{figure.caption.26}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Model of the quadrotor represented with motor torques and Euler angles \cite {Fantoni2016}.\relax }}{43}{figure.caption.27}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{44}{figure.caption.28}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{48}{figure.caption.29}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Diagram of the EKF embedded in the crazyflie 2.1 \cite {EKF_bitcraze}.\relax }}{50}{figure.caption.30}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 equipped with the battery and properllers.\relax }}{53}{figure.caption.31}%
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }}{54}{figure.caption.32}%
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }}{56}{figure.caption.33}%
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Computation of the MPC for a 3D quadrotor tracking a $22s$ trajectory.\relax }}{59}{figure.caption.34}%
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Diagram of the MPC closed-loop control structure used in the acados simulations.\relax }}{62}{figure.caption.35}%
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory without noise.\relax }}{63}{figure.caption.36}%
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.\relax }}{64}{figure.caption.37}%
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Simulation of the 3D quadrotor following a circular trajectory without noise.\relax }}{65}{figure.caption.38}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the EKF embedded in the crazyflie 2.1 \cite {EKF_bitcraze}.\relax }}{49}{figure.caption.29}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Mass of the crazyflie 2.1 equipped with the battery and properllers.\relax }}{52}{figure.caption.30}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }}{53}{figure.caption.31}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }}{55}{figure.caption.32}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Computation of the MPC for a 3D quadrotor tracking a $22s$ trajectory.\relax }}{58}{figure.caption.33}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Diagram of the MPC closed-loop control structure used in the acados simulations.\relax }}{61}{figure.caption.34}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory without noise.\relax }}{62}{figure.caption.35}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.\relax }}{63}{figure.caption.36}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Simulation of the 3D quadrotor following a circular trajectory without noise.\relax }}{64}{figure.caption.37}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Output of fmincon at the end of the optimization process\relax }}{76}{figure.caption.39}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Resulting trajectory from the solution of the optimization problem using \texttt {fmincon}.\relax }}{76}{figure.caption.40}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Simulation of the planar quadrotor tracking a flip trajectory without noise.\relax }}{78}{figure.caption.41}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Simulation of the planar quadrotor tracking a flip trajectory with noise.\relax }}{79}{figure.caption.42}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Simulation of the 3D quadrotor tracking a flip trajectory without noise.\relax }}{80}{figure.caption.43}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Output of fmincon at the end of the optimization process\relax }}{75}{figure.caption.38}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Resulting trajectory from the solution of the optimization problem using \texttt {fmincon}.\relax }}{75}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Simulation of the planar quadrotor tracking a flip trajectory without noise.\relax }}{77}{figure.caption.40}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Simulation of the planar quadrotor tracking a flip trajectory with noise.\relax }}{78}{figure.caption.41}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Simulation of the 3D quadrotor tracking a flip trajectory without noise.\relax }}{79}{figure.caption.42}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{81}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Diagram showing how the MPC node and the quadrotor node communicate with each other.\relax }}{82}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Software-in-the-Loop simulation of a 3D quadrotor tracking a flip trajectory.\relax }}{84}{figure.caption.45}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

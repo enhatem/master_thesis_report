@@ -391,6 +391,18 @@ Bitcraze, ``Crazyflie 2.1 datasheet.'' [Online]. Available:
   \url{https://www.bitcraze.io/documentation/hardware/crazyflie_2_1/crazyflie_2_1-datasheet.pdf}
 \BIBentrySTDinterwordspacing
 
+\bibitem{SIL2021}
+\BIBentryALTinterwordspacing
+``Smart grid simulation archives.'' [Online]. Available:
+  \url{https://hivepower.tech/tag/smart-grid-simulation/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{px4_autopilot_2021}
+\BIBentryALTinterwordspacing
+``Open source autopilot for drones,'' Jul 2021. [Online]. Available:
+  \url{https://px4.io/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{acados2019}
 R.~Verschueren, G.~Frison, D.~Kouzoupis, N.~van Duijkeren, A.~Zanelli,
   B.~Novoselnik, J.~Frey, T.~Albin, R.~Quirynen, and M.~Diehl, ``acados: a
