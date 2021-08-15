@@ -27,7 +27,7 @@
 \contentsline {paragraph}{Order reduction techniques}{26}{subsection.1.4.5}%
 \contentsline {paragraph}{Explicit MPC}{26}{subsection.1.4.5}%
 \contentsline {paragraph}{Sub-optimal Solution}{27}{figure.caption.16}%
-\contentsline {subsection}{\numberline {1.4.6}MPC applications on quadrotors}{28}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.6}MPC Applications on Quadrotors}{28}{subsection.1.4.6}%
 \contentsline {subsubsection}{\numberline {1.4.6.1}Centralized MPC}{28}{subsubsection.1.4.6.1}%
 \contentsline {subsubsection}{\numberline {1.4.6.2}Non-centralized MPC}{29}{subsubsection.1.4.6.2}%
 \contentsline {section}{\numberline {1.5}acados – Fast Embedded Optimal Control Solvers}{30}{section.1.5}%

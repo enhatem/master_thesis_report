@@ -702,7 +702,7 @@ It is another method to improve the computational time of the MPC controller. In
 
 \noindent As can be seen from figure \ref{Suboptimal_solution_example}, the optimal solution is reached in 10 iterations. However, the controller will stop at iteration 5 and take the sub-optimal solution. Moreover, it is important to note that the sub-optimal solution still satisfies all the constraints of the optimization problem. The only question that remain is how to determine the maximum number of iterations. This can be done by testing the algorithm on the hardware directly and identifying the execution time used by each iteration. Then, the maximum number of iterations is chosen such that the total execution time does not exceed the sample time of the controller.
 
-\subsection{MPC applications on quadrotors}
+\subsection{MPC Applications on Quadrotors}
 
  There have been numerous applications of MPC on quadrotors. The main MPC applications on drones can be separated into two different categories:
 
@@ -829,7 +829,6 @@ By performing multiple shooting discretization on the continuous-time optimal co
 
 The general form of the resulting nonlinear program that can be handled by \texttt{acados} is:
 
-The resulting (general form) NLP problem becomes:
     \begin{equation}\label{NLP}
         \begin{aligned}
         \min_{\substack{x_0,\ldots,x_N\\ u_0,\ldots, u_{N-1} \\ z_0,\ldots, z_{N-1}\\  s_0, \ldots, s_N}} \quad & \sum_{k=0}^{N-1}{l_k(x_k, u_k, z_k) + M(x_N) + \sum_{k=0}^N \rho_k(s_k)}\\
@@ -2966,7 +2965,7 @@ So, an optimization problem has to be defined in order to compute the proper val
 		\end{bmatrix}
 \end{equation}
 
-So, the variables of the optimization problem is the elements of vector $\bm{p}$. In addition, a widely used objective function that can be used is the integral of motor torques squared: 
+So, the variables of the optimization problem are the elements of vector $\bm{p}$. In addition, a widely used objective function that can be used in this case is the integral of motor torques squared: 
 
 \begin{equation}\label{objective_function}
 	J (\bm{p}) = \int_0^t u_1^2
@@ -2988,13 +2987,25 @@ In addition, there exist a set of nonlinear inequality  constraints in order to 
 	\bm{c}(\bm{p}) \leq \bm{0}
 \end{equation}
 
-It should be noted that trajectories will be generated at each iteration during the optimization problem. Then the set of $\ddot{\bm{z}}$ and $\bm{\phi}$ values will be extracted from the trajectory and used to compute the total thrust vector $\bm{u}_1$, which contains the value of the total thrust throughout the trajectory using the expression of $\ddot{z}$ in equation (\ref{dynamics_planar_quadrotor}), which can be rewritten as follows:  
+It should be noted that trajectories will be generated at each iteration during the optimization problem. Then the set of $\ddot{\bm{z}}$ and $\bm{\phi}$ values will be extracted from the trajectory and used to compute the total thrust vector $\bm{u}_1$, which contains the value of the total thrust throughout the trajectory using the expression of $\ddot{\bm{z}}$ in equation (\ref{dynamics_planar_quadrotor}), which can be rewritten as follows:  
 
 \begin{equation}
 	\bm{u}_1 = \frac{m(\ddot{\bm{z}} + \bm{g})}{\cos \bm{\phi}}
 \end{equation}
 
-However, it should be noted that the torque $u_2$ was not taken into consideration in the optimization problem, since no solution could be found when it was considered. As a result, a very small weight will be assigned to the torque reference when performing the flip trajectory in the planar case. As for the 3D quadrotor case, the torque is not a control input, since the angular rates are used as control inputs instead. So, the torque reference will not be used at all. And, it will be demonstrated that better results will be obtained in the 3D quadrotor case.
+Moreover, the torque vector $\bm{u}_2$ can be computed using:
+
+\begin{equation}
+	\bm{u}_2 = I_{xx} \ddot{\bm{\phi}}
+\end{equation}
+
+Naturally, the values of the thrust $u_1$ and torque $u_2$ throughout the trajectory were also taken into account in the optimization problem. This must be done in order to ensure that the found trajectory will be feasible for the quadrotor at hand, namely, the Crazyflie 2.1 .
+
+\begin{align}
+	u_{1_{min}} &< u_1 < u_{1_{max}} \\
+	u_{2_{min}} &< u_2 < u_{2_{max}} 
+\end{align}
+
 Furthermore, the following set of inequality constraints were added to help the solver generate trajectories that are concave:
 
 \begin{align}
@@ -3017,42 +3028,42 @@ In conclusion, the overall parameter optimization problem can be expressed as fo
         \end{aligned}
 \end{equation}
 
-Different algorithms that are implemented in \texttt{MATLAB} were tested to find the best solution for this optimization problem, such as \texttt{fmincon}, \texttt{ga} (genetic algorithm) and \texttt{patternsearch}. However, the most promising solution was found using \texttt{fmincon}.
+Different solvers that are implemented in \texttt{MATLAB} were tested to find the best solution for this optimization problem, such as \texttt{fmincon}, \texttt{ga} (genetic algorithm) and \texttt{patternsearch}. However, the only solver that was able to find a solution for the optimization problem was \texttt{GlobalSearch}.
 
 \newpage
 
-At the the of the optimization process, \texttt{fmincon} outputs the following message:
+At the end of the optimization process, \texttt{GlobalSearch} outputs the following message:
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.7\textwidth]{Images/optimization/fmincon.png}
-	\caption{Output of fmincon at the end of the optimization process}
+	\includegraphics[width=0.9\textwidth]{Images/optimization/solution.png}
+	\caption{Output of \texttt{GlobalSearch} at the end of the optimization process}
 	\label{fmincon_output}
 \end{figure}
 
-As can be seen from figure \ref{fmincon_output}, \texttt{fmincon} has stopped because it has found a local minimum that satisfies the constraints to within the default constraint tolerance. Moreover, the solution found for the parameters in vector $\bm{p}$ result in the following trajectory:
+As can be seen from figure \ref{fmincon_output}, \texttt{GlobalSearch} has stopped because it has found a solution that satisfies the constraints to within the default constraint tolerance. Moreover, the solution found for the parameters in vector $\bm{p}$ result in the following trajectory:
 
 \begin{figure}[h]
-	\begin{subfigure}{0.48\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\linewidth]{Images/optimization/trajectory.png}
 		\caption{Trajectory along the $y-z$ plane} \label{fig:y_z_fmincon}
 	\end{subfigure}\hspace*{\fill}
-	\begin{subfigure}{0.48\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\linewidth]{Images/optimization/z.png}
 		\caption{Trajectory along z.} \label{fig:z_fmincon}
 	\end{subfigure}
 
 \medskip
-	\begin{subfigure}{0.48\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\linewidth]{Images/optimization/phi.png}
 		\caption{Trajectory along $\phi$.} \label{fig:phi_fmincon}
 	\end{subfigure}\hspace*{\fill}
-	\begin{subfigure}{0.48\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\linewidth]{Images/optimization/y}
 		\caption{Trajectory along $y$.} \label{fig:y_fmincon}
 	\end{subfigure}
 
-	\caption{Resulting trajectory from the solution of the optimization problem using \texttt{fmincon}.} \label{fig:trajectory_fmincon}
+	\caption{Resulting trajectory from the solution of the optimization problem using \texttt{GlobalSearch}.} \label{fig:trajectory_fmincon}
 \end{figure}
 
 \newpage

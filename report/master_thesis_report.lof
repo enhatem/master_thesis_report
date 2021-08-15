@@ -33,8 +33,8 @@
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Simulation of the planar quadrotor following a circular trajectory under the presence of disturbance on the state measurement and on the control inputs.\relax }}{63}{figure.caption.36}%
 \contentsline {figure}{\numberline {2.12}{\ignorespaces Simulation of the 3D quadrotor following a circular trajectory without noise.\relax }}{64}{figure.caption.37}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Output of fmincon at the end of the optimization process\relax }}{75}{figure.caption.38}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Resulting trajectory from the solution of the optimization problem using \texttt {fmincon}.\relax }}{75}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Output of \texttt {GlobalSearch} at the end of the optimization process\relax }}{75}{figure.caption.38}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Resulting trajectory from the solution of the optimization problem using \texttt {GlobalSearch}.\relax }}{75}{figure.caption.39}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Simulation of the planar quadrotor tracking a flip trajectory without noise.\relax }}{77}{figure.caption.40}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Simulation of the planar quadrotor tracking a flip trajectory with noise.\relax }}{78}{figure.caption.41}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Simulation of the 3D quadrotor tracking a flip trajectory without noise.\relax }}{79}{figure.caption.42}%
