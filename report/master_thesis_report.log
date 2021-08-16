@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  16 AUG 2021 00:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  16 AUG 2021 10:00
 entering extended mode
 **./master_thesis_report.tex
 (master_thesis_report.tex
@@ -1464,7 +1464,7 @@ Package pdftex.def Info: Images/optimization/y.png  used on input line 3062.
  (PNG copy)> <./Images/optimization/z.png (PNG copy)> <./Images/optimization/ph
 i.png (PNG copy)> <./Images/optimization/y.png (PNG copy)>] [76]
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/sim.png, 
-id=1463, 578.16pt x 397.485pt>
+id=1462, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/sim.
 png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/sim.p
@@ -1473,7 +1473,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noiseless/sim.png  used on input line 3095.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/posStates
-.png, id=1464, 578.16pt x 397.485pt>
+.png, id=1463, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/posS
 tates.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/posSt
@@ -1482,7 +1482,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noiseless/posStates.png  used on input line 3099.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/rateState
-s.png, id=1465, 578.16pt x 397.485pt>
+s.png, id=1464, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/rate
 States.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/rateS
@@ -1491,7 +1491,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noiseless/rateStates.png  used on input line 3105.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/controlIn
-puts.png, id=1466, 578.16pt x 397.485pt>
+puts.png, id=1465, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/cont
 rolInputs.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/contr
@@ -1500,7 +1500,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noiseless/controlInputs.png  used on input line 3109.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Errors_po
-sition.png, id=1467, 578.16pt x 397.485pt>
+sition.png, id=1466, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Erro
 rs_position.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Error
@@ -1509,7 +1509,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noiseless/Errors_position.png  used on input line 3115.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Errors_ve
-locities.png, id=1468, 578.16pt x 397.485pt>
+locities.png, id=1467, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Erro
 rs_velocities.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Error
@@ -1518,7 +1518,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noiseless/Errors_velocities.png  used on input line 3119.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/sim.png, id=1
-469, 578.16pt x 397.485pt>
+468, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/sim.png 
 Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/sim.png>
@@ -1526,7 +1526,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noisy/sim.png  used on input line 3129.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/posStates.png
-, id=1470, 578.16pt x 397.485pt>
+, id=1469, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/posState
 s.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/posStates
@@ -1535,7 +1535,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noisy/posStates.png  used on input line 3133.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/rateStates.pn
-g, id=1471, 578.16pt x 397.485pt>
+g, id=1470, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/rateStat
 es.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/rateState
@@ -1544,7 +1544,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noisy/rateStates.png  used on input line 3139.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/controlInputs
-.png, id=1472, 578.16pt x 397.485pt>
+.png, id=1471, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/controlI
 nputs.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/controlIn
@@ -1553,7 +1553,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noisy/controlInputs.png  used on input line 3143.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_positi
-on.png, id=1473, 578.16pt x 397.485pt>
+on.png, id=1472, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_p
 osition.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_po
@@ -1562,7 +1562,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/planar_quadr
 otor/noisy/Errors_position.png  used on input line 3149.
 (pdftex.def)             Requested size: 232.17242pt x 159.61589pt.
 <Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_veloci
-ties.png, id=1474, 578.16pt x 397.485pt>
+ties.png, id=1473, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_v
 elocities.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_ve
@@ -1587,7 +1587,7 @@ ges/acados_simulations/flip_trajectory/planar_quadrotor/noisy/rateStates.png> <
 s.png> <./Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Erro
 rs_position.png> <./Images/acados_simulations/flip_trajectory/planar_quadrotor/
 noisy/Errors_velocities.png>]
-<Images/acados_simulations/flip_trajectory/3D_quadrotor/sim3D.png, id=1496, 578
+<Images/acados_simulations/flip_trajectory/3D_quadrotor/sim3D.png, id=1495, 578
 .16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/sim3D.png Graphic 
 file (type png)
@@ -1595,7 +1595,7 @@ file (type png)
 Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /sim3D.png  used on input line 3168.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
-<Images/acados_simulations/flip_trajectory/3D_quadrotor/posStates.png, id=1497,
+<Images/acados_simulations/flip_trajectory/3D_quadrotor/posStates.png, id=1496,
  578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/posStates.png Grap
 hic file (type png)
@@ -1604,14 +1604,14 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /posStates.png  used on input line 3172.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
 <Images/acados_simulations/flip_trajectory/3D_quadrotor/angleStates.png, id=149
-8, 578.16pt x 397.485pt>
+7, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/angleStates.png Gr
 aphic file (type png)
 <use Images/acados_simulations/flip_trajectory/3D_quadrotor/angleStates.png>
 Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /angleStates.png  used on input line 3178.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
-<Images/acados_simulations/flip_trajectory/3D_quadrotor/velStates.png, id=1499,
+<Images/acados_simulations/flip_trajectory/3D_quadrotor/velStates.png, id=1498,
  578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/velStates.png Grap
 hic file (type png)
@@ -1619,8 +1619,8 @@ hic file (type png)
 Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /velStates.png  used on input line 3182.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
-<Images/acados_simulations/flip_trajectory/3D_quadrotor/thrustInput.png, id=150
-0, 578.16pt x 397.485pt>
+<Images/acados_simulations/flip_trajectory/3D_quadrotor/thrustInput.png, id=149
+9, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/thrustInput.png Gr
 aphic file (type png)
 <use Images/acados_simulations/flip_trajectory/3D_quadrotor/thrustInput.png>
@@ -1628,7 +1628,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /thrustInput.png  used on input line 3188.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
 <Images/acados_simulations/flip_trajectory/3D_quadrotor/angulareRatesInputs.png
-, id=1501, 578.16pt x 397.485pt>
+, id=1500, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/angulareRatesInput
 s.png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/3D_quadrotor/angulareRatesInputs
@@ -1637,7 +1637,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /angulareRatesInputs.png  used on input line 3192.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
 <Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_position.png, id
-=1502, 578.16pt x 397.485pt>
+=1501, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_position.pn
 g Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_position.png
@@ -1646,7 +1646,7 @@ Package pdftex.def Info: Images/acados_simulations/flip_trajectory/3D_quadrotor
 /Errors_position.png  used on input line 3198.
 (pdftex.def)             Requested size: 217.66211pt x 149.63875pt.
 <Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_velocities.png, 
-id=1503, 578.16pt x 397.485pt>
+id=1502, 578.16pt x 397.485pt>
 File: Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_velocities.
 png Graphic file (type png)
 <use Images/acados_simulations/flip_trajectory/3D_quadrotor/Errors_velocities.p
@@ -1672,7 +1672,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3240--3240
  / ls2n _ drone _ ros2 / -[] / tree / elie _ dev / ls2n _
  []
 
-<Images/diagrams/new_sim_diagram.png, id=1531, 1037.8775pt x 254.9525pt>
+<Images/diagrams/new_sim_diagram.png, id=1530, 1037.8775pt x 254.9525pt>
 File: Images/diagrams/new_sim_diagram.png Graphic file (type png)
 <use Images/diagrams/new_sim_diagram.png>
 Package pdftex.def Info: Images/diagrams/new_sim_diagram.png  used on input lin
@@ -1681,7 +1681,7 @@ e 3249.
 [81
 
  <./Images/diagrams/new_sim_diagram.png>]
-<Images/sil_simulations/ros2_node_diagram.png, id=1544, 1168.365pt x 469.755pt>
+<Images/sil_simulations/ros2_node_diagram.png, id=1543, 1168.365pt x 469.755pt>
 
 File: Images/sil_simulations/ros2_node_diagram.png Graphic file (type png)
 <use Images/sil_simulations/ros2_node_diagram.png>
@@ -1725,50 +1725,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 3280--3281
  []
 
 [83]
-<Images/sil_simulations/performedTraj.png, id=1562, 462.528pt x 346.896pt>
+<Images/sil_simulations/performedTraj.png, id=1561, 462.528pt x 346.896pt>
 File: Images/sil_simulations/performedTraj.png Graphic file (type png)
 <use Images/sil_simulations/performedTraj.png>
 Package pdftex.def Info: Images/sil_simulations/performedTraj.png  used on inpu
 t line 3354.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/posStates.png, id=1563, 462.528pt x 346.896pt>
+<Images/sil_simulations/posStates.png, id=1562, 462.528pt x 346.896pt>
 File: Images/sil_simulations/posStates.png Graphic file (type png)
 <use Images/sil_simulations/posStates.png>
 Package pdftex.def Info: Images/sil_simulations/posStates.png  used on input li
 ne 3358.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/angleStates.png, id=1564, 462.528pt x 346.896pt>
+<Images/sil_simulations/angleStates.png, id=1563, 462.528pt x 346.896pt>
 File: Images/sil_simulations/angleStates.png Graphic file (type png)
 <use Images/sil_simulations/angleStates.png>
 Package pdftex.def Info: Images/sil_simulations/angleStates.png  used on input 
 line 3364.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/velStates.png, id=1565, 462.528pt x 346.896pt>
+<Images/sil_simulations/velStates.png, id=1564, 462.528pt x 346.896pt>
 File: Images/sil_simulations/velStates.png Graphic file (type png)
 <use Images/sil_simulations/velStates.png>
 Package pdftex.def Info: Images/sil_simulations/velStates.png  used on input li
 ne 3368.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/thrustInput.png, id=1566, 462.528pt x 346.896pt>
+<Images/sil_simulations/thrustInput.png, id=1565, 462.528pt x 346.896pt>
 File: Images/sil_simulations/thrustInput.png Graphic file (type png)
 <use Images/sil_simulations/thrustInput.png>
 Package pdftex.def Info: Images/sil_simulations/thrustInput.png  used on input 
 line 3374.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/angulareRatesInputs.png, id=1567, 462.528pt x 346.896pt
+<Images/sil_simulations/angulareRatesInputs.png, id=1566, 462.528pt x 346.896pt
 >
 File: Images/sil_simulations/angulareRatesInputs.png Graphic file (type png)
 <use Images/sil_simulations/angulareRatesInputs.png>
 Package pdftex.def Info: Images/sil_simulations/angulareRatesInputs.png  used o
 n input line 3378.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/Errors_position.png, id=1568, 462.528pt x 346.896pt>
+<Images/sil_simulations/Errors_position.png, id=1567, 462.528pt x 346.896pt>
 File: Images/sil_simulations/Errors_position.png Graphic file (type png)
 <use Images/sil_simulations/Errors_position.png>
 Package pdftex.def Info: Images/sil_simulations/Errors_position.png  used on in
 put line 3384.
 (pdftex.def)             Requested size: 207.9861pt x 155.99059pt.
-<Images/sil_simulations/Errors_velocities.png, id=1569, 462.528pt x 346.896pt>
+<Images/sil_simulations/Errors_velocities.png, id=1568, 462.528pt x 346.896pt>
 File: Images/sil_simulations/Errors_velocities.png Graphic file (type png)
 <use Images/sil_simulations/Errors_velocities.png>
 Package pdftex.def Info: Images/sil_simulations/Errors_velocities.png  used on 
@@ -1907,9 +1907,9 @@ ts/type1/public/amsfonts/cm/cmti12.pfb></home/elie/.miktex/texmfs/install/fonts
 ype1/public/amsfonts/cm/cmtt12.pfb></home/elie/.miktex/texmfs/install/fonts/typ
 e1/public/amsfonts/symbols/msam10.pfb></home/elie/.miktex/texmfs/install/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on master_thesis_report.pdf (99 pages, 14866183 bytes).
+Output written on master_thesis_report.pdf (99 pages, 14891871 bytes).
 PDF statistics:
- 1882 PDF objects out of 2073 (max. 8388607)
+ 1881 PDF objects out of 2073 (max. 8388607)
  461 named destinations out of 1000 (max. 500000)
  1078 words of extra memory for PDF output out of 10000 (max. 10000000)
 
