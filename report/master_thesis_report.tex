@@ -98,6 +98,7 @@ Finally, I would like to thank everyone who will take the time to read my master
   \textbf{KF} & Kalman filter \\
   \textbf{EKF} & extended Kalman filter \\
   \textbf{SIL} & software-in-the-loop \\
+  \textbf{Mocap} & Motion Capture \\
   
   
  \end{tabular}\\
@@ -2406,11 +2407,11 @@ In this section, simulations will be performed to follow a circular trajectory i
 
 \subsubsection*{Noiseless measurements}
 
-As can be seen in figure \ref{fig:planar_sim_noiseless}, the MPC controller was able to output control inputs that allowed the quadrotor to follow a circular trajectory. By looking at the control inputs in subfigure \ref{fig:planar_sim_control_inputs_noiseless}, the thrust control input dips for a time instant just before the circular trajectory starts, then the thrust control input saturates until the desired velocities of the trajectory is reached, and then the thrust oscillates throughout the circular trajectory. Furthermore, by looking at subfigure \ref{fig:planar_sim_pose_noiseless}, it is evident that the circular trajectory along $y$ and $z$ is being followed perfectly. And, by looking at the error plots in subfigure \ref{fig:planar_sim_error_pose_noiseless}, it is clear that the errors along $y$ and $z$ are very small. Finally, by looking at the velocity states and their errors in subfigures \ref{fig:planar_sim_velocities_noiseless} and \ref{fig:planar_sim_error_velocities_noiseless}, respectively, it is clear that the largest errors occur at the beginning of the trajectory when the thrust input is saturated. Then, the errors decrease significantly when the desired velocities are reached and the planar quadrotor starts to follow the circular trajectory.
+As can be seen in figure \ref{fig:planar_sim_noiseless}, the MPC controller was able to output control inputs that allowed the quadrotor to follow a circular trajectory. By looking at the control inputs in sub-figure \ref{fig:planar_sim_control_inputs_noiseless}, the thrust control input dips for a time instant just before the circular trajectory starts, then the thrust control input saturates until the desired velocities of the trajectory is reached, and then the thrust oscillates throughout the circular trajectory. Furthermore, by looking at sub-figure \ref{fig:planar_sim_pose_noiseless}, it is evident that the circular trajectory along $y$ and $z$ is being followed perfectly. And, by looking at the error plots in sub-figure \ref{fig:planar_sim_error_pose_noiseless}, it is clear that the errors along $y$ and $z$ are very small. Finally, by looking at the velocity states and their errors in sub-figures \ref{fig:planar_sim_velocities_noiseless} and \ref{fig:planar_sim_error_velocities_noiseless}, respectively, it is clear that the largest errors occur at the beginning of the trajectory when the thrust input is saturated. Then, the errors decrease significantly when the desired velocities are reached and the planar quadrotor starts to follow the circular trajectory.
 
 \subsubsection*{Noisy Measurements and Control Inputs}
 
-During this simulation, the MPC controller was working under the presence of white Gaussian noise on the state measurement and on the control inputs at each time instant. By looking at figure \ref{fig:planar_sim_noisy}, the extended Kalman filter was able to filter out most of noise. By looking at the error plots on $y$ and $z$ in subfigure \ref{fig:planar_sim_error_pose_noisy}, it is evident that the extended Kalman filter helped reduce the error greatly in the $y$ position, and it also managed to reduce the error slightly in the $z$ position.
+During this simulation, the MPC controller was working under the presence of white Gaussian noise on the state measurement and on the control inputs at each time instant. By looking at figure \ref{fig:planar_sim_noisy}, the extended Kalman filter was able to filter out most of noise. By looking at the error plots on $y$ and $z$ in sub-figure \ref{fig:planar_sim_error_pose_noisy}, it is evident that the extended Kalman filter helped reduce the error greatly in the $y$ position, and it also managed to reduce the error slightly in the $z$ position.
 
 \newpage
 
@@ -2536,7 +2537,7 @@ In the case of the 3D quadrotor, simulations will only be done without noise sin
 
 \newpage 
 
-As can be seen in figure \ref{fig:3D_sim_circular}, the 3D quadrotor is able to follow the 3D trajectory. By looking at subfigure \ref{fig:3D_sim_thrust_input}, similarly to the planar quadrotor case, the thrust dips at the beginning of the circular trajectory for a time instant, then it saturates until the desired velocity is reached, then it settles at around $0.345N$ for the remaining of the circular trajectory. And, by looking at subfigure \ref{fig:3D_sim_pose}, it is clear that the quadrotor is able to follow the circular trajectory perfectly with very minimal errors on $x,y$ and $z$. Finally, by looking at the errors plots in subfigures \ref{fig:3D_sim_errors_pose} and \ref{fig:3D_sim_errors_velocities}, it is evident that the largest amount of errors occur just when the 3D quadrotor switches from the hovering phase to tracking the circular trajectory. Then, the errors oscillate around zero after the thrust input saturates and settles at $0.345N$ throughout the trajectory.
+As can be seen in figure \ref{fig:3D_sim_circular}, the 3D quadrotor is able to follow the 3D trajectory. By looking at subfigure \ref{fig:3D_sim_thrust_input}, similarly to the planar quadrotor case, the thrust dips at the beginning of the circular trajectory for a time instant, then it saturates until the desired velocity is reached, then it settles at around $0.345N$ for the remaining of the circular trajectory. And, by looking at sub-figure \ref{fig:3D_sim_pose}, it is clear that the quadrotor is able to follow the circular trajectory perfectly with very minimal errors on $x,y$ and $z$. Finally, by looking at the errors plots in sub-figures \ref{fig:3D_sim_errors_pose} and \ref{fig:3D_sim_errors_velocities}, it is evident that the largest amount of errors occur just when the 3D quadrotor switches from the hovering phase to tracking the circular trajectory. Then, the errors oscillate around zero after the thrust input saturates and settles at $0.345N$ throughout the trajectory.
 
 \newpage
 
@@ -3076,10 +3077,10 @@ In this section, simulations in acados will be performed on the planar quadrotor
 
 \subsubsection*{Noiseless Measurements}
 
-As can be seen in figure \ref{fig:flip_planar_sim_noiseless}, the MPC controller was able to output control inputs that allowed the quadrotor to track the flip trajectory with minimal errors. By looking at the control inputs in subfigure \ref{fig:flip_planar_sim_control_inputs_noiseless}, there are some differences between the reference thrust and torque and the actual thrust and torques. And, the thrust and torque inputs barely saturate. In addition, it is clear that the thrust never reaches the value of 0, since this is a constraint that was set on the MPC controller. Finally, by looking at the position error plots in subfigure \ref{fig:flip_planar_sim_error_pose_noiseless}, it is evident that the errors on $y$, $z$ and $\phi$ are very small, and the largest errors are occurring during the flip phase. This is mainly because the the thrust reference during the flip phase is 0, which cannot be attained by the MPC controller.
+As can be seen in figure \ref{fig:flip_planar_sim_noiseless}, the MPC controller was able to output control inputs that allowed the quadrotor to track the flip trajectory with minimal errors. By looking at the control inputs in subfigure \ref{fig:flip_planar_sim_control_inputs_noiseless}, there are some differences between the reference thrust and torque and the actual thrust and torques. And, the thrust and torque inputs barely saturate. In addition, it is clear that the thrust never reaches the value of 0, since this is a constraint that was set on the MPC controller. Finally, by looking at the position error plots in sub-figure \ref{fig:flip_planar_sim_error_pose_noiseless}, it is evident that the errors on $y$, $z$ and $\phi$ are very small, and the largest errors are occurring during the flip phase. This is mainly because the the thrust reference during the flip phase is 0, which cannot be attained by the MPC controller.
 
 \subsubsection*{Noiseless Measurements and Control Inputs}
-As can be seen in figure \ref{fig:flip_planar_sim_noisy}, it is evident that despite the noise on the measurements and the control inputs, the MPC controller was still able to output control inputs that allowed the quadrotor to track the flip trajectory at the cost of larger errors, which were minimized by the use of the extended Kalman filter. By looking at the control inputs in subfigure \ref{fig:flip_planar_sim_control_inputs_noisy}, the thrust and torque inputs oscillate at the initial hovering phase of 2 seconds. This is the result of the added noise on both the state measurement vector and the control inputs. And, it is evident that the MPC controller is trying to track the trajectory as close as possible despite the added noise. Finally, by looking at the position error plots in subfigure \ref{fig:flip_planar_sim_error_pose_noisy}, it is clear that there are more errors on $y$, $z$ and $\phi$ when compared to the noiseless simulation. However, the extended Kalman filter was able to reduce this error greatly along the $y$ coordinate of the trajectory.
+As can be seen in figure \ref{fig:flip_planar_sim_noisy}, it is evident that despite the noise on the measurements and the control inputs, the MPC controller was still able to output control inputs that allowed the quadrotor to track the flip trajectory at the cost of larger errors, which were minimized by the use of the extended Kalman filter. By looking at the control inputs in sub-figure \ref{fig:flip_planar_sim_control_inputs_noisy}, the thrust and torque inputs oscillate at the initial hovering phase of 2 seconds. This is the result of the added noise on both the state measurement vector and the control inputs. And, it is evident that the MPC controller is trying to track the trajectory as close as possible despite the added noise. Finally, by looking at the position error plots in sub-figure \ref{fig:flip_planar_sim_error_pose_noisy}, it is clear that there are more errors on $y$, $z$ and $\phi$ when compared to the noiseless simulation. However, the extended Kalman filter was able to reduce this error greatly along the $y$ coordinate of the trajectory.
 
 
 
@@ -3184,7 +3185,7 @@ In the case of the 3D quadrotor, simulations will only be performed without nois
 	\end{subfigure}
 
 \medskip
-	\begin{subfigure}{0.45\textwidth}
+	\begin{subfigure}{0.48\textwidth}
 		\includegraphics[width=\linewidth]{Images/acados_simulations/flip_trajectory/3D_quadrotor/thrustInput.png}
 		\caption{Thrust input.} \label{fig:3D_flip_sim_thrust_input}
 	\end{subfigure}\hspace*{\fill}
@@ -3208,7 +3209,19 @@ In the case of the 3D quadrotor, simulations will only be performed without nois
 
 \newpage
 
-As can be seen from figure \ref{fig:3D_sim_flip}, the 3D quadrotor was able to follow the flip trajectory almost perfectly with very minimal errors on the states. By looking at subfigure \ref{fig:3D_flip_sim_thrust_input}, the MPC controller tried to follow the open-loop control input reference of the thrust as much as possible, and made the required adjustments when it was needed. In addition, the thrust never reached the value of 0 which was the thrust reference during the flip phase, since this is a constraint that was set on the MPC controller. However, the quadrotor was still able to track the flip trajectory with very minimal errors due to the robustness of the MPC controller. Furthermore, by looking at subfigure \ref{fig:3D_flip_sim_rates_input}, the MPC controller was not provided references for the angular rates. And, in order to perform the flip, the angular rate along $x$ ($\omega_x$) was assigned a weight of $10^{-1}$, which made the goal of minimizing $\omega_x$ much less important than the goal of tracking the flip trajectory for the MPC controller. As a result, the MPC controller was free to assign $\omega_x$ larger values within the limits of $[-4 \pi rad/s, 4 \pi rad/s]$, which allowed the quadrotor to follow the flip trajectory with very minimal errors. Finally, by looking at subfigure \ref{fig:3D_flip_sim_errors_pose}, it is evident that the errors along the $y$ and $z$ coordinates are very small. Thus, it can be concluded that the generated flip trajectory is feasible and able to be tracked by the MPC controller in both the planar case and the 3D case.
+As can be seen from figure \ref{fig:3D_sim_flip}, the 3D quadrotor was able to track the flip trajectory almost perfectly with very minimal errors on the states. By looking at sub-figure \ref{fig:3D_flip_sim_thrust_input}, the MPC controller tried to follow the open-loop control input reference of the thrust as much as possible, and made the required adjustments when it was needed. In addition, the thrust never reached the value of 0 which was the thrust reference during the flip phase, since this is a constraint that was set on the MPC controller. However, the quadrotor was still able to track the flip trajectory with very minimal errors due to the robustness of the MPC controller. Furthermore, by looking at sub-figure \ref{fig:3D_flip_sim_rates_input}, it is evident that the MPC controller was provided references for the angular rates as well. This was done by first performing numerical differentiation on the quaternion vector $\bm{q}$ (which was found using the roll, pitch and yaw angles, $\phi, \theta$ and $\psi$, at each waypoint) to find $\dot{\bm{q}}$. Then, the references for the angular rates at each time instant throughout the trajectory were computed using the following \cite{Erskine2021}:
+
+\begin{equation}
+        \dot{\bm{q}}_i = \frac{1}{2} \begin{bmatrix}
+            0 \\ \bm{\omega}_i \\
+        \end{bmatrix} \otimes \bm{q}_i
+    \end{equation}
+    Which can be reformulated to: 
+    \begin{equation}
+        \bm{\omega}_i = 2 \dot{\bm{q}}_i \otimes \bm{q}^{-1}
+    \end{equation}
+
+Thus, as can be seen from sub-figure \ref{fig:3D_flip_sim_rates_input}, the MPC controller tried to track the open-loop control input references of the angular rates as much as possible, and made the required adjustments when it was needed.  Finally, by looking at sub-figure \ref{fig:3D_flip_sim_errors_pose}, it is evident that the errors along the $y$ and $z$ coordinates are very small. Thus, it can be concluded that the generated flip trajectory is feasible and able to be tracked with the high level MPC controller in both the planar case and the 3D case.
 
 
 
@@ -3233,11 +3246,11 @@ The Software-in-the-Loop simulator package \texttt{ls2n\_drone\_ros2}\protect\fo
  was provided by the LS2N lab engineer Dr. Damien Six\protect\footnotemark. Moreover, the MPC controller package was created on a separate branch.
 Interested readers are referred to the \texttt{ls2n\_crazyflie\_nmpc} package\protect\footnotemark on the \texttt{elie-dev} branch in order to have a look at the implemention of the MPC controller in the ROS2 node.	
 
-\footnotetext[1]{\url{https://gitlab.univ-nantes.fr/ls2n-drones/ls2n_drone_ros2}, accessed on 23/08/2021.}
+\footnotetext[1]{\url{https://gitlab.univ-nantes.fr/ls2n-drones/ls2n_drone_ros2}, accessed on 23/07/2021.}
 
-\footnotetext[2]{\url{https://scholar.google.fr/citations?user=3-YYgFAAAAAJ&hl=en}, accessed on 23/08/2021.}
+\footnotetext[2]{\url{https://scholar.google.fr/citations?user=3-YYgFAAAAAJ&hl=en}, accessed on 23/07/2021.}
 
-\footnotetext[3]{\url{https://gitlab.univ-nantes.fr/ls2n-drones/ls2n_drone_ros2/-/tree/elie_dev/ls2n_crazyflie_nmpc}, accessed on 23/08/2021.}
+\footnotetext[3]{\url{https://gitlab.univ-nantes.fr/ls2n-drones/ls2n_drone_ros2/-/tree/elie_dev2/ls2n_crazyflie_nmpc}, accessed on 22/08/2021.}
 	
 	\subsection{Closed-Loop Control Structure of the Software-in-the-Loop}
 
@@ -3284,8 +3297,8 @@ Furthermore, the running, terminal and input weights were retuned:
 \begin{itemize}
 	\item $\bm{Q} = diag(
 	\begin{bmatrix}
-			50 & 50 & 50 & 10 & 10 & 10 & 10 & 1 & 1 & 1\\
-	\end{bmatrix})$
+			10 & 20 & 40 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+	\end{bmatrix})$ : More emphasis on tracking the $z$-coordinate reference since this is where the highest errors occurred.
 	% \begin{bmatrix}
 	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -3301,8 +3314,8 @@ Furthermore, the running, terminal and input weights were retuned:
 	
 	\item $\bm{Q}_e = diag(
 	\begin{bmatrix}
-			50 & 50 & 50 & 10 & 10 & 10 & 10 & 1 & 1 & 1\\
-	\end{bmatrix})$
+			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+	\end{bmatrix})$: It was deduced that terminal weights should not be used in real-time when tracking a trajectory since all waypoints are equally important throughout a trajectory.
 	% \begin{bmatrix}
 	% 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 	% 0 & 50 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -3318,8 +3331,8 @@ Furthermore, the running, terminal and input weights were retuned:
 	
 	\item $\bm{R} =diag(
 	\begin{bmatrix}
-			1 & 10^{-1} & 1 & 1\\
-	\end{bmatrix}) $
+			30 & 1 & 1 & 1\\
+	\end{bmatrix}) $: More important was given to tracking the thrust reference in order to prevent saturation.
 	%\begin{bmatrix}
 	%1 & 0 & 0 & 0 \\
 	%0 & 1 & 0 & 0 \\
@@ -3331,30 +3344,19 @@ Furthermore, the running, terminal and input weights were retuned:
 
 \subsection{SIL Simulation Results}
 
-In order to analyze the data of the Software-in-the-Loop simulation, ROS2 bags were used to record the data during the simulation. Then, the relevant parts of the data were extracted and plotted. The results obtained from the SIL simulation are presented in figure \ref{fig:SIL_flip} in which it is evident that the quadrotor was able to track the flip trajectory with small errors along the $y$ and $z$ coordinates. Moreover, by looking at subfigure \ref{fig:SIL_3D_flip_thrust_input}, similarly to the acados simulations, the MPC controller tried to track the open-loop control input reference of the thrust as much as possible, and made the required adjustments when it was needed. Furthermore, the thrust never reached the value of 0 which was the thrust reference during the flip phase. However, the quadrotor was still able to track the flip trajectory with small errors due to the robustness of the MPC controller. In addition, by looking at subfigure \ref{fig:3D_flip_sim_rates_input}, the MPC controller was not provided references for the angular rates. And, in order to perform the flip, the angular rate along $x$ ($\omega_x$) was assigned a weight of $10^{-1}$, which made the goal of minimizing $\omega_x$ less important than the goal of following the flip trajectory for the MPC controller. However, it should be noted that the weight assigned to $\omega_x$ was slightly higher than the weight assigned to it during the acados simulation in subsection \ref{subsec:acados_simulation_3D_quadrotor_flip}. This is because during the SIL simulation, having a very small weight on $\omega_x$ resulted in a very unstable flight even while just hovering. This is the case because minimizing $\omega_x$ was not important enough for the MPC controller. This resulted in higher values for $\omega_x$ even at a hovering position, which destabilized the quadrotor. For this reason, the weight on $\omega_x$ was slightly increased in order to provide stability during flight, while the MPC is still free to give it high values in order to properly track the flip trajectory. Finally, by looking at subfigure \ref{fig:SIL_3D_flip_errors_pose}, it is evident that the largest errors along the $y$ and $z$ coordinates occur during the flip phase. Then, the errors are driven back to zero during the recovery phase.
-
-
-
-
-
-
-
-
-
-
-
-
-
+In order to analyze the data of the SIL simulation, ROS2 bags were used to record the data during the simulation. Then, the relevant parts of the data were extracted and plotted. The results obtained from the SIL simulation are presented in figure \ref{fig:SIL_flip} in which it is evident that the quadrotor was able to track the flip trajectory with varying  errors along the $x$, $y$ and $z$ coordinates. However, the highest error occurred along the $z$-coordinate. Moreover, by looking at sub-figure \ref{fig:SIL_3D_flip_thrust_input}, similarly to the acados simulations, the MPC controller tried to track the open-loop control input reference of the thrust as much as possible, and made the required adjustments when it was needed. Furthermore, the thrust never reached the value of 0 which was the thrust reference during the flip phase. And, it can be seen that the thrust required at the beginning and at the end of the trajectory is less than the thrust reference. This is due to the quadrotor having a smaller weight in the SIL simulation (since the markers that will be installed on the quadrotor during the experimentation phase were not considered), when compared to the quadrotor weight that was used when generating the flip trajectory, in which the weight of the markers was considered. 
+However, the quadrotor was still able to track the flip trajectory with small errors due to the robustness of the MPC controller. And, it should be noted that the thrust saturated for a few time instants during the reaching phase. And, it also saturated at the beginning the recovery phase, where the maximum thrust should be reached in order to recover the quadrotor and prevent it from crashing.
+In addition, by looking at sub-figure \ref{fig:SIL_3D_flip_rates_input}, the MPC controller tried to track the open-loop control input references of the angular rates as much as possible, and made the required adjustments when it was needed. Finally, by looking at sub-figure \ref{fig:SIL_3D_flip_errors_pose}, it is evident that the largest errors along the $y$ and $z$ coordinates occurred when the thrust is saturated.
 
 
 \newpage
 
 \begin{figure}[H]
-	\begin{subfigure}{0.43\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\linewidth]{Images/sil_simulations/performedTraj.png}
 		\caption{Trajectory followed by the 3D quadrotor} \label{fig:SIL_3D_flip_3d}
 	\end{subfigure}\hspace*{\fill}
-	\begin{subfigure}{0.43\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\linewidth]{Images/sil_simulations/posStates.png}
 		\caption{Position states.} \label{fig:SIL_3D_flip_pose}
 	\end{subfigure}
@@ -3398,15 +3400,29 @@ In order to analyze the data of the Software-in-the-Loop simulation, ROS2 bags w
  
  	\section{Experimentation}
 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth, angle=-90]{Images/crazyflie/experimentation.jpg}
+	\caption{The crazyflie 2.1 quadrotor with the mounted Qualisys Mocap markers}
+	\label{fig:crazyflie_expermientation}
+\end{figure}
+
+To perform experiments, the MPC controller needs to know the position of the quadrotor in real-time in order to compare it with the reference waypoint at the current time instant, find the error that must be minimized, and output the required thrust and angular rates to decrease the error. This can be done by using a motion capture and 3D positioning tracking system such as the Qualisys Mocap which is available in the LS2N lab. However, proper results were not able to be obtained because the Mocap system was having difficulties tracking the small markers on the quadrotor. In addition, the markers are also very close to each other which made it difficult for the Mocap system to recognize them. And, when the Mocap system loses the position of the quadrotor, the MPC controller will only rely on the embedded IMU of the quadrotor, which will cause the measurements to drift until the quadrotor crashes. A suggested solution to this problem for future researchers is to use active markers instead of passive ones, and to use a mount that allows having larger distances between the markers so that they can be properly detected. Another problem that could have occurred if proper results were found is the presence of delay, which is the time it takes for the motors to apply the control inputs that are coming from the MPC controller after they have been computed. And, since the MPC controller computes the control inputs for $N$ time steps at each iteration over a given time horizon, then instead of taking the very first solution that was computed by the MPC controller, it is possible to take the solution of the $i^{th}$ time step which corresponds to the amount of delay that is present.
+
+
+
 \newpage 
  
  \chapter*{Conclusion}
  \addcontentsline{toc}{chapter}{Conclusion}
  
- As can be deduced from the previous chapters, performing multi-flip maneuvers with quadrotors is not an easy task to handle. There are several aspects that must be studied and tuned in order to properly control the quadrotor and perform the multi-flip maneuver. First, the dynamic model of the quadrotor must be very thorough and robust in order to have a good representation of the system in simulations and to reduce the errors which result from aerodynamic effects that are usually hard to properly estimate. But on the other hand, the complexity of the dynamics of the quadrotor must be reduced and simplified in order to satisfy the real-time limitations of the embedded control loop.
-Furthermore, different MPC controllers were designed and tested. And, it is evident from the simulations that using MPC controllers to track aggressive trajectory with quadrotors is a good approach since it provides robustness against perturbations that might affect the system. In addition, due to the robustness of MPC, it allowed the quadrotors to track flip trajectories even when the designed trajectories were not perfect since the torque was not taken into consideration during the trajectory generation procedure. In addition, MPC can also allow the handling of delays that will occur during the experimentation phase. In order to compensate for the delays, a solution could be that instead of taking the very first control input that is provided by the MPC controller at each time instant, it is possible to take the control input at the time step which is equivalent to the time delay.
-However, despite these promising results, this master thesis should not be seen as a complete and stand-alone work on performing aggressive maneuvers with quadrotors. Instead, it is the foundation for future directions of research. Indeed, a better trajectory generation method could be proposed in order to find a solution while taking the torque input into account. In addition, the problem of performing the flips in constrained environments was not tackled due to the lack of time. Another improvement that can be done is to design and generate 3D spatial flip trajectories which have coordinates along $x,y$ and $z$ instead of just having planar trajectories with coordinates along $y$ and $z$ only.
- 
+ As can be deduced from the previous chapters, performing multi-flip maneuvers with quadrotors is not an easy task to handle. There are several aspects that must be studied and tuned in order to properly control the quadrotor and perform the multi-flip maneuvers. First, the dynamic model of the quadrotor must be very thorough and robust in order to have a good representation of the system in simulations and to reduce the errors which result from aerodynamic effects that are usually hard to properly estimate. But on the other hand, the complexity of the dynamics of the quadrotor must be reduced and simplified in order to satisfy the real-time limitations of the embedded control loop.
+Furthermore, it was shown that using Model Predictive Control (MPC) is a great option that allowed tackling the problem of tracking aggressive maneuvers in which the singularity configuration of the quadrotor must be crossed several times. And, this proved the robustness aspect of MPC controllers and their ability to adapt to perturbations in real-time.
+In addition, MPC can also allow the handling of delays that typically occurs while perfoming experimentation. In order to compensate for the delays, a solution could be that instead of taking the very first control input that is provided by the MPC controller at each time instant, it is possible to take the control input provided by the MPC controller for the time instant which is equivalent to the time delay.
+However, despite these promising results, this master thesis should not be seen as a complete and stand-alone work on performing aggressive maneuvers with quadrotors. Instead, it is the foundation for future directions of research. 
+Indeed, the problem of performing the flips in constrained environments was not tackled due to the lack of time. 
+Furthermore, since it was proven that a planar flip trajectory is feasible, a better trajectory generation method could be proposed in order to generate 3D spatial flip trajectories which have coordinates along the $x,y$ and $z$ instead of just having planar trajectories with coordinates along $y$ and $z$ only. Finally, it should be noted that smaller and more compact flip trajectories could have been found if the quadrotor that was used had a larger thrust to weight ratio.
  
  
  % switch to A-B-C chaptering

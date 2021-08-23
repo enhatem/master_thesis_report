@@ -42,5 +42,6 @@
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Diagram of the resulting non-centralized MPC closed-loop control structure.\relax }}{81}{figure.caption.43}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Diagram showing how the MPC node and the quadrotor node communicate with each other.\relax }}{82}{figure.caption.44}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Software-in-the-Loop simulation of a 3D quadrotor tracking a flip trajectory.\relax }}{84}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces The crazyflie 2.1 quadrotor with the mounted Qualisys Mocap markers\relax }}{85}{figure.caption.46}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

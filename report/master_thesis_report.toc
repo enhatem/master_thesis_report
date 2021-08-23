@@ -86,7 +86,7 @@
 \contentsline {subsection}{\numberline {4.1.2}Design of the ROS2 MPC Controller Node}{82}{subsection.4.1.2}%
 \contentsline {subsection}{\numberline {4.1.3}SIL Simulation Results}{83}{subsection.4.1.3}%
 \contentsline {section}{\numberline {4.2}Experimentation}{85}{section.4.2}%
-\contentsline {chapter}{Conclusion}{86}{chapter*.46}%
+\contentsline {chapter}{Conclusion}{86}{chapter*.47}%
 \contentsline {chapter}{\numberline {A}Transformation of the MPC Problem to a Quadratic Program}{87}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Sequential Quadratic Programming and Real-Time Iterations in acados}{89}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Components of an Embedded SQP Algorithm}{89}{section.B.1}%
