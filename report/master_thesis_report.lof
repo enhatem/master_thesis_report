@@ -25,7 +25,7 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Representation of a planar drone. \cite {planar_quadrotor_figure}\relax }}{44}{figure.caption.28}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Diagram of the EKF embedded in the crazyflie 2.1 \cite {EKF_bitcraze}.\relax }}{49}{figure.caption.29}%
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Mass of the crazyflie 2.1 equipped with the battery and properllers.\relax }}{52}{figure.caption.30}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 with the maximum added mass that it can support.\relax }}{53}{figure.caption.31}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Mass of the crazyflie 2.1 with some added mass\relax }}{53}{figure.caption.31}%
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Computation of the MPC for a planar quadrotor tracking a 22s trajectory.\relax }}{55}{figure.caption.32}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Computation of the MPC for a 3D quadrotor tracking a $22s$ trajectory.\relax }}{58}{figure.caption.33}%
 \contentsline {figure}{\numberline {2.9}{\ignorespaces Diagram of the MPC closed-loop control structure used in the acados simulations.\relax }}{61}{figure.caption.34}%

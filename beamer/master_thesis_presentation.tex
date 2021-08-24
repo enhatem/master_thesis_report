@@ -42,10 +42,10 @@
 
 \MakeTitleNoFoot
 
-% \begin{frame}[allowframebreaks]
-% 	\frametitle{Table of Contents}
-%     \tableofcontents
-% \end{frame}
+\begin{frame}[allowframebreaks]
+	\frametitle{Table of Contents}
+     \tableofcontents
+\end{frame}
 
 
 \section{Introduction}
@@ -95,15 +95,16 @@ Over the last few years, quadrotors have gained large popularity in academia and
 
 \begin{frame}
 \frametitle{Main Challenges}
+\Fontvi
 
 \begin{block}{One of the main challenges}
-	Capability to design control and planning methods to allow tracking aggressive trajectories.
+	Designing control and planning methods to allow tracking aggressive trajectories.
 \end{block}
 
-This is due to: 
+This difficulty is due to: 
 \begin{itemize}
 	\item The fast dynamics associated with the small dimensions of such agile quadrotors.
-	\item Several dynamic effects that will become important during aggressive flight maneuvers.
+	\item Several dynamic effects will become important to consider during aggressive flight maneuvers.
 	\item The motors will be commanded high speeds and accelerations, which will cause them to saturate and introduce delays.
 \end{itemize}
 
@@ -201,7 +202,7 @@ The goals of the master thesis:
  \end{equation}	
 	
 	
-	 \item Very useful property in under-actuated systems where $m<n$, such as quadrotors.
+	 \item Very useful property in under-actuated systems where $m<n$.
 	 \item Allows to generate trajectories in the lower dimensional space $m$.
 	 \item The trajectories can then be mapped into the full dimensional space $n$.
 	\end{itemize}
@@ -226,7 +227,7 @@ As a result:
 	\item Trajectories can be designed in the 4-dimensional space.
 	\item They can then be mapped to the 6-dimenstional space.
 	\begin{itemize}
-		\item Since the rotational and translational dynamics are tightly coupled.
+		\item This is due to the fact that the rotational and translational dynamics are tightly coupled.
 	\end{itemize}			
 \end{itemize}
 
@@ -464,12 +465,410 @@ with $\alpha_k^i \in \mathbb{R}, \beta_k^i > 0$.
 
 
 
+\section{MPC Design}
+
+\begin{frame}
+	\frametitle{Assumptions used}
+	\Fontvi
+	
+	Assumptions to considered when using the equations of motion in the planar and 3D case:
+	
+	\begin{itemize} % [<+->]
+		\item Rigid structure.
+		\item Symmetric structure.
+		\item CoG and origin of body-fixed frame coincide.
+		\item Propellers are rigid.
+		\item Thrust and drag are proportional to the square of the velocity of the propeller.
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Equations of Motion of the Planar Quadrotor case}
+	\Fontvi
+	
+	The equations of motion of the planar quadrotor are:
+	\begin{equation}\label{dynamics_planar_quadrotor}
+ \begin{cases} 
+       \ddot{y} = - \frac{u_1}{m} \sin{\phi} \\
+       \ddot{z} = - g + \frac{u_1}{m} \cos{\phi} \\
+       \ddot{\phi} = \frac{u_2}{I_{xx}} \\
+   \end{cases}
+\end{equation}
+
+With: 
+
+\begin{itemize}
+	\item $u_1$: Total thrust applied on the planar quadrotor.
+	\item $u_2$: Torque applied by the planar quadrotor along the x-axis.
+\end{itemize}
+
+\end{frame}
 
 
 
+\begin{frame}
+	\frametitle{Equations of Motion of the 3D Quadrotor case}
+	\Fontvi
+	
+	The equations of motion of a quadrotor:
+	$$
+	\text{Translational model: }\left\{
+	\begin{array}{ll}				
+		\dot{\bm{p}_i} &= \bm{v}_i \\
+		\dot{\bm{v}_i} &= 
+		\frac{T}{m} 
+		\begin{bmatrix}
+		2 (q_w q_y + q_x q_z) \\
+		2 (q_y q_z - q_w q_x) \\
+		1 - 2(q_x^2 + q_y^2 ) \\
+		\end{bmatrix} + \bm{g} \\	
+	\end{array}
+	\right.
+	$$
+	$$
+	\text{Rotational model: }\left\{
+	\begin{array}{ll}		
+		\dot{\bm{q}_i} & = \frac{1}{2}
+		\begin{bmatrix}
+		0 \\
+		\bm{\omega}_i \\
+		\end{bmatrix} \otimes \bm{q}_i \\
+		\dot{\bm{\omega}_i} &= \bm{I}_i^{-1} \bm{\tau}_i - \bm{I}_i^{-1} (\bm{\omega}_i \times \bm{I}_i \bm{\omega}_i)
+		\end{array}
+		\right.
+	$$
+		\end{frame}
+
+\begin{frame}
+	\frametitle{Equations of Motion of the 3D Quadrotor case}
+	\Fontvi
+	
+	However, the MPC controller will not account for all of the equations (Non-centralized MPC):
+	$$
+		\text{Treated by the MPC: }\left\{
+		\begin{array}{lll}				
+			\dot{\bm{p}_i} &= \bm{v}_i \\
+			\dot{\bm{v}_i} &= 
+			\frac{T}{m} 
+			\begin{bmatrix}
+				2 (q_w q_y + q_x q_z) \\
+				2 (q_y q_z - q_w q_x) \\
+				1 - 2(q_x^2 + q_y^2 ) \\
+			\end{bmatrix} + \bm{g} \\			
+			\dot{\bm{q}_i} & = \frac{1}{2}
+			\begin{bmatrix}
+				0 \\
+				\bm{\omega}_i \\
+			\end{bmatrix} \otimes \bm{q}_i \\
+		\end{array}
+		\right.
+	$$
+	$$
+			\text{Treated by the L.L. controller: }\left\{
+			\begin{array}{l}	
+				\dot{\bm{\omega}_i} = \bm{I}_i^{-1} \bm{\tau}_i - \bm{I}_i^{-1} (\bm{\omega}_i \times \bm{I}_i \bm{\omega}_i)
+			\end{array}
+			\right.
+	$$
+
+	\begin{alertblock}{Remark}
+		\begin{itemize} %[<+->]
+			\item A low level controller is assumed to exist to map the angular rates inputs $\bm{\omega}$ to the required torques $\bm{\tau}$. 
+			\item The equations above do not represent the complete model of the system.
+			\begin{itemize}
+				\item However, they are sufficient to control the quadrotor.
+			\end{itemize}
+		\end{itemize}
+	\end{alertblock}						
+				
+\end{frame}
 
 
+\begin{frame}
+	\frametitle{Parameters of the Crazyflie 2.1}
+	\Fontvi
+	
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[height=0.5\textheight, angle =-90]{Images/crazyflie/max_thrust.jpg}
+                \caption{Crazyflie 2.1 with added mass}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item $m_{no\_load} =  29.5 g $
+                \item $m_{with\_load} = 47 g $
+                \item $T_{max}^{actual} = (47 \times 10^{-3} kg) 9.81 \frac{m}{s^2} = 0.46N $
+				\item $I_{xx}$ = $1.657171 \times 10^{-5}  kg.m^2$
+				\item $I_{yy}$ = $1.657171 \times 10^{-5}  kg.m^2$
+				\item $I_{zz}$ = $2.9261652 \times 10^{-5} kg.m^2$
+				\item $L = 0.046m$            
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
 
+
+\begin{frame}
+	\frametitle{MPC for the Planar Quadrotor case}
+	
+	For the planar quadrotor case:
+	
+	\begin{equation}\label{mpc_optimization_problem_planar_quadrotor}
+\begin{aligned}
+            \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
+            \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
+             0 &\leq u_1 \leq u_{1_{max}} \\
+             - u_{2_{max}} &\leq u_2 \leq u_{2_{max}}
+        \end{aligned}
+\end{equation}
+with: 
+\begin{multicols}{3}
+\begin{itemize}
+	\item $\bm{V}_x \in \mathbb{R}^{n_y \times n_x}$
+	\item $\bm{V}_u \in \mathbb{R}^{n_y \times n_u}$ 
+	\item $\bm{V}_z \in \mathbb{R}^{n_y \times n_z}$
+	\item $\bm{V}_x^e \in \mathbb{R}^{n_{ye}\times n_x}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{y}_{ref} \in \mathbb{R}^{n_y}$
+	\item $\bm{y}_{ref_e} \in \mathbb{R}^{n_{y_e}}$
+	\item $\bm{W} \in \mathbb{R}^{n_y \times n_y}$
+	\item $\bm{W}_e \in \mathbb{R}^{n_{y_e} \times n_{y_e}}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{Q},\bm{Q}_e \in \mathbb{R}^{n_x \times n_x}$
+	\item $\bm{R} \in \mathbb{R}^{n_u \times n_u}$
+	\item $\bm{W} = diag(\bm{Q},\bm{R}) $
+	\item $\bm{W}_e = \bm{Q}_e $
+\end{itemize}
+\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\frametitle{MPC for the Planar Quadrotor case}
+	
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            The state space variables:
+            \begin{equation}
+                \bm{x} = [y, z, \phi, v_y, v_z, \dot{\phi}]^{\intercal}
+            \end{equation}
+            The state evolves according to: 
+            \begin{equation}
+                \dot{y} = v_y
+            \end{equation}
+            \begin{equation}
+                \dot{z} = v_z
+            \end{equation}
+            \begin{equation}
+                \dot{\phi} = \dot{\phi}
+            \end{equation}
+            \begin{equation}
+                \dot{v}_y = - \frac{u_1}{m} \sin(\phi)
+            \end{equation}
+            \begin{equation}
+                \dot{v}_z = - g + \frac{u_1}{m} \cos(\phi)
+            \end{equation}
+            \begin{equation}
+                \ddot{\phi} = \frac{u_2}{I_{xx}}
+            \end{equation}   
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            Control inputs:
+            $\bm{u} = [u_1, u_2]^{\intercal}$\\
+            Initial condition: \\
+            $\bm{x}_0 = [ y_0, z_0, \phi_0, v_{y_0}, v_{z_0}, \ddot{\phi}_0]^{\intercal}$\\
+            \vfill
+            Desired states: \\
+            $\bm{x}_d = [y_d,z_d,\phi_d, v_{y_d},v_{z_d},\ddot{\phi}_d]^{\intercal}$
+            \vfill
+            MPC parameters: 
+            \begin{itemize}
+                \item $N = 100$
+                \item $T_f = 1s$
+                % \item $T_{sim} = 20$
+            \end{itemize}
+            Maximum thrust and torque:
+            \begin{itemize}
+                \item $u_{1_{max}} = 0.9 \bigg(\frac{0.46 N }{2}\bigg)$
+                \item $u_{2_{max}} = 0.1 \bigg(\frac{1}{2} u_{1_{max}} L \bigg)$ 
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{MPC for the 3D Quadrotor case}
+	
+	For the 3D quadrotor case:
+	\begin{equation}\label{mpc_optimization_problem_3d_quadrotor}
+\begin{aligned}
+            \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
+            \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
+             0 &\leq T \leq T_{max} \\
+             -4 \pi &\leq \omega_x, \omega_y, \omega_z \leq 4 \pi
+        \end{aligned}
+\end{equation}
+with: 
+\begin{multicols}{3}
+\begin{itemize}
+	\item $\bm{V}_x \in \mathbb{R}^{n_y \times n_x}$
+	\item $\bm{V}_u \in \mathbb{R}^{n_y \times n_u}$ 
+	\item $\bm{V}_z \in \mathbb{R}^{n_y \times n_z}$
+	\item $\bm{V}_x^e \in \mathbb{R}^{n_{ye}\times n_x}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{y}_{ref} \in \mathbb{R}^{n_y}$
+	\item $\bm{y}_{ref_e} \in \mathbb{R}^{n_{y_e}}$
+	\item $\bm{W} \in \mathbb{R}^{n_y \times n_y}$
+	\item $\bm{W}_e \in \mathbb{R}^{n_{y_e} \times n_{y_e}}$
+\end{itemize}
+\columnbreak
+\begin{itemize}
+	\item $\bm{Q},\bm{Q}_e \in \mathbb{R}^{n_x \times n_x}$
+	\item $\bm{R} \in \mathbb{R}^{n_u \times n_u}$
+	\item $\bm{W} = diag(\bm{Q},\bm{R}) $
+	\item $\bm{W}_e = \bm{Q}_e $
+\end{itemize}
+\end{multicols}
+	
+\end{frame}
+
+\begin{frame}[t]{Centralized MPC}
+    The state space variables:
+    \begin{equation}
+        \bm{x}= [x, y, z, q_w, q_x, q_y, q_z, v_x, v_y, v_z, ]^{\intercal}
+    \end{equation} 
+    \vfill
+    Control inputs: 
+    $\bm{u} = [T, \omega_x, \omega_y, \omega_z]^{\intercal}$\\
+    \vfill
+    Initial condition: \\
+    $\bm{x}_0 = [ x_0, y_0, z_0, q_{w_0}, q_{x_0}, q_{y_0}, q_{z_0}, v_{x_0}, v_{y_0}, v_{z_0}]^{\intercal}$\\
+    \vfill
+    Desired states: \\
+    $\bm{x}_d = [x_d,y_d,z_d, q_{w_d}, q_{x_d}, q_{y_d}, q_{z_d}, v_{x_d}, v_{y_d}, v_{z_d}]^{\intercal}$
+    
+    \vfill
+    MPC parameters: 
+    \begin{itemize}
+        \item $N = 100$
+        \item $T_s = 1s$
+        % \item $T_{hover} = 2$s
+        % \item $T_{traj}: \text{depends on the trajectory}$
+    \end{itemize}
+    
+    Maximum thrust and torque:
+    	\begin{itemize}
+        	\item $T_{max} = 0.9 (0.46 N)$
+        \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Centralized MPC} \vspace{4pt}
+    The states evolve according to:
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{equation*}
+                \dot{x} = v_x
+            \end{equation*}
+            \begin{equation*}
+                \dot{y} = v_y
+            \end{equation*}
+            \begin{equation*}
+                \dot{z} = v_z
+            \end{equation*}
+            \begin{equation*}
+                \dot{q}_w=\frac{1}{2}( - w_x q_x - w_y q_y - w_z q_z)
+            \end{equation*}
+            \begin{equation*}
+                \dot{q}_x=\frac{1}{2}( w_x q_w + w_z q_y - w_y q_z)
+            \end{equation*}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{equation*}
+                \dot{q}_y=\frac{1}{2}( w_y q_w - w_z q_x + w_x q_z)
+            \end{equation*}
+            \begin{equation*}
+                \dot{q}_z=\frac{1}{2}( w_z q_w + w_y q_x - w_x q_y)
+            \end{equation*}
+            \begin{equation*}
+                \dot{v}_x = 2( q_w q_y + q_x q_z )\frac{T}{m}
+            \end{equation*}
+            \begin{equation*}
+                \dot{v}_y = 2(q_y q_z - q_w q_x )\frac{T}{m}
+            \end{equation*}
+            \begin{equation*}
+                \dot{v}_z = ( 1 - 2 q_x^2 - 2 q_y^2 )\frac{T}{m} - g
+            \end{equation*}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\section{Flip Trajectory Generation}
+
+\begin{frame}
+	\frametitle{Physics of a Quadrotor Flip}
+	\Fontvi
+	
+	The physics of a quadrotor flip can be divided into 4 parts:
+
+	\begin{itemize}% [<+->]
+		\item \textbf{Climb phase}: Maximum vertical acceleration is applied.
+		\item \textbf{Multi-flip phase}: It ends when the desired $2n\pi$ are achieved.
+		\item \textbf{Descent phase}: Maximum thrust for descent compensation.
+		\item \textbf{Re-stabilization}: Altitude regulation to desired value. 
+	\end{itemize}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Images/Flip/Physics}
+		\caption{The phases needed for performing multi-flip maneuvers \protect\footnotemark}
+		\label{flipping_physics}
+	\end{figure}
+
+\footnotetext[7]{\tiny{Nonlinear ellipsoid based attitude control for aggressive trajectories in a quadrotor: closed-loop multiflips implementation, 2018, F. {Oliva-Palomo} et al.}}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dynamic Criterion of a Planar Quadrotor}
+	\Fontvi
+	
+	The dynamic criterion of a planar quadrotor is\protect\footnotemark:
+	
+	\begin{equation}\label{dynamics_criterion_equation}
+	\ddot{y} \cos \phi + (\ddot{z} + g) \sin \phi = 0
+	\end{equation}
+
+
+	\begin{itemize}
+		\item It represents the dynamics constraints that must be satisfied to track a trajectory.
+	\end{itemize}
+
+	\vfill	
+	To design dynamically feasible flip trajectories:
+	
+	\begin{itemize}
+		\item The trajectories along $z$ and $\phi$ will be generated using polynomials of order 9.
+		\item The trajectory along $y$ will then be computed by integrating the dynamic criterion twice: 
+		\begin{equation}
+			y(t) = - \iint (\ddot{z} + g) \tan \phi dt dt
+		\end{equation}
+	\end{itemize}
+	
+	\footnotetext[8]{\tiny{Making aggressive maneuvers with drones thanks to parallel singularity crossing approaches, 2019, M. Orsingher}}
+
+\end{frame}
 
 
 

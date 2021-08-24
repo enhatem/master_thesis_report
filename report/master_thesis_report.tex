@@ -1790,23 +1790,23 @@ Then, in order to find the maximum thrust, several experiments were conducted wi
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth, angle =-90]{Images/crazyflie/max_thrust.jpg}
-	\caption{Mass of the crazyflie 2.1 with the maximum added mass that it can support.}
+	\caption{Mass of the crazyflie 2.1 with some added mass}
 	\label{fig:max_thrust}
 \end{figure}
 
-As can be seen in figure \ref{fig:max_thrust}, the maximum thrust was found when the crazyflie had a total mass of $46g$. So, the maximum thrust of the drone is:
+As can be seen in figure \ref{fig:max_thrust}, the maximum thrust was found by adding weights and checking if the quadrotor can still hover. And, the maximum thrust was found when the crazyflie had a total mass of $47g$. So, the maximum thrust of the drone is:
 
 \begin{equation}
-	T_{max}^{actual} = 46 \times 10^{-3} kg \times 9.81 \frac{m}{s^2} = 0.45126 N
+	T_{max}^{actual} = 47 \times 10^{-3} kg \times 9.81 \frac{m}{s^2} = 0.461 N
 \end{equation}
 
-So, the parameters of the quadrotor that will be used in all the simulations are:
+Moreover, the parameters of the quadrotor that will be used in all the simulations are:
 
 \begin{itemize}
 	\item $m = 0.0295 kg$
-	\item $I_{xx}$ = $1.657171 \times 10^{-5} N.m$
-	\item $I_{yy}$ = $1.657171 \times 10^{-5} N.m$
-	\item $I_{zz}$ = $2.9261652 \times 10^{-5} N.m$
+	\item $I_{xx}$ = $1.657171 \times 10^{-5}  kg.m^2$
+	\item $I_{yy}$ = $1.657171 \times 10^{-5}  kg.m^2$
+	\item $I_{zz}$ = $2.9261652 \times 10^{-5} kg.m^2$
 	\item $l = 0.046m$
 	
 \end{itemize}
@@ -2044,7 +2044,8 @@ but with different constraints on the dynamics.
 \begin{aligned}
             \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
             \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
-            & 0 \leq T \leq T_{max}
+             0 &\leq T \leq T_{max} \\
+             -4 \pi &\leq \omega_x, \omega_y, \omega_z \leq 4 \pi
         \end{aligned}
 \end{equation}
 with: 
@@ -2301,8 +2302,8 @@ And, as for the components of the linear least-squared cost function:
 	
 \end{itemize}
 
-In this case, references were provided for $x,y,z,v_x,v_y$ and $v_z$. Similar to the planar case, following $x,y$ and $z$ is more important than following $v_x,v_y$ and $v_z$ at each time instant. This is why $x,y$ and $z$ have larger weights. In addition, no control inputs were given for the quaternions, but setting weights of $5$'s on each element of the quaternion will drive the roll, pitch and yaw angles to 0 throughout the trajectory. And, if the desired trajectory is a flip trajectry, then having weights of $5$'s on each element of the quaternion will ensure that the flip trajectory is being followed properly.
-As for the inputs, no references were given for the angular rates. So, having weights of $1$'s will drive the angular rates to 0, which will stabilize the quadrotor throughout the trajectory. Finally, a reference of $m.g$ was given for the thrust. This will give the MPC an idea of where the thrust control input should be when the quadrotor is at a hovering position, which will result in smoother control inputs throughout the trajectory. However, when the desired trajectory is a flip trajectory, it should be noted that the weight on the $\omega_x$ input will be set to a value close to $0$ (such as $10^{-3}$). This way, the MPC controller will be allowed to compute larger values for $\omega_x$ that will allow to track the flip trajectory.
+In this case, references were provided for $x,y,z,v_x,v_y$ and $v_z$. Similar to the planar case, following $x,y$ and $z$ is more important than following $v_x,v_y$ and $v_z$ at each time instant. This is why $x,y$ and $z$ have larger weights. In addition, a reference of $(q_w=1,q_x=0,q_y=0,q_z=0)$ was given for the quaternions. This translates to having a reference of $(\phi=0,\theta=0,\psi=0)$. So, setting weights of $5$'s on each element of the quaternions will drive the roll, pitch and yaw angles to 0 throughout the trajectory. And, if the desired trajectory is a flip trajectry, then in that case, the quaternions will have a reference that changes at each iteration in order to allow the roll angle $\phi$ to reach a value of $2\pi$ at the end of the trajectory. So, having weights of $5$'s on each element of the quaternion will ensure that the flip trajectory is being followed properly.
+As for the inputs, a reference of $(\omega_x=0, \omega_y=0, \omega_z=0)$ was given for the angular rates. So, having weights of $1$'s will drive the angular rates to 0, which will stabilize the quadrotor throughout the circular trajectory. Finally, a reference of $m.g$ was given for the thrust. This will give the MPC an idea of where the thrust control input should be when the quadrotor is at a hovering position, which will result in smoother control inputs throughout the trajectory. However, when the desired trajectory is a flip trajectory, the references of both the thrust and the angular rates inputs will change on each iteration. In addition, the references of the angular rates inputs are calculated using a methodology that will be presented in a future section. And, in that case, even having a weight of 1 on the thrust and the angular rates inputs will be sufficient and this will allow the quadrotor to track the flip trajectory.
 
 Thus, in order to track a flip trajectory in the acados simulator, the weight matrices will have the following form:
 
@@ -2343,7 +2344,7 @@ Thus, in order to track a flip trajectory in the acados simulator, the weight ma
 	
 	\item $\bm{R} =diag(
 	\begin{bmatrix}
-			1 & 10^{-3} & 1 & 1\\
+			1 & 1 & 1 & 1\\
 	\end{bmatrix})$
 \end{itemize}
 	
@@ -2550,21 +2551,21 @@ In this chapter, the design of the flip trajectory will be presented. And, simul
 
 	It has been demonstrated in \cite{Orsingher2019} that a trajectory is dynamically feasible for a planar quadrotor if and only if it satisfies the following:
 	
-	\begin{equation}\label{free_dynamics_equation}
+	\begin{equation}\label{dynamics_criterion_equation}
 	\ddot{y} \cos \phi + (\ddot{z} + g) \sin \phi = 0
 	\end{equation}
 
-So, equation \ref{free_dynamics_equation} represents the free dynamics of a planar quadrotor. In other words, it represents the dynamic constraints on the motion of the planar quadrotor, which must be satisfied in order to track a trajectory. This approach is similar to the case of parallel robots. Because, when a parallel robot that is tracking a predefined trajectory reaches a singularity configuration, it becomes locally under-actuated, which will result in free dynamics that must be satisfied in order for the motion of the parallel robot to be dynamically feasible. However, in the case of a quadrotor, the situation is more involved, because the free dynamics must be respected at each time instant. This is because a quadrotor is under-actuated by design, and not just locally. 
+So, equation \ref{dynamics_criterion_equation} represents the dynamics criterion of a planar quadrotor. In other words, it represents the dynamic constraints on the motion of the planar quadrotor, which must be satisfied in order to track a trajectory. This approach is similar to the case of parallel robots. Because, when a parallel robot that is tracking a predefined trajectory reaches a singularity configuration, it becomes locally under-actuated, which will result in free dynamics that must be satisfied in order for the motion of the parallel robot to be dynamically feasible. However, in the case of a quadrotor, the situation is more involved, because the free dynamics must be respected at each time instant. This is because a quadrotor is under-actuated by design, and not just locally. 
 
 \subsection{Trajectory planning}
 
 
 For the sake of simplicity, a trajectory will be designed for the planar quadrotor case, and the same trajectory will be tracked by the 3D quadrotor. 
-Using the same approach as demonstrated in \cite{Orsingher2019}, the trajectories along $z$ and $\phi$ will be designed. Then, the trajectory along $y$ will be the consequence of the other 2 trajectories. In other words, the trajectories along $z$ and $\phi$ will be planned independently, while the trajectory along $y$ will be computed from the dynamic criterion shown in equation (\ref{free_dynamics_equation}) as follows: 
+Using the same approach as demonstrated in \cite{Orsingher2019}, the trajectories along $z$ and $\phi$ will be designed. Then, the trajectory along $y$ will be the consequence of the other 2 trajectories. In other words, the trajectories along $z$ and $\phi$ will be planned independently, while the trajectory along $y$ will be computed from the dynamic criterion shown in equation (\ref{dynamics_criterion_equation}) as follows: 
 
 \begin{equation}\label{double_integration_of_ydd}
 \begin{cases}
-	\ddot{y}(t) &= - (\ddot{z} + g) \sin \phi \\
+	\ddot{y}(t) &= - (\ddot{z} + g) \tan \phi \\
 	\dot{y}(t)  &= \dot{y}(0) + \int_0^t \ddot{y}(t) dt \\
 	y(t) &= y(0) + \int_0^t \dot{y}(t) 
 \end{cases}
@@ -2572,7 +2573,7 @@ Using the same approach as demonstrated in \cite{Orsingher2019}, the trajectorie
 
 \newpage
 
-The main problem with the strategy is that $y(t)$ is smooth and bounded if and only if $\phi \in (-\frac{\phi}{2}, \frac{\phi}{2})$. Indeed, this by most of the trajectories that are tracked by a quadrotor, but not a flip trajectories, since they require a full rotation of $2 \pi$. In order satisfy the dynamic criterion during a flip trajectory, a simple way of doing so is to turn off the rotors, which will result in $u_1=u_2=0$. And, the dynamic equations of the planar quadotor in this case become:
+The main problem with the strategy is that $y(t)$ is smooth and bounded if and only if $\phi \in (-\frac{\phi}{2}, \frac{\phi}{2})$. Indeed, this is applicable for most of the trajectories that are tracked by a quadrotor, but not for flip trajectories, since they require a full rotation of $2 \pi$. In order satisfy the dynamic criterion during a flip trajectory, a simple way of doing so is to turn off the rotors, which will result in $u_1=u_2=0$. And, the dynamic equations of the planar quadotor in this case become:
 
 \begin{equation}\label{free_dynamics_planar_quadrotor}
  \begin{cases} 
@@ -2582,7 +2583,7 @@ The main problem with the strategy is that $y(t)$ is smooth and bounded if and o
    \end{cases}
 \end{equation}
 
-By substituting each term of equation (\ref{free_dynamics_planar_quadrotor}) in equation (\ref{free_dynamics_equation}), it is evident that the dynamic criterion is satisfied. However, it should be noted that this represents an ideal trajectory that cannot be implemented on the real quadrotor. Because, the motors of the quadrotor should never turn off in mid-flight so that the quadrotor can be controlled at all times. 
+By substituting each term of equation (\ref{free_dynamics_planar_quadrotor}) in equation (\ref{dynamics_criterion_equation}), it is evident that the dynamic criterion is satisfied. However, it should be noted that this represents an ideal trajectory that cannot be implemented on the real quadrotor. Because, the motors of the quadrotor should never turn off in mid-flight so that the quadrotor can be controlled at all times. 
 And, it will be shown in the coming simulations that the MPC controller is able to overcome this issue and track the flip trajectory due to the robustness of the MPC controller. Another positive note for having $u_1=u_2=0$ while designing the trajectory, is that this will allow the trajectory along $y(t)$ to be much smaller, which will result in a flip trajectory that does not require a large area to be performed.
 Moreover, the trajectories for each coordinate during a free flight phase can be obtained by integrating equation (\ref{free_dynamics_planar_quadrotor}) twice as follows:
 

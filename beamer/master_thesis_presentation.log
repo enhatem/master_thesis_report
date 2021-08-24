@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  24 AUG 2021 15:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.4.12)  24 AUG 2021 23:36
 entering extended mode
 **./master_thesis_presentation.tex
 (master_thesis_presentation.tex
@@ -1538,22 +1538,22 @@ Overfull \hbox (34.8052pt too wide) in paragraph at lines 41--41
  [][][][]  
  []
 
-<LogoECN.pdf, id=26, 384.11186pt x 192.05652pt>
+<LogoECN.pdf, id=34, 384.11186pt x 192.05652pt>
 File: LogoECN.pdf Graphic file (type pdf)
 <use LogoECN.pdf>
 Package pdftex.def Info: LogoECN.pdf  used on input line 43.
 (pdftex.def)             Requested size: 72.83795pt x 36.41785pt.
-<LogoIMARO.jpg, id=27, 667.49374pt x 327.2225pt>
+<LogoIMARO.jpg, id=35, 667.49374pt x 327.2225pt>
 File: LogoIMARO.jpg Graphic file (type jpg)
 <use LogoIMARO.jpg>
 Package pdftex.def Info: LogoIMARO.jpg  used on input line 43.
 (pdftex.def)             Requested size: 54.62708pt x 26.77748pt.
-<LogoEMARO.jpg, id=28, 667.49374pt x 327.2225pt>
+<LogoEMARO.jpg, id=36, 667.49374pt x 327.2225pt>
 File: LogoEMARO.jpg Graphic file (type jpg)
 <use LogoEMARO.jpg>
 Package pdftex.def Info: LogoEMARO.jpg  used on input line 43.
 (pdftex.def)             Requested size: 54.62708pt x 26.77748pt.
-<LogoJEMARO.png, id=29, 895.84688pt x 265.74281pt>
+<LogoJEMARO.png, id=37, 895.84688pt x 265.74281pt>
 File: LogoJEMARO.png Graphic file (type png)
 <use LogoJEMARO.png>
 Package pdftex.def Info: LogoJEMARO.png  used on input line 43.
@@ -1563,14 +1563,21 @@ Package pdftex.def Info: LogoJEMARO.png  used on input line 43.
 {/home/elie/.miktex/texmfs/data/pdftex/config/pdftex.map} <./LogoECN.pdf> <./Lo
 goIMARO.jpg> <./LogoEMARO.jpg> <./LogoJEMARO.png>]
 (master_thesis_presentation.toc)
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 51--51
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 48--48
 [][][][] 
  []
 
 [2
 
+] (master_thesis_presentation.toc)
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 51--51
+[][][][] 
+ []
+
+[3
+
 ]
-<Images/Introduction/drone.jpg, id=57, 1927.2pt x 1284.8pt>
+<Images/Introduction/drone.jpg, id=81, 1927.2pt x 1284.8pt>
 File: Images/Introduction/drone.jpg Graphic file (type jpg)
 <use Images/Introduction/drone.jpg>
 Package pdftex.def Info: Images/Introduction/drone.jpg  used on input line 79.
@@ -1598,7 +1605,7 @@ LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <5> not available
 (Font)              Font shape `T1/phv/b/it' tried instead on input line 79.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <5> not available
 (Font)              Font shape `T1/phv/b/sl' tried instead on input line 79.
-<Images/Introduction/propeller_direction.svg.png, id=58, 303.38344pt x 346.2937
+<Images/Introduction/propeller_direction.svg.png, id=82, 303.38344pt x 346.2937
 5pt>
 File: Images/Introduction/propeller_direction.svg.png Graphic file (type png)
 <use Images/Introduction/propeller_direction.svg.png>
@@ -1621,7 +1628,7 @@ Overfull \hbox (21.76004pt too wide) in paragraph at lines 79--79
 [][][][] 
  []
 
-[3
+[4
 
  <./Images/Introduction/drone.jpg> <./Images/Introduction/propeller_direction.s
 vg.png>]
@@ -1629,394 +1636,505 @@ Overfull \hbox (21.76004pt too wide) in paragraph at lines 94--94
 [][][][] 
  []
 
-[4
-
-]
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 111.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 111.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 111.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 111.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <8> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 111.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <8> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 111.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 111--111
-[][][][] 
- []
-
 [5
 
 ]
-<Images/Introduction/flip.png, id=104, 841.64438pt x 614.295pt>
-File: Images/Introduction/flip.png Graphic file (type png)
-<use Images/Introduction/flip.png>
-Package pdftex.def Info: Images/Introduction/flip.png  used on input line 149.
-(pdftex.def)             Requested size: 123.27399pt x 89.96564pt.
-<Images/Introduction/constrained_environment.png, id=105, 346.896pt x 231.264pt
->
-File: Images/Introduction/constrained_environment.png Graphic file (type png)
-<use Images/Introduction/constrained_environment.png>
-Package pdftex.def Info: Images/Introduction/constrained_environment.png  used 
-on input line 149.
-(pdftex.def)             Requested size: 130.12709pt x 86.75201pt.
-pdfTeX warning (ext4): destination with the same identifier (name{fig:three\040
-graphs}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.149 \end{frame}
-                 
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 149--149
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 112--112
 [][][][] 
  []
 
 [6
 
- <./Images/Introduction/flip.png> <./Images/Introduction/constrained_environmen
-t.png>]
-<diagrams/general_control_architecture.png, id=118, 1721.43124pt x 577.15625pt>
-
-File: diagrams/general_control_architecture.png Graphic file (type png)
-<use diagrams/general_control_architecture.png>
-Package pdftex.def Info: diagrams/general_control_architecture.png  used on inp
-ut line 177.
-(pdftex.def)             Requested size: 308.18968pt x 103.32881pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 177.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 177.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 177.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 177.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <7> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 177.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <7> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 177.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 177--177
+]
+<Images/Introduction/flip.png, id=127, 841.64438pt x 614.295pt>
+File: Images/Introduction/flip.png Graphic file (type png)
+<use Images/Introduction/flip.png>
+Package pdftex.def Info: Images/Introduction/flip.png  used on input line 150.
+(pdftex.def)             Requested size: 123.27399pt x 89.96564pt.
+<Images/Introduction/constrained_environment.png, id=128, 346.896pt x 231.264pt
+>
+File: Images/Introduction/constrained_environment.png Graphic file (type png)
+<use Images/Introduction/constrained_environment.png>
+Package pdftex.def Info: Images/Introduction/constrained_environment.png  used 
+on input line 150.
+(pdftex.def)             Requested size: 130.12709pt x 86.75201pt.
+pdfTeX warning (ext4): destination with the same identifier (name{fig:three\040
+graphs}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.150 \end{frame}
+                 
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 150--150
 [][][][] 
  []
 
 [7
 
- <./diagrams/general_control_architecture.png>]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 209--209
+ <./Images/Introduction/flip.png> <./Images/Introduction/constrained_environmen
+t.png>]
+<diagrams/general_control_architecture.png, id=142, 1721.43124pt x 577.15625pt>
+
+File: diagrams/general_control_architecture.png Graphic file (type png)
+<use diagrams/general_control_architecture.png>
+Package pdftex.def Info: diagrams/general_control_architecture.png  used on inp
+ut line 178.
+(pdftex.def)             Requested size: 308.18968pt x 103.32881pt.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 178.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 178.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 178.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 178.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <7> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 178.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <7> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 178.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 178--178
 [][][][] 
  []
 
 [8
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 233--233
+ <./diagrams/general_control_architecture.png>]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 210--210
 [][][][] 
  []
 
 [9
 
-] (master_thesis_presentation.toc)
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 235--235
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 234--234
 [][][][] 
  []
 
 [10
 
-]
-<Images/Control/MPC_general_idea.png, id=175, 1151.80313pt x 704.6325pt>
-File: Images/Control/MPC_general_idea.png Graphic file (type png)
-<use Images/Control/MPC_general_idea.png>
-Package pdftex.def Info: Images/Control/MPC_general_idea.png  used on input lin
-e 257.
-(pdftex.def)             Requested size: 171.21765pt x 104.74416pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 257--257
+] (master_thesis_presentation.toc)
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 236--236
 [][][][] 
  []
 
 [11
 
- <./Images/Control/MPC_general_idea.png>]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 285--285
+]
+<Images/Control/MPC_general_idea.png, id=201, 1151.80313pt x 704.6325pt>
+File: Images/Control/MPC_general_idea.png Graphic file (type png)
+<use Images/Control/MPC_general_idea.png>
+Package pdftex.def Info: Images/Control/MPC_general_idea.png  used on input lin
+e 258.
+(pdftex.def)             Requested size: 171.21765pt x 104.74416pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 258--258
 [][][][] 
  []
 
 [12
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 285--285
+ <./Images/Control/MPC_general_idea.png>]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 286--286
 [][][][] 
  []
 
 [13
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 311--311
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 286--286
 [][][][] 
  []
 
 [14
 
 ]
-<Images/Control/centralized_mpc.png, id=219, 718.685pt x 282.05376pt>
-File: Images/Control/centralized_mpc.png Graphic file (type png)
-<use Images/Control/centralized_mpc.png>
-Package pdftex.def Info: Images/Control/centralized_mpc.png  used on input line
- 341.
-(pdftex.def)             Requested size: 171.21765pt x 67.19504pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 341--341
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 312--312
 [][][][] 
  []
 
 [15
 
- <./Images/Control/centralized_mpc.png>]
-<Images/Control/non-centralized_mpc_1.png, id=228, 1036.87375pt x 278.03876pt>
-File: Images/Control/non-centralized_mpc_1.png Graphic file (type png)
-<use Images/Control/non-centralized_mpc_1.png>
-Package pdftex.def Info: Images/Control/non-centralized_mpc_1.png  used on inpu
-t line 362.
-(pdftex.def)             Requested size: 239.70367pt x 64.27423pt.
+]
+<Images/Control/centralized_mpc.png, id=245, 718.685pt x 282.05376pt>
+File: Images/Control/centralized_mpc.png Graphic file (type png)
+<use Images/Control/centralized_mpc.png>
+Package pdftex.def Info: Images/Control/centralized_mpc.png  used on input line
+ 342.
+(pdftex.def)             Requested size: 171.21765pt x 67.19504pt.
 
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 362--362
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 342--342
 [][][][] 
  []
 
 [16
 
- <./Images/Control/non-centralized_mpc_1.png>]
-<Images/Control/non-centralized_mpc_2.png, id=237, 1295.84125pt x 352.31625pt>
-File: Images/Control/non-centralized_mpc_2.png Graphic file (type png)
-<use Images/Control/non-centralized_mpc_2.png>
-Package pdftex.def Info: Images/Control/non-centralized_mpc_2.png  used on inpu
-t line 381.
-(pdftex.def)             Requested size: 239.70367pt x 65.16673pt.
+ <./Images/Control/centralized_mpc.png>]
+<Images/Control/non-centralized_mpc_1.png, id=254, 1036.87375pt x 278.03876pt>
+File: Images/Control/non-centralized_mpc_1.png Graphic file (type png)
+<use Images/Control/non-centralized_mpc_1.png>
+Package pdftex.def Info: Images/Control/non-centralized_mpc_1.png  used on inpu
+t line 363.
+(pdftex.def)             Requested size: 239.70367pt x 64.27423pt.
 
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 381--381
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 363--363
 [][][][] 
  []
 
 [17
 
- <./Images/Control/non-centralized_mpc_2.png>]
-<Images/Control/non-centralized_mpc_3.png, id=246, 1298.8525pt x 567.11874pt>
-File: Images/Control/non-centralized_mpc_3.png Graphic file (type png)
-<use Images/Control/non-centralized_mpc_3.png>
-Package pdftex.def Info: Images/Control/non-centralized_mpc_3.png  used on inpu
-t line 394.
-(pdftex.def)             Requested size: 239.70367pt x 104.65572pt.
+ <./Images/Control/non-centralized_mpc_1.png>]
+<Images/Control/non-centralized_mpc_2.png, id=263, 1295.84125pt x 352.31625pt>
+File: Images/Control/non-centralized_mpc_2.png Graphic file (type png)
+<use Images/Control/non-centralized_mpc_2.png>
+Package pdftex.def Info: Images/Control/non-centralized_mpc_2.png  used on inpu
+t line 382.
+(pdftex.def)             Requested size: 239.70367pt x 65.16673pt.
 
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 394--394
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 382--382
 [][][][] 
  []
 
 [18
 
- <./Images/Control/non-centralized_mpc_3.png>]
-(master_thesis_presentation.toc)
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 396--396
+ <./Images/Control/non-centralized_mpc_2.png>]
+<Images/Control/non-centralized_mpc_3.png, id=272, 1298.8525pt x 567.11874pt>
+File: Images/Control/non-centralized_mpc_3.png Graphic file (type png)
+<use Images/Control/non-centralized_mpc_3.png>
+Package pdftex.def Info: Images/Control/non-centralized_mpc_3.png  used on inpu
+t line 395.
+(pdftex.def)             Requested size: 239.70367pt x 104.65572pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 395--395
 [][][][] 
  []
 
 [19
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 422--422
+ <./Images/Control/non-centralized_mpc_3.png>]
+(master_thesis_presentation.toc)
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 397--397
 [][][][] 
  []
 
 [20
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 449--449
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 423--423
 [][][][] 
  []
 
 [21
 
 ]
-<Images/acados/python_interface.png, id=297, 1170.3725pt x 758.835pt>
-File: Images/acados/python_interface.png Graphic file (type png)
-<use Images/acados/python_interface.png>
-Package pdftex.def Info: Images/acados/python_interface.png  used on input line
- 463.
-(pdftex.def)             Requested size: 273.9493pt x 177.61993pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 463--463
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 450--450
 [][][][] 
  []
 
 [22
 
- <./Images/acados/python_interface.png>]
-<triangle1.pdf, id=308, 146.385pt x 79.78506pt>
-File: triangle1.pdf Graphic file (type pdf)
-<use triangle1.pdf>
-Package pdftex.def Info: triangle1.pdf  used on input line 530.
-(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
+]
+<Images/acados/python_interface.png, id=325, 1170.3725pt x 758.835pt>
+File: Images/acados/python_interface.png Graphic file (type png)
+<use Images/acados/python_interface.png>
+Package pdftex.def Info: Images/acados/python_interface.png  used on input line
+ 464.
+(pdftex.def)             Requested size: 273.9493pt x 177.61993pt.
 
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 530--530
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 464--464
 [][][][] 
  []
 
 [23
 
- <./triangle1.pdf>]
-File: triangle1.pdf Graphic file (type pdf)
-<use triangle1.pdf>
-Package pdftex.def Info: triangle1.pdf  used on input line 530.
-(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 530--530
+ <./Images/acados/python_interface.png>] (master_thesis_presentation.toc)
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 468--468
 [][][][] 
  []
 
 [24
 
 ]
-File: triangle1.pdf Graphic file (type pdf)
-<use triangle1.pdf>
-Package pdftex.def Info: triangle1.pdf  used on input line 530.
-(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 530--530
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 484--484
 [][][][] 
  []
 
 [25
 
 ]
-File: triangle1.pdf Graphic file (type pdf)
-<use triangle1.pdf>
-Package pdftex.def Info: triangle1.pdf  used on input line 530.
-(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 530--530
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 507--507
 [][][][] 
  []
 
 [26
 
 ]
-File: triangle1.pdf Graphic file (type pdf)
-<use triangle1.pdf>
-Package pdftex.def Info: triangle1.pdf  used on input line 530.
-(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
-
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 530--530
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 542--542
 [][][][] 
  []
 
 [27
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 544--544
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 586--586
 [][][][] 
  []
 
 [28
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 544--544
+<Images/crazyflie/max_thrust.jpg, id=390, 2363.83125pt x 1964.33875pt>
+File: Images/crazyflie/max_thrust.jpg Graphic file (type jpg)
+<use Images/crazyflie/max_thrust.jpg>
+Package pdftex.def Info: Images/crazyflie/max_thrust.jpg  used on input line 61
+3.
+(pdftex.def)             Requested size: 155.7825pt x 129.47409pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 613--613
 [][][][] 
  []
 
 [29
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 544--544
+ <./Images/crazyflie/max_thrust.jpg>]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 652.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 652.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 652.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 652.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <8> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 652.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <8> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 652.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 652--652
 [][][][] 
  []
 
 [30
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 544--544
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 705--705
 [][][][] 
  []
 
 [31
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 544--544
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 744--744
 [][][][] 
  []
 
 [32
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 558--558
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 774--774
 [][][][] 
  []
 
 [33
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 578--578
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 814--814
 [][][][] 
  []
 
 [34
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 578--578
+] (master_thesis_presentation.toc)
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 817--817
 [][][][] 
  []
 
 [35
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 578--578
+<Images/Flip/Physics.PNG, id=454, 1944.5147pt x 783.67781pt>
+File: Images/Flip/Physics.PNG Graphic file (type png)
+<use Images/Flip/Physics.PNG>
+Package pdftex.def Info: Images/Flip/Physics.PNG  used on input line 841.
+(pdftex.def)             Requested size: 273.9493pt x 110.39574pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 841--841
 [][][][] 
  []
 
 [36
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 602--602
+ <./Images/Flip/Physics.PNG>]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 871--871
 [][][][] 
  []
 
 [37
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 602--602
+<triangle1.pdf, id=473, 146.385pt x 79.78506pt>
+File: triangle1.pdf Graphic file (type pdf)
+<use triangle1.pdf>
+Package pdftex.def Info: triangle1.pdf  used on input line 929.
+(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 929--929
 [][][][] 
  []
 
 [38
 
-]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 602--602
+ <./triangle1.pdf>]
+File: triangle1.pdf Graphic file (type pdf)
+<use triangle1.pdf>
+Package pdftex.def Info: triangle1.pdf  used on input line 929.
+(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 929--929
 [][][][] 
  []
 
 [39
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 602--602
+File: triangle1.pdf Graphic file (type pdf)
+<use triangle1.pdf>
+Package pdftex.def Info: triangle1.pdf  used on input line 929.
+(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 929--929
 [][][][] 
  []
 
 [40
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 602--602
+File: triangle1.pdf Graphic file (type pdf)
+<use triangle1.pdf>
+Package pdftex.def Info: triangle1.pdf  used on input line 929.
+(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 929--929
 [][][][] 
  []
 
 [41
 
 ]
-Overfull \hbox (21.76004pt too wide) in paragraph at lines 602--602
+File: triangle1.pdf Graphic file (type pdf)
+<use triangle1.pdf>
+Package pdftex.def Info: triangle1.pdf  used on input line 929.
+(pdftex.def)             Requested size: 136.97203pt x 74.6595pt.
+
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 929--929
 [][][][] 
  []
 
 [42
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 943--943
+[][][][] 
+ []
+
+[43
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 943--943
+[][][][] 
+ []
+
+[44
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 943--943
+[][][][] 
+ []
+
+[45
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 943--943
+[][][][] 
+ []
+
+[46
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 943--943
+[][][][] 
+ []
+
+[47
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 957--957
+[][][][] 
+ []
+
+[48
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 977--977
+[][][][] 
+ []
+
+[49
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 977--977
+[][][][] 
+ []
+
+[50
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 977--977
+[][][][] 
+ []
+
+[51
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 1001--1001
+[][][][] 
+ []
+
+[52
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 1001--1001
+[][][][] 
+ []
+
+[53
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 1001--1001
+[][][][] 
+ []
+
+[54
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 1001--1001
+[][][][] 
+ []
+
+[55
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 1001--1001
+[][][][] 
+ []
+
+[56
+
+]
+Overfull \hbox (21.76004pt too wide) in paragraph at lines 1001--1001
+[][][][] 
+ []
+
+[57
 
 ]
 \tf@nav=\write8
@@ -2034,44 +2152,50 @@ LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `master_thesis_presentation.out' has not chan
 ged.
-(rerunfilecheck)             Checksum: 00EE3C4A9CD506C132428453F3C5895F;345.
+(rerunfilecheck)             Checksum: AE1D186A64E29C48FB3B36C3B6191476;620.
 Package logreq Info: Writing requests to 'master_thesis_presentation.run.xml'.
 \openout1 = `master_thesis_presentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 32350 strings out of 481266
- 618784 string characters out of 2908708
- 1108998 words of memory out of 3000000
- 48767 multiletter control sequences out of 15000+600000
- 502694 words of font info for 139 fonts, out of 8000000 for 9000
+ 32478 strings out of 481266
+ 621000 string characters out of 2908708
+ 1112235 words of memory out of 3000000
+ 48837 multiletter control sequences out of 15000+600000
+ 507764 words of font info for 144 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
  145i,15n,146p,1894b,1413s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/elie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1095.
-pk> </home/elie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm0900
-.pk> </home/elie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt090
-0.pk>{/home/elie/.miktex/texmfs/install/fonts/enc/dvips/base/8r.enc} </home/eli
-e/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi450/ectt0800.pk></home/eli
-e/.miktex/texmfs/install/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></home/e
-lie/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/eli
-e/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/elie/.
-miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi9.pfb></home/elie/.mik
-tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmss10.pfb></home/elie/.mikte
-x/texmfs/install/fonts/type1/public/amsfonts/cm/cmss8.pfb></home/elie/.miktex/t
-exmfs/install/fonts/type1/public/amsfonts/cm/cmss9.pfb></home/elie/.miktex/texm
-fs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/elie/.miktex/texmfs
-/install/fonts/type1/public/amsfonts/cm/cmsy5.pfb></home/elie/.miktex/texmfs/in
-stall/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/elie/.miktex/texmfs/insta
-ll/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/elie/.miktex/texmfs/install/
-fonts/type1/public/amsfonts/symbols/msam7.pfb></home/elie/.miktex/texmfs/instal
-l/fonts/type1/public/amsfonts/symbols/msbm10.pfb></home/elie/.miktex/texmfs/ins
-tall/fonts/type1/urw/helvetic/uhvb8a.pfb></home/elie/.miktex/texmfs/install/fon
-ts/type1/urw/helvetic/uhvbo8a.pfb></home/elie/.miktex/texmfs/install/fonts/type
-1/urw/helvetic/uhvr8a.pfb></home/elie/.miktex/texmfs/install/fonts/type1/urw/he
-lvetic/uhvro8a.pfb>
-Output written on master_thesis_presentation.pdf (42 pages, 2465433 bytes).
+pk> </home/elie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1095
+.pk> </home/elie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm090
+0.pk> </home/elie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/ectt09
+00.pk>{/home/elie/.miktex/texmfs/install/fonts/enc/dvips/base/8r.enc} </home/el
+ie/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi450/ectt0800.pk></home/el
+ie/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/elie
+/.miktex/texmfs/install/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></home/el
+ie/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/elie
+/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/elie/.m
+iktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/elie/.mikt
+ex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi9.pfb></home/elie/.miktex/
+texmfs/install/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></home/elie/.mikt
+ex/texmfs/install/fonts/type1/public/amsfonts/cm/cmss10.pfb></home/elie/.miktex
+/texmfs/install/fonts/type1/public/amsfonts/cm/cmss8.pfb></home/elie/.miktex/te
+xmfs/install/fonts/type1/public/amsfonts/cm/cmss9.pfb></home/elie/.miktex/texmf
+s/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/elie/.miktex/texmfs/
+install/fonts/type1/public/amsfonts/cm/cmsy5.pfb></home/elie/.miktex/texmfs/ins
+tall/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/elie/.miktex/texmfs/instal
+l/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/elie/.miktex/texmfs/install/f
+onts/type1/public/amsfonts/cm/cmsy9.pfb></home/elie/.miktex/texmfs/install/font
+s/type1/public/amsfonts/symbols/msam10.pfb></home/elie/.miktex/texmfs/install/f
+onts/type1/public/amsfonts/symbols/msam7.pfb></home/elie/.miktex/texmfs/install
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb></home/elie/.miktex/texmfs/inst
+all/fonts/type1/urw/helvetic/uhvb8a.pfb></home/elie/.miktex/texmfs/install/font
+s/type1/urw/helvetic/uhvbo8a.pfb></home/elie/.miktex/texmfs/install/fonts/type1
+/urw/helvetic/uhvr8a.pfb></home/elie/.miktex/texmfs/install/fonts/type1/urw/hel
+vetic/uhvro8a.pfb>
+Output written on master_thesis_presentation.pdf (57 pages, 3593185 bytes).
 PDF statistics:
- 625 PDF objects out of 1000 (max. 8388607)
- 101 named destinations out of 1000 (max. 500000)
- 307 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 816 PDF objects out of 1000 (max. 8388607)
+ 138 named destinations out of 1000 (max. 500000)
+ 369 words of extra memory for PDF output out of 10000 (max. 10000000)
 

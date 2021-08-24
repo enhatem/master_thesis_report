@@ -1,28 +1,38 @@
 \defcounter {refsection}{0}\relax 
-\beamer@slide {fig:drone}{3}
+\beamer@slide {fig:drone}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {sub@fig:drone}{3}
+\beamer@slide {sub@fig:drone}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {fig:propeller_directions}{3}
+\beamer@slide {fig:propeller_directions}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {sub@fig:propeller_directions}{3}
+\beamer@slide {sub@fig:propeller_directions}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {fig:three graphs}{3}
+\beamer@slide {fig:three graphs}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {triple_flip}{6}
+\beamer@slide {triple_flip}{7}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {sub@triple_flip}{6}
+\beamer@slide {sub@triple_flip}{7}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {drone_hulahoop}{6}
+\beamer@slide {drone_hulahoop}{7}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {sub@drone_hulahoop}{6}
+\beamer@slide {sub@drone_hulahoop}{7}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {fig:three graphs}{6}
+\beamer@slide {fig:three graphs}{7}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {flat_outputs}{9}
+\beamer@slide {flat_outputs}{10}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {MPC_basic_idea}{11}
+\beamer@slide {MPC_basic_idea}{12}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {NLP}{21}
+\beamer@slide {NLP}{22}
 \defcounter {refsection}{0}\relax 
-\beamer@slide {fig:python_interface}{22}
+\beamer@slide {fig:python_interface}{23}
+\defcounter {refsection}{0}\relax 
+\beamer@slide {dynamics_planar_quadrotor}{26}
+\defcounter {refsection}{0}\relax 
+\beamer@slide {mpc_optimization_problem_planar_quadrotor}{30}
+\defcounter {refsection}{0}\relax 
+\beamer@slide {mpc_optimization_problem_3d_quadrotor}{32}
+\defcounter {refsection}{0}\relax 
+\beamer@slide {flipping_physics}{36}
+\defcounter {refsection}{0}\relax 
+\beamer@slide {dynamics_criterion_equation}{37}
