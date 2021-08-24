@@ -1,0 +1,129 @@
+\documentclass[compress, 9pt]{presentation_beamer}
+\useoutertheme[subsection=false]{miniframes}
+\usepackage{nccmath}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+\usepackage{verbatim}
+\usepackage[ruled,vlined,noresetcount]{algorithm2e}
+\usepackage[export]{adjustbox}
+\usepackage[style=british]{csquotes}
+\usepackage{media9}
+\usepackage{graphicx}
+\usepackage{dsfont}
+\usepackage{amsmath, bm}
+
+\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont}
+
+
+%Change the font size in the math
+%\DeclareMathSizes{\f@size}{9}{7}{7}
+
+%\usepackage{tikz}   %TikZ is required for this to work.  Make sure this exists before the next line
+
+%\usepackage{tikz-3dplot} %requires 3dplot.sty to be in same directory, or in your LaTeX installation
+
+
+
+
+%\bibliography{biblio}
+
+
+
+\title{Making Flips with Quadrotors in Constrained Environments}
+\subtitle{Presentation 9}
+\author[Elie Hatem]{ \underline{Elie Hatem}$^{[1]}$, Sébastien Briot$^{[2]}$, Isabelle Fantoni$^{[2]}$ 
+\newline ~ \newline
+\footnotesize{
+$^{[1]}$École Centrale de Nantes, Laboratoire des Sciences du Numérique de Nantes (LS2N), Nantes, France \\
+$^{[2]}$CNRS, Laboratoire des Sciences du Numérique de Nantes (LS2N), Nantes, France \\
+}
+}  
+\date{July 12, 2021}
+%\date{\today}
+
+\setbeamerfont{caption}{size=\tiny}
+
+%	New commands for writing the dipendedce of s, the arclenght
+\newcommand{\fs}{_{(s)}}
+\newcommand{\fsa}[1]{_{#1(s)}}
+
+%	New command to write the number of limbs 
+\newcommand{\nlimb}{{N_{limbs}}}
+\newcommand{\rangelimbs}{\forall i \in \left[1, \nlimb \right]}
+
+\newcommand{\mvec}[1]{$\textbf{#1}$}
+
+\newcommand{\ps}[1][]{^{#1} \textbf{p} \fs}
+\newcommand{\Rs}[1][]{^{#1} \textbf{R} \fs}
+
+
+\newcommand{\dd}[2]{\frac{\delta #1}{\delta #2}}
+
+\setcounter{tocdepth}{1}
+\begin{document}
+
+%\tableofcontents
+
+%\RestyleAlgo{boxruled}
+
+%\begin{frame}[plain]
+%\placeImage{media/LogoECN}{0.2cm}{5cm}{.25\paperwidth}
+%\vspace{2cm}
+%\titlepage
+%\end{frame}
+
+\begin{frame}[plain]
+\begin{figure}
+	\centering
+	\includegraphics[scale=.25]{media/LogoECN}
+\end{figure}
+\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Index}
+	\tableofcontents
+\end{frame}
+
+
+\section{What was done so far}
+	\subsection{Equations of motion}
+		\begin{frame}
+			\frametitle{\subsecname}
+			The equations of motion of a quadrotor:
+				\begin{align*}
+					\dot{\bm{p}_i} &= \bm{v}_i \\
+					\dot{\bm{v}_i} &= 
+					\frac{T}{m} 
+					\begin{bmatrix}
+						2 (q_w q_y + q_x q_z) \\
+						2 (q_y q_z - q_w q_x) \\
+						1 - 2(q_x^2 + q_y^2 ) \\
+					\end{bmatrix} + \bm{g} \\			
+					\dot{\bm{q}_i} & = \frac{1}{2}
+					\begin{bmatrix}
+						0 \\
+						\bm{\omega}_i \\
+					\end{bmatrix} \otimes \bm{q}_i \\
+					\dot{\bm{\omega}_i} &= \bm{I}_i^{-1} \bm{\tau}_i - \bm{I}_i^{-1} (\bm{\omega}_i \times \bm{I}_i \bm{\omega}_i)
+				\end{align*}
+		\end{frame}
+
+
+%	\subsection{Thank you for your attention}
+%	\begin{frame}
+%		\centering{\begin{huge}Thank you for your attention \end{huge}\\}
+%		\vspace{1cm}
+%		\centering{\textit{elie.hatem@eleves.ec-nantes.fr}\\}
+%		\vspace{1cm}
+%		\centering{\underline{Elie Hatem}$^{[1]}$, Sébastien Briot$^{[2]}$, Isabelle Fantoni$^{[2]}$\\}
+%		\vspace{1cm}
+%		\footnotesize{
+%			$^{[1]}$École Centrale de Nantes, Laboratoire des Sciences du Numérique de Nantes (LS2N), Nantes, France \\
+%			$^{[2]}$CNRS, Laboratoire des Sciences du Numérique de Nantes (LS2N), Nantes, France}
+%	\end{frame}
+
+\end{document}
+
+
+
