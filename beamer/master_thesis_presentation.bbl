@@ -16,30 +16,5 @@
   {}
 \endgroup
 
-\datalist[entry]{nyt/global//global/global}
-  \entry{pythm001}{article}{}
-    \name{author}{1}{}{%
-      {{hash=POS}{%
-         family={Pythagoras},
-         familyi={P\bibinitperiod},
-         given={Of\bibnamedelima Samos},
-         giveni={O\bibinitperiod\bibinitdelim S\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{POS1}
-    \strng{fullhash}{POS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{-580}
-    \field{labeldatesource}{}
-    \field{sortinit}{P}
-    \field{sortinithash}{P}
-    \field{number}{1}
-    \field{title}{{Theorem}}
-    \field{volume}{1}
-    \field{journaltitle}{Some old journal}
-    \field{month}{02}
-    \field{year}{-580}
-  \endentry
-\enddatalist
+\datalist[entry]{nyt/global//global/global}\enddatalist
 \endinput

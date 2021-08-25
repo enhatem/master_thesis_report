@@ -17,7 +17,8 @@
 
 \title[Making Flips with Quadrotors in Constrained Environments]{Making Flips with Quadrotors in Constrained Environments}
 \author[Elie Hatem]{Elie Hatem \newline ~ \newline \normalsize{Advisors: Dr. Sebastien Briot, Dr. Isabelle Fantoni}}
-\date{\today}
+\date{August 26, 2021}
+%\date{\today}
 
 \setbeamerfont{caption}{size=\tiny}
 
@@ -104,7 +105,7 @@ Over the last few years, quadrotors have gained large popularity in academia and
 This difficulty is due to: 
 \begin{itemize}
 	\item The fast dynamics associated with the small dimensions of such agile quadrotors.
-	\item Several dynamic effects will become important to consider during aggressive flight maneuvers.
+	\item Several dynamic effects will become important to consider during aggressive maneuvers.
 	\item The motors will be commanded high speeds and accelerations, which will cause them to saturate and introduce delays.
 \end{itemize}
 
@@ -117,10 +118,10 @@ This difficulty is due to:
 \frametitle{Goals of the Master Thesis}
 \Fontvi
 
-The goals of the master thesis: 
+The goal of the master thesis: 
 
 \begin{itemize} % [<+->]
-	\item Study of multi-flip maneuvers.
+	\item Design a multi-flip trajectory.
 	\item Implement Model Predictive Control to solve the presented issues.
 	\item Perform the maneuvers in a constrained environment.
 \end{itemize}
@@ -183,28 +184,28 @@ The goals of the master thesis:
 	\frametitle{Differential Flatness}
 	\Fontvi	
 
-	A well-established finding is that the dynamic model of a quadrotor is differentially flat:
+	A well-established finding is that the dynamic model of a quadrotor is differentially flat.
 	\begin{itemize}
-		\item The system with state $\bm{x} \in \mathbb{R}^n$ and input $\bm{u} \in \mathbb{R}^m$ has flat outputs $\bm{y} \in \mathbb{R}^m$ which have the following form:
+		%\item A system with $\bm{x} \in \mathbb{R}^n$ and $\bm{u} \in \mathbb{R}^m$ has flat outputs $\bm{y} \in \mathbb{R}^m$ which have the following form:
 	
-	\begin{equation}
- \textbf{y} = \textbf{y}(\textbf{x}, \textbf{u}, \dot{\textbf{u}},...,\textbf{u}^{(p)})
- \end{equation}
+%	\begin{equation}
+% 		\textbf{y} = \textbf{y}(\textbf{x}, \textbf{u}, \dot{\textbf{u}},...,\textbf{u}^{(p)})
+%	\end{equation}
 
- With, 
- 
- \begin{equation}
- 	\begin{cases}
- 		\textbf{\textsc{x}} = \textbf{x}(\textbf{y}, \dot{\textbf{y}},...,\textbf{y}^{(q)}) \\
- 	\\
- 		\textbf{u} = \textbf{u}(\textbf{y}, \dot{\textbf{y}},...,\textbf{y}^{(r)}) \\
- 	\end{cases}
- \end{equation}	
+% With, 
+% 
+% \begin{equation}
+% 	\begin{cases}
+% 		\textbf{\textsc{x}} = \textbf{x}(\textbf{y}, \dot{\textbf{y}},...,\textbf{y}^{(q)}) \\
+% 	\\
+% 		\textbf{u} = \textbf{u}(\textbf{y}, \dot{\textbf{y}},...,\textbf{y}^{(r)}) \\
+% 	\end{cases}
+% \end{equation}	
 	
 	
-	 \item Very useful property in under-actuated systems where $m<n$.
-	 \item Allows to generate trajectories in the lower dimensional space $m$.
-	 \item The trajectories can then be mapped into the full dimensional space $n$.
+	 \item Very useful property in under-actuated systems.
+	 \item Allows to generate trajectories in the lower dimensional space.
+	 \item The trajectories can then be mapped into the full dimensional space.
 	\end{itemize}
 
 \end{frame}
@@ -214,7 +215,7 @@ The goals of the master thesis:
 	\frametitle{Differential Flatness}
 	\Fontvi
 	
-	The standard choice of flat outputs for the quadrotor are:
+	The standard choice of flat outputs for quadrotors are:
 
 \begin{equation}\label{flat_outputs}
 \textbf{y} = \begin{bmatrix}
@@ -227,7 +228,7 @@ As a result:
 	\item Trajectories can be designed in the 4-dimensional space.
 	\item They can then be mapped to the 6-dimenstional space.
 	\begin{itemize}
-		\item This is due to the fact that the rotational and translational dynamics are tightly coupled.
+		\item \fontsize{9pt}{10pt}\selectfont This is due to the fact that the rotational and translational dynamics are tightly coupled.
 	\end{itemize}			
 \end{itemize}
 
@@ -319,7 +320,7 @@ The most popular uses for MPC in quadrotors are:
 		\begin{column}{0.5\textwidth}
 			\begin{figure}
 				\includegraphics[width=\textwidth]{Images/Control/centralized_mpc.png}
-				\caption{Centralized MPC}
+				\caption{Centralized MPC$^6$}
 			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
@@ -339,6 +340,8 @@ The most popular uses for MPC in quadrotors are:
 	\begin{itemize}
 		\item Added $\phi$ and $\theta$ angles as outputs.
 	\end{itemize}
+	
+	\footnotetext[6]{\tiny{Design of predictive control structures track trajectories for multi-totor unmanned aerial vehicle, 2019, R.Alvarez-Valle et al.}}
 \end{frame}
 
 \begin{frame}{Non-centralized MPC}
@@ -346,7 +349,7 @@ The most popular uses for MPC in quadrotors are:
 
 			\begin{figure}
 				\includegraphics[width=0.7\textwidth]{Images/Control/non-centralized_mpc_1.png}
-				\caption{Non-centralized MPC (MPC$_{master}$-MPC$_{slave}$)}
+				\caption{Non-centralized MPC (MPC$_{master}$-MPC$_{slave}$)\protect\footnotemark}
 			\end{figure}
 
 			Outer-loop: master MPC
@@ -359,7 +362,7 @@ The most popular uses for MPC in quadrotors are:
 				\item Inputs: $\theta_{ref}$, $\phi_{ref}$. 
 				\item Outputs: $\tau_x$, $\tau_y$.
 			\end{itemize}
-
+	\footnotetext[6]{\tiny{Design of predictive control structures track trajectories for multi-totor unmanned aerial vehicle, 2019, R.Alvarez-Valle et al.}}
 \end{frame}
 
 \begin{frame}{Non-centralized MPC}
@@ -367,7 +370,7 @@ The most popular uses for MPC in quadrotors are:
 	
 			\begin{figure}
 				\includegraphics[width=0.7\textwidth]{Images/Control/non-centralized_mpc_2.png}
-				\caption{Non-centralized MPC (MPC-PD-P)}
+				\caption{Non-centralized MPC (MPC-PD-P)$^6$}
 			\end{figure}
 			Outer-loop: master MPC
 			\begin{itemize}
@@ -379,6 +382,8 @@ The most popular uses for MPC in quadrotors are:
 				\item Inputs: $\theta_{ref}$, $\phi_{ref}$. 
 				\item Outputs: $\tau_x$, $\tau_y$.
 			\end{itemize}
+			
+			\footnotetext[6]{\tiny{Design of predictive control structures track trajectories for multi-totor unmanned aerial vehicle, 2019, R.Alvarez-Valle et al.}}
 \end{frame}
 
 \begin{frame}[t]{Non-centralized MPC}
@@ -386,12 +391,14 @@ The most popular uses for MPC in quadrotors are:
 	Another example of a non-centralized MPC:
 	\begin{figure}
 		\includegraphics[width=0.7\textwidth]{Images/Control/non-centralized_mpc_3.png}
-				\caption{Non-centralized MPC}
+				\caption{Non-centralized MPC\protect\footnotemark}
 	\end{figure}
 	\begin{alertblock}{Remark}
 	 	The inner-loop can remain fixed, while the outer loop can be reprogrammed to meet the required task.
 	 \end{alertblock} 
 	 \vspace{5mm}
+	 
+	 \footnotetext[7]{\tiny{Robust Hybrid Nonlinear Control Systems for the Dynamics of a Quadcopter Drone, 2020, F. Santoso et al.}}
 \end{frame}
 
 \section{acados}
@@ -399,11 +406,11 @@ The most popular uses for MPC in quadrotors are:
 \begin{frame}
 	\frametitle{acados}
 	\Fontvi
-	The software used for implementing MPC controller is \texttt{acados}:
+	The software used for implementing the MPC controllers is \texttt{acados}:
 	
 	\begin{itemize}
 	\item Contains efficient optimal control algorithms implemented in C.
-	\item Has a modular architecture enabling rapid prototyping of solution algorithms.
+	\item Has a modular architecture.
 	\item Interfaces to \texttt{C++}, \texttt{Python} and \texttt{MATLAB}.
 	\item Uses the high-performance linear algebra package \texttt{BLASFEO}.
 	\item Compatible with \texttt{CasADi} expressions.
@@ -416,7 +423,7 @@ Main drawback:
 \begin{itemize}
 	\item Prediction horizon and control horizon must be of same length. 
 		\begin{itemize}
-			\item This issue can be solved using the real-time iteration (RTI) method.
+			\item \fontsize{9pt}{10pt}\selectfont This issue can be solved using the real-time iteration (RTI) method.
 		\end{itemize}
 \end{itemize}
 
@@ -460,35 +467,35 @@ with $\alpha_k^i \in \mathbb{R}, \beta_k^i > 0$.
  		\caption{Overview of the Python API classes in acados\protect\footnotemark}
  		\label{fig:python_interface}
  	\end{figure}
- 		\footnotetext[6]{\tiny{\url{https://docs.acados.org/python_api/}}}
+ 		\footnotetext[8]{\tiny{\url{https://docs.acados.org/python_api/}}}
 \end{frame}
 
 
 
 \section{MPC Design}
 
+%\begin{frame}
+%	\frametitle{Assumptions used}
+%	\Fontvi
+%	
+%	Assumptions to considered when using the equations of motion in the planar and 3D case:
+%	
+%	\begin{itemize} % [<+->]
+%		\item Rigid structure.
+%		\item Symmetric structure.
+%		\item CoG and origin of body-fixed frame coincide.
+%		\item Propellers are rigid.
+%		\item Thrust and drag are proportional to the square of the velocity of the propeller.
+%	\end{itemize}
+%
+%\end{frame}
+
+
 \begin{frame}
-	\frametitle{Assumptions used}
+	\frametitle{Equations of Motion of the Planar Quadrotor}
 	\Fontvi
 	
-	Assumptions to considered when using the equations of motion in the planar and 3D case:
-	
-	\begin{itemize} % [<+->]
-		\item Rigid structure.
-		\item Symmetric structure.
-		\item CoG and origin of body-fixed frame coincide.
-		\item Propellers are rigid.
-		\item Thrust and drag are proportional to the square of the velocity of the propeller.
-	\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Equations of Motion of the Planar Quadrotor case}
-	\Fontvi
-	
-	The equations of motion of the planar quadrotor are:
+	The equations of motion of a planar quadrotor are:
 	\begin{equation}\label{dynamics_planar_quadrotor}
  \begin{cases} 
        \ddot{y} = - \frac{u_1}{m} \sin{\phi} \\
@@ -500,8 +507,8 @@ with $\alpha_k^i \in \mathbb{R}, \beta_k^i > 0$.
 With: 
 
 \begin{itemize}
-	\item $u_1$: Total thrust applied on the planar quadrotor.
-	\item $u_2$: Torque applied by the planar quadrotor along the x-axis.
+	\item $u_1$: Total thrust of the two rotors.
+	\item $u_2$: Torque applied along the x-axis.
 \end{itemize}
 
 \end{frame}
@@ -509,10 +516,10 @@ With:
 
 
 \begin{frame}
-	\frametitle{Equations of Motion of the 3D Quadrotor case}
+	\frametitle{Equations of Motion of the 3D Quadrotor}
 	\Fontvi
 	
-	The equations of motion of a quadrotor:
+	The equations of motion of a 3D quadrotor are:
 	$$
 	\text{Translational model: }\left\{
 	\begin{array}{ll}				
@@ -578,7 +585,7 @@ With:
 			\item A low level controller is assumed to exist to map the angular rates inputs $\bm{\omega}$ to the required torques $\bm{\tau}$. 
 			\item The equations above do not represent the complete model of the system.
 			\begin{itemize}
-				\item However, they are sufficient to control the quadrotor.
+				\item \fontsize{9pt}{10pt}\selectfont However, they are sufficient to control the quadrotor.
 			\end{itemize}
 		\end{itemize}
 	\end{alertblock}						
@@ -622,7 +629,7 @@ With:
 \begin{aligned}
             \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
             \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
-             0 &\leq u_1 \leq u_{1_{max}} \\
+             u_{1_{min}} &\leq u_1 \leq u_{1_{max}} \\
              - u_{2_{max}} &\leq u_2 \leq u_{2_{max}}
         \end{aligned}
 \end{equation}
@@ -695,10 +702,12 @@ with:
                 \item $T_f = 1s$
                 % \item $T_{sim} = 20$
             \end{itemize}
-            Maximum thrust and torque:
+            Max. and min. thrust and torque:
             \begin{itemize}
                 \item $u_{1_{max}} = 0.9 \bigg(\frac{0.46 N }{2}\bigg)$
+                \item $u_{1_{min}} = 0.1(u_{1_{max}})$
                 \item $u_{2_{max}} = 0.1 \bigg(\frac{1}{2} u_{1_{max}} L \bigg)$ 
+                \item $u_{2_{min}} = - u_{2_{max}}$
             \end{itemize}
         \end{column}
     \end{columns}
@@ -713,7 +722,7 @@ with:
 \begin{aligned}
             \min_{x,u} \quad & \frac{1}{2}\|\bm{V}_x \bm{x} + \bm{V}_u \bm{u} + \bm{V}_z \bm{z} - \bm{y}_{ref}\|^2_{\bm{W}} + \frac{1}{2}\|\bm{V}_x^e \bm{x} - \bm{y}_{ref}^e \|^2_{\bm{W}_e} \\
             \textrm{s.t.} \quad & f(\bm{x},\bm{u}):\text{dynamics} \\
-             0 &\leq T \leq T_{max} \\
+             T_{min} &\leq T \leq T_{max} \\
              -4 \pi &\leq \omega_x, \omega_y, \omega_z \leq 4 \pi
         \end{aligned}
 \end{equation}
@@ -743,7 +752,7 @@ with:
 	
 \end{frame}
 
-\begin{frame}[t]{Centralized MPC}
+\begin{frame}[t]{MPC for the 3D Quadrotor case}
     The state space variables:
     \begin{equation}
         \bm{x}= [x, y, z, q_w, q_x, q_y, q_z, v_x, v_y, v_z, ]^{\intercal}
@@ -762,18 +771,19 @@ with:
     MPC parameters: 
     \begin{itemize}
         \item $N = 100$
-        \item $T_s = 1s$
+        \item $T_f = 1s$
         % \item $T_{hover} = 2$s
         % \item $T_{traj}: \text{depends on the trajectory}$
     \end{itemize}
     
-    Maximum thrust and torque:
+    Maximum and minimum thrust:
     	\begin{itemize}
         	\item $T_{max} = 0.9 (0.46 N)$
+        	\item $T_{min} = 0.1 (T_{max})$
         \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Centralized MPC} \vspace{4pt}
+\begin{frame}[t]{MPC for the 3D Quadrotor case} \vspace{4pt}
     The states evolve according to:
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -814,31 +824,31 @@ with:
 \end{frame}
 
 
-\section{Flip Trajectory Generation}
+\section{Flip Trajectory Generation and acados Simulations}
 
-\begin{frame}
-	\frametitle{Physics of a Quadrotor Flip}
-	\Fontvi
-	
-	The physics of a quadrotor flip can be divided into 4 parts:
-
-	\begin{itemize}% [<+->]
-		\item \textbf{Climb phase}: Maximum vertical acceleration is applied.
-		\item \textbf{Multi-flip phase}: It ends when the desired $2n\pi$ are achieved.
-		\item \textbf{Descent phase}: Maximum thrust for descent compensation.
-		\item \textbf{Re-stabilization}: Altitude regulation to desired value. 
-	\end{itemize}
-
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.8\textwidth]{Images/Flip/Physics}
-		\caption{The phases needed for performing multi-flip maneuvers \protect\footnotemark}
-		\label{flipping_physics}
-	\end{figure}
-
-\footnotetext[7]{\tiny{Nonlinear ellipsoid based attitude control for aggressive trajectories in a quadrotor: closed-loop multiflips implementation, 2018, F. {Oliva-Palomo} et al.}}
-
-\end{frame}
+%\begin{frame}
+%	\frametitle{Physics of a Quadrotor Flip}
+%	\Fontvi
+%	
+%	The physics of a quadrotor flip can be divided into 4 parts:
+%
+%	\begin{itemize}% [<+->]
+%		\item \textbf{Climb phase}: Maximum vertical acceleration is applied.
+%		\item \textbf{Multi-flip phase}: It ends when the desired $2n\pi$ are achieved.
+%		\item \textbf{Descent phase}: Maximum thrust for descent compensation.
+%		\item \textbf{Re-stabilization}: Altitude regulation to desired value. 
+%	\end{itemize}
+%
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=0.8\textwidth]{Images/Flip/Physics}
+%		\caption{The phases needed for performing multi-flip maneuvers \protect\footnotemark}
+%		\label{flipping_physics}
+%	\end{figure}
+%
+%\footnotetext[8]{\tiny{Nonlinear ellipsoid based attitude control for aggressive trajectories in a quadrotor: closed-loop multiflips implementation, 2018, F. {Oliva-Palomo} et al.}}
+%
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Dynamic Criterion of a Planar Quadrotor}
@@ -856,150 +866,402 @@ with:
 	\end{itemize}
 
 	\vfill	
+	
+	The flip trajectory is divided into 3 phases:
+\begin{itemize}
+	\item Reaching phase: Transition from hovering position to the required speed to initialize the flip phase (3 parts).
+	\item Flip phase: Flip is performed and the singularity positions are crossed (1 part).
+	\item Recovery phase: Recovery and transition back to a hovering position (3 parts).  
+\end{itemize}
+	
+	\footnotetext[9]{\tiny{Making aggressive maneuvers with drones thanks to parallel singularity crossing approaches, 2019, M. Orsingher}}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Trajectory Planning}
+	\Fontvi
+	
 	To design dynamically feasible flip trajectories:
 	
 	\begin{itemize}
-		\item The trajectories along $z$ and $\phi$ will be generated using polynomials of order 9.
+		\item The reaching and recovery phases of $z$ and $\phi$ will be generated using Polynomials of order 9.
 		\item The trajectory along $y$ will then be computed by integrating the dynamic criterion twice: 
 		\begin{equation}
 			y(t) = - \iint (\ddot{z} + g) \tan \phi dt dt
 		\end{equation}
+	\end{itemize}	
+	
+	\begingroup
+    \fontsize{9pt}{10pt}\selectfont
+    \begin{alertblock}{Main problem with this strategy}
+		\begin{itemize}
+			\item y(t) is smooth and bounded only if $\phi \in [-\frac{\pi}{2},\frac{\pi}{2}]$
+		\end{itemize}
+		\end{alertblock}
+	\endgroup	
+	
+	In order to satisfy the dynamic criterion during the flip phase, a simple solution (ideal case) is to turn off the rotors $(u_1=u_2=0)$:
+	\begin{equation}
+ 		\begin{cases} 
+			\ddot{y} = 0 \\
+       		\ddot{z} = - g  \\
+       		\ddot{\phi} = 0 \\
+   		\end{cases} 
+   		\Rightarrow
+ 		\begin{cases} 
+       		y(t) = y(0) + \dot{y}(0)t \\
+       		z(t) = z(0) +\dot{z}(0)t - \frac{g}{2}t^2  \\
+       		\phi(t) = \phi(0) + \dot{\phi}(0)t \\
+   		\end{cases}
+	\end{equation}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Parameter Optimization and Trajectory Generation}
+	\Fontvi
+	
+
+	\begingroup
+    \fontsize{9pt}{10pt}\selectfont
+    \begin{alertblock}{	The other difficulty in the proposed trajectory planning method}
+		\begin{itemize}
+		\item Finding the proper set of parameters to completely define the flip trajectory.
+	\end{itemize}
+		\end{alertblock}
+	\endgroup		
+
+	\vfill	
+	
+	There are $37$ parameters in total that must be chosen in order to generate the flip trajectory:
+
+\begin{itemize}
+	\item $z_1,z_2,z_3,z_4,z_5,z_6,z_7,z_8$
+	\item $\dot{z}_2, \dot{z}_3, \dot{z}_6, \dot{z}_7$
+	\item $\ddot{z}_2, \ddot{z}_3, \ddot{z}_6, \ddot{z}_7$
+	\item $\phi_2, \phi_3, \phi_4, \phi_5, \phi_6, \phi_7$
+	\item $\dot{\phi_2}, \dot{\phi}_3, \dot{\phi}_6, \dot{\phi}_7$
+	\item $\ddot{\phi_2}, \ddot{\phi}_3, \ddot{\phi}_6, \ddot{\phi}_7$
+	\item $t_1, t_2, t_3, t_4, t_5, t_6, t_7$
+\end{itemize}
+
+So, a parameter vector $\bm{p}$ is created which contains all the parameters to be optimized:
+\begin{equation}
+	\bm{p} = \begin{bmatrix}
+	z_1 & \ldots & t_7
+		\end{bmatrix}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Parameter Optimization and Trajectory Generation}
+	\Fontvi
+	
+	Some of the parameters will be assigned simple bounds:
+	\begin{equation}
+		\bm{p}_{min} \leq \bm{p} \leq \bm{p}_{max}
+	\end{equation}
+Nonlinear inequality constraints were also used:
+	\begin{itemize}
+		\item At each iteration, $u_1$ and $u_2$ are extracted from the generated trajectory:
+		\begin{align}
+				\bm{u}_1 &= \frac{m(\ddot{\bm{z}} + \bm{g})}{\cos \bm{\phi}}\\
+				\bm{u}_2 &= I_{xx} \ddot{\bm{\phi}}
+			\end{align}
+
+		\item Then, the solver will make sure that $u_1$ and $u_2$ are within their bounds:
+		
+		\begin{align}
+			u_{1_{min}} &< u_1 < u_{1_{max}} \\
+			u_{2_{min}} &< u_2 < u_{2_{max}} 
+		\end{align}
+
+		\item Other constraints on z were added to make sure the generated trajectory is concave.
+
 	\end{itemize}
 	
-	\footnotetext[8]{\tiny{Making aggressive maneuvers with drones thanks to parallel singularity crossing approaches, 2019, M. Orsingher}}
-
 \end{frame}
 
 
+\begin{frame}
+	\frametitle{Parameter Optimization and Trajectory Generation}
+	\Fontvi
+		
+	The parameter optimization problem can finally be expressed as follows: 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{frame}{Introduction}
-\begin{itemize}[<+->]
-\item Some
-\item Appearing
-\item Bullets
-\begin{itemize}
- \item With sub-bullets
-\end{itemize}
-\end{itemize} 
- \visible<+-> {
- \begin{center}
-  \includegraphics[width=.4\linewidth]{triangle1} \\
-  And an appearing figure.
- \end{center}
- }
+	\begin{equation}\label{parameter_optimization_problem}
+		\begin{aligned}
+        	\min_{\bm{p}} \quad & J(\bm{p}) = \int_0^t u_1^2 \\
+            \textrm{s.t.} \quad & \bm{p}_{min} \leq \bm{p} \leq \bm{p}_{max} \\
+            & \bm{c}(\bm{p}) \leq \bm{0} \\
+        \end{aligned}
+	\end{equation}
+	
+	A solution for the optimization problem was found using the \texttt{GlobalSearch} solver in MATLAB:
+	
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Images/optimization/solution.png}
+	\caption{Output of \texttt{GlobalSearch} at the end of the optimization process}
+	\label{globalsearch_output}
+\end{figure}
+	
+\end{frame}
+		
+\begin{frame}
+	\frametitle{Parameter Optimization and Trajectory Generation}
+	\Fontvi
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=5cm,height=4cm]{Images/optimization/trajectory.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/optimization/phi.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=5cm,height=4cm]{Images/optimization/z.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/optimization/y.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}
+	
 \end{frame}
 
 
-\begin{frame}{Main content}
-\begin{itemize}[<+>]
-\item Some
-\item Appearing
-  \item And disappearing
-\item Bullets
-\begin{itemize}[<.>]
- \item With sub-bullets
-\end{itemize}
-\item That appear and disappear with their parent
-\end{itemize}
+\begin{frame}
+	\frametitle{Simulations using acados for the Planar Quadrotor case - No added noise}
+	\Fontvi
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/sim.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/rateStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/posStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/controlInputs.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}
+	
+	
 \end{frame}
 
-
-
-\begin{frame}{Main content}
-\begin{enumerate}
-\item Some	\vfill
-\item Numbers
-\begin{itemize}
- \item With sub-bullets
-\end{itemize}\vfill
-\item That appear and the same time\vfill
-\item Nicely spaced on the slide
-\end{enumerate}
+\begin{frame}
+	\frametitle{Simulations using acados for the Planar Quadrotor case - No added noise}
+	\Fontvi
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=6cm,height=5cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Errors_position.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=6cm,height=5cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noiseless/Errors_velocities.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}
+	
+	
 \end{frame}
 
-
-\begin{frame}{Citations}
- \begin{itemize}[<+->]
-  \item Should be done with \textbackslash{fullcite}
-  \begin{itemize}[<.->]
-   \item \fullcite{pythm001}
-  \end{itemize}\vfill
-  \item You may also use \textbackslash{smallcite}
-  \begin{itemize}[<.->]
-   \item \smallcite{pythm001}
-   \item It takes less space...
-  \end{itemize}\vfill
-  \item Check all imported references for:
-  \begin{itemize}[<.->]
-   \item Name / Journal name / year / editor (journals)
-   \item Carefully check conference name (IEEEexplore)
-  \end{itemize}
- \end{itemize}
+\begin{frame}
+	\frametitle{Simulations using acados for the Planar Quadrotor case - With added noise}
+	\Fontvi
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/sim.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/rateStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/posStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/controlInputs.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}
+	
+	
 \end{frame}
 
-\begin{frame}{Equations}
-\begin{itemize}[<+->]
-  \item Have a number if used with \texttt{\textbackslash{begin}\{equation\}}
-  \begin{equation}
-  \forall \phi: \quad \cos ^2 \phi + \sin^2\phi = 1
-  \end{equation}\vfill
-  \item Do not have a number if used with \texttt{\textbackslash{begin}\{equation*\}}
-    \begin{equation*}
-  \forall a, b: \quad (a+b)^2 = a^2 + 2ab + b^2
-  \end{equation*}
-    \item Another useful environment is simply  \texttt{\textbackslash{begin}\{center\}}
-    \begin{center}
-    $\forall a, b: \quad (a-b)^2 = a^2 - 2ab + b^2$
-    \end{center}
-    \begin{itemize}[<+->]
-    \item Probably more suited to slides as we use less equation references
-  \end{itemize} \vfill\vfill   
-  \item Can also be included in the text / bullets
-  \begin{itemize}[<+->]
-    \item $\forall \phi: \quad  (\cos\phi+\sin\phi)^2 = 2\cos\phi\sin\phi + 1$
-  \end{itemize}
-\end{itemize}
+\begin{frame}
+	\frametitle{Simulations using acados for the Planar Quadrotor case - With added noise}
+	\Fontvi
+	
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=6cm,height=5cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_position.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=6cm,height=5cm]{Images/acados_simulations/flip_trajectory/planar_quadrotor/noisy/Errors_velocities.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}
+	
+	
 \end{frame}
 
+\section{Software-in-the-Loop Simulations}
+
+
+\begin{frame}
+			\frametitle{What was done so far}
+			\Fontvi
+			\begin{columns}
+			\column{0.5\textwidth}
+			The block diagram of the closed-loop control contains:
+			\begin{itemize} % [<+->]
+				\item The quadrotor plant $f(x)$
+				\item The MPC controller
+			\end{itemize}
+			\column{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[width=\textwidth]{diagrams/old_sim_diagram.png}
+				\caption{Diagram of the closed-loop control in the acados simulations}
+			\end{figure}
+			 \end{columns}
+			 However, $f(x)$ is just an approximation of the real dynamics of the quadrotor $g(x)$
+			\begin{equation*}
+				f(x) \approx g(x)
+			\end{equation*}						 
+			
+			\begin{block}{Remark}
+			\begin{itemize} % [<+->]
+				\item The approximation is true if the angular dynamics are not very high.
+				\begin{itemize}
+					\item \fontsize{9pt}{10pt}\selectfont The larger the angular dynamics, the worse the approximation becomes. 
+				\end{itemize}
+				
+				\item A Software-in-the-Loop simulation must be used to have a more accurate representation of how the system will behave.
+			\end{itemize}
+			\end{block}
+		\end{frame}
+		
+		
+		\begin{frame}
+		\frametitle{Software-in-the-Loop Simulation}
+		
+			\begin{figure}
+				\centering
+				\includegraphics[width=\textwidth]{diagrams/new_sim_diagram.png}
+				\caption{Diagram of the closed-loop control in the SIL simulation}
+			\end{figure}
+			
+		\end{frame}
+		
+		
+\begin{frame}
+	\frametitle{Design of the MPC Node}
+	\Fontvi
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{diagrams/ros_graph.png}
+		\caption{Diagram showing how the MPC controller node and the quadrotor node communicate with each other}
+	\end{figure}
+
+	Modified MPC parameters:
+	\begin{itemize}
+		\item $N = 50$
+		\item $T_f = 0.5s$
+	\end{itemize}		
+	
+\end{frame}
+		
+\begin{frame}
+	\frametitle{SIL Simulation Results}
+
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/performedTraj.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/angleStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/posStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/velStates.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}	
+	
+\end{frame}
+		
+\begin{frame}
+	\frametitle{SIL Simulation Results}
+
+	\begin{columns}[t]
+		\column{.5\textwidth}
+		\centering
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/thrustInput.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/Errors_position.png}
+			% \caption{Trajectory along the $y-z$ plane}
+		\column{.5\textwidth}
+			\centering
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/angulareRatesInputs.png}
+			% \caption{Trajectory along the $y-z$ plane}
+			\includegraphics[width=5cm,height=4cm]{Images/sil_simulations/Errors_velocities.png}
+			% \caption{Trajectory along the $y-z$ plane}
+	\end{columns}	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Experimentation}
+	\Fontvi
+
+	Proper Results could not be be obtained:
+	\begin{itemize}
+		\item The motion capture system was not able to detect the quadrotor properly.
+		\item Neither small nor large markers were able to detect the quadrotor continuously.
+		\item The problem is mainly due to the markers being very close to each other.
+		\item As soon as the detection is lost, the quadrotor would start drifting and crashes.
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\Fontvi
+
+	In conclusion:
+	\begin{itemize}
+		\item A solution was found for an aggressive flip trajectory (in the ideal case).
+		\item It was demonstrated that MPC is a good control method to consider for tracking aggressive maneuvers.
+		\begin{itemize}
+			\item \fontsize{9pt}{10pt}\selectfont It was able to handle disturbances on the system, and it adjusted the control inputs when is was necessary.
+		\end{itemize}
+		\item The goal of performing the flips in constrained environments was not achieved.
+		\item Smaller and more compact flip trajectories could have been generated with the suggested method if the used quadrotor had a larger thrust to weight ratio.
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\Fontvi
+	\centering{\begin{huge}Thank you\end{huge}\\}
+	\vspace{1cm}
+	% \centering{\textit{elie.hatem@eleves.ec-nantes.fr}\\}
+	\vspace{1cm}
+	\centering{\underline{Elie Hatem}$^{[1]}$, Dr. Sébastien Briot$^{[2]}$, Dr. Isabelle Fantoni$^{[2]}$\\}
+	\vspace{1cm}
+	\footnotesize{
+		$^{[1]}$École Centrale de Nantes, Laboratoire des Sciences du Numérique de Nantes (LS2N), Nantes, France \\
+		$^{[2]}$CNRS, Laboratoire des Sciences du Numérique de Nantes (LS2N), Nantes, France}
+\end{frame}
 
 
 \end{document}

@@ -8,4 +8,6 @@
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {4}{MPC Design}{24}{0}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {5}{Flip Trajectory Generation}{35}{0}{5}
+\beamer@sectionintoc {5}{Flip Trajectory Generation and acados Simulations}{34}{0}{5}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {6}{Software-in-the-Loop Simulations}{45}{0}{6}

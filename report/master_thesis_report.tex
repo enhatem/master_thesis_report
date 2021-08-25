@@ -2573,7 +2573,7 @@ Using the same approach as demonstrated in \cite{Orsingher2019}, the trajectorie
 
 \newpage
 
-The main problem with the strategy is that $y(t)$ is smooth and bounded if and only if $\phi \in (-\frac{\phi}{2}, \frac{\phi}{2})$. Indeed, this is applicable for most of the trajectories that are tracked by a quadrotor, but not for flip trajectories, since they require a full rotation of $2 \pi$. In order satisfy the dynamic criterion during a flip trajectory, a simple way of doing so is to turn off the rotors, which will result in $u_1=u_2=0$. And, the dynamic equations of the planar quadotor in this case become:
+The main problem with the strategy is that $y(t)$ is smooth and bounded if and only if $\phi \in [-\frac{\pi}{2}, \frac{\pi}{2}]$. Indeed, this is applicable for most of the trajectories that are tracked by a quadrotor, but not for flip trajectories, since they require a full rotation of $2 \pi$. In order satisfy the dynamic criterion during a flip trajectory, a simple way of doing so is to turn off the rotors, which will result in $u_1=u_2=0$. And, the dynamic equations of the planar quadotor in this case become:
 
 \begin{equation}\label{free_dynamics_planar_quadrotor}
  \begin{cases} 
@@ -2947,7 +2947,7 @@ Theoretically, multi-flip trajectories can be generated using this methodology b
 
 \subsection{Parameter Optimization and Trajectory Generation}
 
-The main difficulty of the trajectory planning method described above is to properly define the set of parameters which will allow to completely determine the flip trajectory. In fact, there exist $37$ parameters in total that must be chosen in order to generate the flip trajectory. And, they are:
+The main difficulty of the trajectory planning method described above is to properly define the set of parameters which will allow to completely determine the flip trajectory. In fact, there are $37$ parameters in total that must be chosen in order to generate the flip trajectory. And, they are:
 
 \begin{itemize}
 	\item $z_1,z_2,z_3,z_4,z_5,z_6,z_7,z_8$
@@ -3003,10 +3003,7 @@ Moreover, the torque vector $\bm{u}_2$ can be computed using:
 
 Naturally, the values of the thrust $u_1$ and torque $u_2$ throughout the trajectory were also taken into account in the optimization problem. This must be done in order to ensure that the found trajectory will be feasible for the quadrotor at hand, namely, the Crazyflie 2.1 .
 
-\begin{align}
-	u_{1_{min}} &< u_1 < u_{1_{max}} \\
-	u_{2_{min}} &< u_2 < u_{2_{max}} 
-\end{align}
+
 
 Furthermore, the following set of inequality constraints were added to help the solver generate trajectories that are concave:
 
@@ -3333,7 +3330,7 @@ Furthermore, the running, terminal and input weights were retuned:
 	\item $\bm{R} =diag(
 	\begin{bmatrix}
 			30 & 1 & 1 & 1\\
-	\end{bmatrix}) $: More important was given to tracking the thrust reference in order to prevent saturation.
+	\end{bmatrix}) $: More importance was given to tracking the thrust reference in order to prevent saturation.
 	%\begin{bmatrix}
 	%1 & 0 & 0 & 0 \\
 	%0 & 1 & 0 & 0 \\
