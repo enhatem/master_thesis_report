@@ -3003,7 +3003,10 @@ Moreover, the torque vector $\bm{u}_2$ can be computed using:
 
 Naturally, the values of the thrust $u_1$ and torque $u_2$ throughout the trajectory were also taken into account in the optimization problem. This must be done in order to ensure that the found trajectory will be feasible for the quadrotor at hand, namely, the Crazyflie 2.1 .
 
-
+\begin{align}
+	u_{1_{min}} &< u_1 < u_{1_{max}} \\
+	u_{2_{min}} &< u_2 < u_{2_{max}} 
+\end{align}
 
 Furthermore, the following set of inequality constraints were added to help the solver generate trajectories that are concave:
 
